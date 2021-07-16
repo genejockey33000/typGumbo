@@ -1,24 +1,32 @@
-#' Title
+#' Synaptic Smoothing pipeline
+#'
+#' A highly specialized pipeline for processing synaptic vesicle release assay results.
+#' It takes in a directory containing .csv files in a very specific TPP format (Tracy's Proprietary Processing)
+#' and returns a set of processed csvs for each assay along with an excel file containing a
+#' summary of the results and some analytics.
 #'
 #' @param in.dir directory where all input .csv files are located. Omit trailing slash.
 #'     i.e. in.dir = "LViN15", or in.dir = "LViN15/results"
-#' @param out.dir directory where output files should go. Default is
-#'     out.dir = "syn.smooth.results"
 #' @param csv Logical. Indicate whether you want to write .csv files to output directory
 #' @param xlsx Logical. Indicate whether you want to write .xlsx file with separate sheets
 #'     for each output matrix to output directory. NOTE: this uses the xlsx::write.xlsx function
-#'     which takes a lot of time and should not be used for very large data sets (larger than
+#'     which takes a lot of time and memory and should not be used for very large data sets (larger than
 #'     1000 observations)
 #' @export
-syn.smooth <- function(in.dir, out.dir = "syn.smooth.results", csv = TRUE, xlsx = TRUE) {
+syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE) {
   csvs <- dir(in.dir, full.names = TRUE, recursive = TRUE)
+  csvs <- csvs[grepl(pattern = ".csv", csvs)]
+
   runfiles <- dir(in.dir)
-  output <- list()
-  dir.create("syn.smooth.results")
+  runfiles <- runfiles[grepl(pattern = ".csv", runfiles)]
+
+  out.dir <- paste0(in.dir, "processed")
+  dir.create(out.dir)
+
   for (f in runfiles) {
     results <- list()
-    fname <- stringr::str_replace(f, ".csv","")
-    dir.create(paste("syn.smooth.results/",fname, sep = ""))
+    fname <- sub("\\.csv", "", f)
+    dir.create(paste(out.dir, "/",fname, sep = ""))
     full <- utils::read.csv(paste(in.dir,"/",f, sep = ""), header = FALSE)
     full <- full[,1:(ncol(full)-4)]
 
@@ -105,8 +113,5 @@ syn.smooth <- function(in.dir, out.dir = "syn.smooth.results", csv = TRUE, xlsx 
     xlsx::write.xlsx(pctFun, file = paste(out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "pctFun", row.names = FALSE, append = TRUE)
     xlsx::write.xlsx(info, file = paste(out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "info", row.names = FALSE, append = TRUE)
     }
-
-    output[[fname]] <- results
   }
-  return(output)
 }
