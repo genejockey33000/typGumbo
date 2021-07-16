@@ -11,6 +11,7 @@
 #' @export
 #'
 NULLdistPWC <- function(x, y, method = "spearman", iter = 1000, pct = 1) {
+  t1 <- Sys.time()
 
   x <- x[,(colnames(x) %in% colnames(y))]
   x <- x[,sort(colnames(x))]
@@ -55,6 +56,17 @@ NULLdistPWC <- function(x, y, method = "spearman", iter = 1000, pct = 1) {
       RANDrhoSUM <- sum(RANDrho)
       RANDrhoSUMs <- rbind(RANDrhoSUMs, RANDrhoSUM)
       RANDrho <- NULL
+
+      if(n == .25 * iter) {
+        t.25 <- (Sys.time() - t1)
+        cat(t.25, attr(t.25, "units"),"have elapsed: 25% iterations complete","\n")}
+      if(n == .5 * iter) {
+        t.5 <- (Sys.time() - t1)
+        cat(t.5, attr(t.5, "units"), "have elapsed: 50% iterations complete","\n")}
+      if(n == .75 * iter) {
+        t.75 <- (Sys.time() - t1)
+        cat(t.75, attr(t.75, "units"), "have elapsed: 75% iterations complete","\n")}
+
       n <- n+1
     }
     return(RANDrhoSUMs)

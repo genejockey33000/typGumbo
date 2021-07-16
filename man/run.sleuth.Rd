@@ -4,7 +4,7 @@
 \alias{run.sleuth}
 \title{Run sleuth on kallisto output}
 \usage{
-run.sleuth(in.dir = "results", meta = "meta", level = c("gene", "trans"))
+run.sleuth(in.dir = "results", meta = "meta.csv", level = c("gene"))
 }
 \arguments{
 \item{in.dir}{Name of directory with kallisto output. Sub direstories should be structured as:

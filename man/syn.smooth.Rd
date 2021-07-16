@@ -2,24 +2,24 @@
 % Please edit documentation in R/syn.smooth.R
 \name{syn.smooth}
 \alias{syn.smooth}
-\title{Title}
+\title{Synaptic Smoothing pipeline}
 \usage{
-syn.smooth(in.dir, out.dir = "syn.smooth.results", csv = TRUE, xlsx = TRUE)
+syn.smooth(in.dir, csv = TRUE, xlsx = TRUE)
 }
 \arguments{
 \item{in.dir}{directory where all input .csv files are located. Omit trailing slash.
 i.e. in.dir = "LViN15", or in.dir = "LViN15/results"}
 
-\item{out.dir}{directory where output files should go. Default is
-out.dir = "syn.smooth.results"}
-
 \item{csv}{Logical. Indicate whether you want to write .csv files to output directory}
 
 \item{xlsx}{Logical. Indicate whether you want to write .xlsx file with separate sheets
 for each output matrix to output directory. NOTE: this uses the xlsx::write.xlsx function
-which takes a lot of time and should not be used for very large data sets (larger than
+which takes a lot of time and memory and should not be used for very large data sets (larger than
 1000 observations)}
 }
 \description{
-Title
+A highly specialized pipeline for processing synaptic vesicle release assay results.
+It takes in a directory containing .csv files in a very specific TPP format (Tracy's Proprietary Processing)
+and returns a set of processed csvs for each assay along with an excel file containing a
+summary of the results and some analytics.
 }

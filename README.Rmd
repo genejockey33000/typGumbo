@@ -18,11 +18,11 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of typGumbo is to ...
+typGumbo is an R package used internally within the Young-Pearse research lab at Brigham and Women's Hospital and Harvard Medical School. All scripts were all written by Richard V. Pearse II PhD. Most, maybe all, are highly specialized pipelines for -omics level data analysis. As such they may not be extensible to your specific use case. If that changes in the future I will alter this message. I named it typGumbo because it's a spicy stew. If you have questions feel free to [email me](mailto:richard.pearse@gmail.com)
 
 ## Installation
 
-typGumbo is not on CRAN so it can NOT be loaded via library("typGumbo")
+typGumbo is not on CRAN or BioConductor, and won't be unless I make it more generalizable, so it can only be loaded via git download.
 
 The development version of typGumbo can be obtained from [GitHub](https://github.com/) with:
 
@@ -33,7 +33,7 @@ devtools::install_github("genejockey33000/typGumbo")
 
 ## Example
 This is a basic example which shows you how use a few of the functions:
-```{r example}
+```{r example, eval=FALSE}
 library(typGumbo)
 ## Generate a sleuth Object from kallisto output
 so <- run.sleuth(in.dir = "results", meta = "meta", level = "gene")
@@ -49,13 +49,3 @@ obj <- make.typ(so)
 obj <- make.typ(x = {inputmatrix}, level = "gene", meta = meta, regress = c("RNAseqLibBatch", "diffRound"))
 ```
 
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/master/examples>.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.

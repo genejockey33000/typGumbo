@@ -21,6 +21,28 @@
 #' @export
 #'
 CorMat <- function(x, y, method = "spearman")  {
+  if (is.null(dim(x))) {
+    if (length(x) != nrow(y)) stop("Bleep, Bloop, Blorp, ERROR! The Vector x be the same length
+      as each column of data in y. Recheck your input vector and your comparison matrix and
+      try again.")
+    cat("Comparing vector with",length(x)," samples to", ncol(y), "additional measurements")
+    CWC <- NULL
+    yname <- character()
+    rval <- numeric()
+    pval <- numeric()
+      for (j in 1:ncol(y))  {
+        v2 <- y[,j]
+        ytemp <- colnames(y)[j]
+        output <- Hmisc::rcorr(x, v2, type = method)
+        yname <- c(yname, ytemp)
+        rval <- c(rval, output$r[1,2])
+        pval <- c(pval, output$P[1,2])
+      }
+      Cors <- cbind.data.frame(yname, rval, pval)
+      CWC <- rbind.data.frame(CWC,Cors)
+    CWC <- CWC[order(CWC$pval),]
+    return(CWC)
+  } else {
   chop <- row.names(x) %in% row.names(y)
   x <- x[chop,]
   chop <- row.names(y) %in% row.names(x)
@@ -55,4 +77,5 @@ CorMat <- function(x, y, method = "spearman")  {
     CWC <- CWC[order(CWC$pval),]
     return(CWC)
   } else {print("Matrices are incompatable. I don't know what you did.")}
+  }
 }

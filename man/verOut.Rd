@@ -13,6 +13,6 @@ verOut(x)
 In some gene or transcript expression data there are trailing numbers
     after a decimal indicating the version of that sequence originally
     matched against. E.g. ENSG000000876.5  - these can cause problems
-    with mapping to gene metadata and are best removed for downstream
+    with mapping to gene meta data and are often best removed for downstream
     analysis
 }

@@ -36,7 +36,7 @@ make.typ <- function(x, level = "gene", meta = NULL, regress = NULL) {
     for manual metadata")
     if (x$gene_mode == "TRUE") {level = "gene"} else {level = "trans"}
     class(output) <- c("typ",level)
-    x <- sleuth2mat(obj = x, which_df = "obs_norm", which_units = "tpm")
+    x <- sleuth::sleuth_to_matrix(obj = x, which_df = "obs_norm", which_units = "tpm")
     info[["source.df"]] <- "obs_norm"
     info[["source.units"]] <- "tpm"
   }

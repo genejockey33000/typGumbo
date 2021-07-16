@@ -17,10 +17,10 @@
 #'
 #' @return sleuth object(s)
 #' @export
-run.sleuth <- function(in.dir = "results", meta = "meta", level = c("gene", "trans")) {
-
+run.sleuth <- function(in.dir = "results", meta = "meta.csv", level = c("gene")) {
+  if (level != "gene" & level != "trans") stop('Please set level = "gene" or level = "trans".')
   path <- file.path(in.dir, dir(in.dir))
-  s2c <- utils::read.csv(file = paste(meta,".csv", sep = ""), header = TRUE, stringsAsFactors = FALSE)
+  s2c <- utils::read.csv(file = paste(meta), header = TRUE, stringsAsFactors = FALSE)
   colnames(s2c)[1] <- "sample"
   s2c <- cbind.data.frame(s2c,path)
 
@@ -30,12 +30,10 @@ run.sleuth <- function(in.dir = "results", meta = "meta", level = c("gene", "tra
 
   if ("gene" %in% level) {
   sogene <- sleuth::sleuth_prep(s2c, extra_bootstrap_summary = TRUE, read_bootstrap_tpm = TRUE, target_mapping = t2g, gene_mode = TRUE, aggregation_column = 'ens_gene')
+  return(sogene)
   }
   if ("trans" %in% level) {
   sotrans <- sleuth::sleuth_prep(s2c, extra_bootstrap_summary = TRUE, read_bootstrap_tpm = TRUE, target_mapping = t2g)
+  return(sotrans)
   }
-  output <- ls()
-  output[["sogene"]] <- sogene
-  output[["trans"]] <- sotrans
-  return(output)
 }
