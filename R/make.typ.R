@@ -9,6 +9,7 @@
 #' @param  regress OPTIONAL column names in meta data file specifying regression
 #'
 #' @return object of class 'typ'
+#' @export
 make.typ <- function(x, level = "gene", meta = NULL, regress = NULL) {
   output <- list()
   if (!("sleuth" %in% class(x))) {
@@ -35,7 +36,7 @@ make.typ <- function(x, level = "gene", meta = NULL, regress = NULL) {
     for manual metadata")
     if (x$gene_mode == "TRUE") {level = "gene"} else {level = "trans"}
     class(output) <- c("typ",level)
-    x <- sleuth::sleuth_to_matrix(obj = x, which_df = "obs_norm", which_units = "tpm")
+    x <- sleuth2mat(obj = x, which_df = "obs_norm", which_units = "tpm")
     info[["source.df"]] <- "obs_norm"
     info[["source.units"]] <- "tpm"
   }
@@ -46,9 +47,9 @@ make.typ <- function(x, level = "gene", meta = NULL, regress = NULL) {
     if (level == "gene" | level == "trans") {
       lowv <- apply(x, 1, stats::var) != 0
       x <- x[lowv, ]
-      if (level == "gene") {ens_gene <- basename(tools::file_path_sans_ext(row.names(x)))
+      if (level == "gene") {ens_gene <- verOut(row.names(x))
       row.names(x) <- ens_gene
-      } else {ens_trans <- basename(tools::file_path_sans_ext(row.names(x)))
+      } else {ens_trans <- verOut(row.names(x))
       row.names(x) <- ens_trans}
       x <- as.matrix(x)
 

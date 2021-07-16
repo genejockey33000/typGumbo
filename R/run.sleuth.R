@@ -16,6 +16,7 @@
 #' @param level Level of analysis to perform "gene" or "trans". Default is both.
 #'
 #' @return sleuth object(s)
+#' @export
 run.sleuth <- function(in.dir = "results", meta = "meta", level = c("gene", "trans")) {
 
   path <- file.path(in.dir, dir(in.dir))

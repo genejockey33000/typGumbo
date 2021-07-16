@@ -14,6 +14,7 @@
 #'                 to color bar plots (i.e. "sex" or "karyotype")
 #'
 #' @return matrix of ratios, pdf containing plots
+#' @export
 auto.rats <- function(typ.obj, color.by = NULL) {
   if (!("typ" %in% class(typ.obj))) stop("This function expects an object of class'typ'")
   if ("prot" %in% class(typ.obj)) stop("I don't think this should be run on protein data.

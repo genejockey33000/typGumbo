@@ -9,7 +9,7 @@
 #'     for each output matrix to output directory. NOTE: this uses the xlsx::write.xlsx function
 #'     which takes a lot of time and should not be used for very large data sets (larger than
 #'     1000 observations)
-#'
+#' @export
 syn.smooth <- function(in.dir, out.dir = "syn.smooth.results", csv = TRUE, xlsx = TRUE) {
   csvs <- dir(in.dir, full.names = TRUE, recursive = TRUE)
   runfiles <- dir(in.dir)

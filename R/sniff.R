@@ -8,6 +8,7 @@
 #'     (processing information), "all" (all of the above).
 #'
 #' @return Quick View
+#' @export
 sniff <- function(typ.obj, what = "meta") {
   if (!("typ" %in% class(typ.obj))) stop("This function expects an object of class'typ'")
   if ("gene" %in% what | "all" %in% what) {

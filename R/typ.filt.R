@@ -14,6 +14,7 @@
 #'
 #' @return typ object same as entered but with filtered data and info
 #'         detailing the filtering parameters
+#' @export
 typ.filt <- function(typ.obj, type = c("k.over.a", "min.mean", "top.x"), k = NULL, a = NULL, min = NULL, x = NULL) {
   if (!("typ" %in% class(typ.obj))) stop("This function expects an object of class'typ'")
   output <- list()
