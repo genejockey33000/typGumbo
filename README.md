@@ -12,8 +12,8 @@ All scripts were all written by Richard V. Pearse II PhD. Most, maybe
 all, are highly specialized pipelines for -omics level data analysis. As
 such they may not be extensible to your specific use case. If that
 changes in the future I will alter this message. I named it typGumbo
-because it’s a spicy stew. If you have questions feel free to [email
-me](mailto:richard.pearse@gmail.com)
+because it’s a little bit of everything and it’s a spicy stew. If you
+have questions feel free to [email me](mailto:richard.pearse@gmail.com)
 
 ## Installation
 
@@ -26,8 +26,6 @@ The development version of typGumbo can be obtained from
 ``` r
 # install.packages("devtools")
 devtools::install_github("genejockey33000/typGumbo")
-#> Skipping install of 'typGumbo' from a github remote, the SHA1 (e213e7fe) has not changed since last install.
-#>   Use `force = TRUE` to force installation
 ```
 
 ## Example
