@@ -14,7 +14,7 @@ CompPairwiseCorMat <- function(x, y) {
   for (m in c("pearson", "spearman")) {
     for (p in c(.1,.2,.3,.4,.5,.6,.7,.8,.9,1)) {
       run <- paste(m,"-",p, sep = "")
-      result <- pairwiseCorMat(x, y, method = m, pct = p)
+      result <- pairwiseCorSkew(x, y, method = m, pct = p, iter = 0)
       skew <- c(run, result$skew)
       output <- rbind.data.frame(output, skew)
     }

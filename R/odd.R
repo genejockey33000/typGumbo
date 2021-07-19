@@ -3,8 +3,8 @@
 #' For a vector x, odd(x) returns the odd members
 #'
 #' @param x any vector
+#' @noRd
 #'
-#' @export
 odd <- function(x) {
   str <- 1:(length(x))
   odd <- as.logical(str %% 2)

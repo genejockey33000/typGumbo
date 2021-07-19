@@ -3,8 +3,8 @@
 #' For a vector x, even(x) returns the even members
 #'
 #' @param x any vector
+#' @noRd
 #'
-#' @export
 even <- function(x) {
   str <- 1:(length(x))
   even <- !(as.logical(str %% 2))

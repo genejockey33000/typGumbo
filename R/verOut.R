@@ -7,8 +7,7 @@
 #'     analysis
 #'
 #' @param x a vector of transcripts(ENSTs) or genes(ENSGs) with versions
-#'
-#' @export
+#' @noRd
 #'
 verOut <- function(x) {
   return(sub("\\.[0-9]*", "", x))

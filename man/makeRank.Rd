@@ -16,7 +16,7 @@ Designed to directly convert limma topTable.}
 
 \item{sig}{name of column containing significance, not quoted}
 
-\item{direc}{name of column containg directionality. b value for DEG or r value for correlation}
+\item{direc}{name of column containing directionality. b value for DEG or r value for correlation}
 }
 \value{
 

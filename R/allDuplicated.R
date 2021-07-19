@@ -3,9 +3,7 @@
 #'  Not just the duplicates of smaller indexes.
 #'
 #' @param vec Input vector that might have duplicate values
-#'
-#' @return
-#' @export
+#' @noRd
 #'
 allDuplicated <- function(vec){
   front <- duplicated(vec)

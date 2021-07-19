@@ -6,9 +6,7 @@
 #' @param n current iteration
 #' @param iter total number of iterations to be run
 #' @param t1 starting time
-#'
-#' @return
-#' @export
+#' @noRd
 #'
 reportProgress <- function(n, iter, t1) {
   if(n == .1 * iter) {

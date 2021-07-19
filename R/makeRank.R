@@ -10,7 +10,7 @@
 #' @param fileName specify name of file to be written including .rnk suffix.
 #' (i.e. file = "output.rnk")
 #' @param sig name of column containing significance, not quoted
-#' @param direc name of column containg directionality. b value for DEG or r value for correlation
+#' @param direc name of column containing directionality. b value for DEG or r value for correlation
 #'
 #' @return
 #' @export

@@ -28,7 +28,8 @@
 #'   Set pct = .5 to only include measurements
 #'   in the upper 50% of relative variance, pct = .25 to include only the upper 25%. If your data is pre-filtered
 #'   to remove genes that with noise-level variance then this can be left at 1.
-#' @param iter The number of iterations (permutations of x) for NULL distribution generation
+#' @param iter The number of iterations (permutations of x) for NULL distribution generation. If you don't want
+#'   a NULL distribution analysis, set to 0
 #'
 #' @return
 #' @importFrom dplyr %>%
