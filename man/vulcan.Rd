@@ -22,7 +22,8 @@ vulcan(
 \item{qcut}{Cutoff value for qval (adjusted pval) for significance}
 
 \item{labels}{How many of the top DEG data points to label. Top DEGs are identified
-buy calculating the rank = -lot10(qval) * bval. Vulcan will plots the top and bottom scores.}
+buy calculating the rank = -lot10(qval) * bval. Vulcan will plots the top and bottom scores.
+Default is 0 and prints no labels.}
 
 \item{repel}{Force of point label repulsion (from geom_text_repel()). Default = 1}
 
@@ -34,5 +35,7 @@ buy calculating the rank = -lot10(qval) * bval. Vulcan will plots the top and bo
 
 }
 \description{
-Takes the output of sleuth_results() and generates a volcano plot with relative ease and some key adjustable parameters
+Takes the output of sleuth_results() and generates a volcano plot with relative ease
+and includes a few key adjustable parameters. Test table is trimmed of all rows with
+NAs (retained in sleuth_results()). ENSGs without mapped ext_gene names are also trimmed.
 }

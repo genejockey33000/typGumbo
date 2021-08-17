@@ -17,16 +17,7 @@
 #' @return
 #' @export
 vulcan <- function(x, bcut = .5, qcut = .05, labels = 0, repel = 1, pad = .25, labelsize = 4) {
-  chop <- apply(x, 1, function(x) {sum(is.na(x)) < 1})
-  y <- x[chop,]
-  chop <- y$ext_gene != ""
-  d <- y[chop,]
-  d$DE <- "NO"
-  d$DE[d$b > bcut & d$qval < qcut] <- "UP"
-  d$DE[d$b < -bcut & d$qval < qcut] <- "DOWN"
-  d <- d %>%
-    mutate(rank = -log10(qval)*b) %>%
-    arrange(desc(rank))
+  d <- cleanTT(x)
   cols <- c("UP" = "#ffad73", "DOWN" = "#26b3ff", "NO" = "lightgrey")
   sizes <- c("UP" = 2, "DOWN" = 2, "NO" = 1)
   alphas <- c("UP" = 1, "DOWN" = 1, "NO" = 0.4)
