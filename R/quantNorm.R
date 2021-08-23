@@ -13,6 +13,6 @@ quantNorm <- function(x) {
   samps <- colnames(x)
   outq <- preprocessCore::normalize.quantiles(x)
   row.names(outq) <- rns
-  colnames(outq) <- outq
+  colnames(outq) <- samps
   return(outq)
 }
