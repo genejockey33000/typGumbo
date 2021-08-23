@@ -11,7 +11,8 @@
 #' @export
 #'
 cleanXM <- function(x, k = 0, A = 0) {
-  x <- x[(apply(x,1,var) > 0),]
+  x <- x[(apply(x,1,var) > 0),] #eliminates measurements with all zeros
+  x <- x + base::abs(min(x)) #for matrices with negative values. Lifts all values by lowest value
   if(k > 0) {
     x <- filt(x, k = k, A = A)
     if(nrow(x) == 0) stop("Those filtering parameters removed all measurements.
