@@ -1,4 +1,4 @@
-#' tsne plotting wrapper from M3C
+#' TSNE Plot Maker: Copied from M3C
 #'
 #' This is just a copy of the very nice tsne wrapper from the M3C package which uses the Rtsne
 #' This is a flexible t-SNE function that can be run on a standard data frame.
@@ -26,7 +26,7 @@
 #'
 #' @return
 #' @export
-function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
+tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
           seed = FALSE, axistextsize = 18, legendtextsize = 18, dotsize = 5,
           textlabelsize = 4, legendtitle = "Group", controlscale = FALSE,
           scale = 1, low = "grey", high = "red",
