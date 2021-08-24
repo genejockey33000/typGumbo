@@ -1,6 +1,9 @@
 #' tsne plotting wrapper from M3C
 #'
 #' This is just a copy of the very nice tsne wrapper from the M3C package which uses the Rtsne
+#' This is a flexible t-SNE function that can be run on a standard data frame.
+#' It is a wrapper for Rtsne/ggplot2 code and can be customized with different
+#' colors and font sizes and more.
 #'
 #' @param mydata Data frame or matrix: if dataframe/matrix should have samples as columns and rows as features
 #' @param labels Character vector: if we want to just label with gender for example
@@ -14,9 +17,9 @@
 #' @param legendtitle Character vector: text legend title
 #' @param controlscale Logical flag: whether to control the colour scale
 #' @param scale Numerical value: 1=spectral palette, 2=manual low and high palette, 3=categorical labels
-#' @param low Character vector: continuous scale low colour
-#' @param high Character vector: continuous scale high colour
-#' @param colvec Character vector: a series of colours in vector for categorical labels, e.g. c("sky blue", "gold")
+#' @param low Character vector: continuous scale low color
+#' @param high Character vector: continuous scale high color
+#' @param colvec Character vector: a series of colors in vector for categorical labels, e.g. c("sky blue", "gold")
 #' @param printheight Numerical value: png height
 #' @param printwidth Numerical value: png width
 #' @param text Character vector: if we wanted to label the samples with text IDs to look for outliers
@@ -42,14 +45,12 @@ function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
   if (controlscale == FALSE && scale %in% c(2, 3)) {
     warning("if your trying to control the scale, please set controlscale=TRUE")
   }
-  if (sum(is.na(labels)) > 0 && class(labels) %in% c("character",
-                                                     "factor")) {
+  if (sum(is.na(labels)) > 0 && class(labels) %in% c("character", "factor")) {
     warning("there is NA values in the labels vector, setting to unknown")
     labels <- as.character(labels)
     labels[is.na(labels)] <- "Unknown"
   }
-  if (sum(is.na(text)) > 0 && class(text) %in% c("character",
-                                                 "factor")) {
+  if (sum(is.na(text)) > 0 && class(text) %in% c("character", "factor")) {
     warning("there are NA values in the text vector, setting to unknown")
     text <- as.character(text)
     text[is.na(text)] <- "Unknown"
