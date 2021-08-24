@@ -18,5 +18,10 @@ cleanXM(x, k = 0, A = 0)
 }
 \description{
 This is a short pipeline that filters expression matrices based on k over A
-arguments, log2() transforms and quantile normalizes
+arguments, log2() transforms and quantile normalizes. Unnecessary for ratiometric
+data or previously processed data but useful for raw or TPM matrices.
+Function will remove all measurements with 0 values
+in all samples (zero variance). It will test matrix for asymmetric negative values (often resulting from
+regressing batch effects) and raise all values by abs(smallest negative value) to remove any negative
+expression measurement.
 }
