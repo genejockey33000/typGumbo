@@ -3,6 +3,7 @@
 export(CompPairwiseCorMat)
 export(CorMat)
 export(CorVMatSig)
+export(allDuplicated)
 export(auto.rats)
 export(cleanTT)
 export(cleanXM)
