@@ -13,6 +13,6 @@ quantNorm(x)
 
 }
 \description{
-Just a simple wrapper for preprocessCore() which erases colnames and row.names
+Just a simple wrapper for preprocessCore() which fixes the problem of removed colnames and row.names
 during execution
 }
