@@ -5,7 +5,7 @@
 #' @return
 #' @export
 #'
-NoNANA <- function(x) {
+noNANAtt <- function(x) {
   chop <- apply(x, 1, function(x) {sum(is.na(x)) < 1})
   y <- x[chop,]
   chop <- y$ext_gene != ""

@@ -10,7 +10,7 @@
 #' @return
 #' @export
 #'
-NoNANA <- function(x) {
+noNANA <- function(x) {
   chop <- apply(x, 1, function(x) {sum(is.na(x)) < 1})
   return(x[chop,])
 }
