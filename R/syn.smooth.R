@@ -12,16 +12,26 @@
 #'     for each output matrix to output directory. NOTE: this uses the xlsx::write.xlsx function
 #'     which takes a lot of time and memory and should not be used for very large data sets (larger than
 #'     1000 observations)
+#' @param filter logical indicating whether data should be filtered to exclude measurements with pctFC
+#'     less than 2. Even with this filter off the data will be filtered to remove measurements with pctDeltaF
+#'     greater than 0 (i.e. requires positive fluorescence change)
+#'
 #' @export
-syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE) {
+syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
   csvs <- dir(in.dir, full.names = TRUE, recursive = TRUE)
   csvs <- csvs[grepl(pattern = ".csv", csvs)]
 
   runfiles <- dir(in.dir)
   runfiles <- runfiles[grepl(pattern = ".csv", runfiles)]
 
-  out.dir <- paste0(in.dir, "processed")
+  if (filter) {
+    out.dir <- paste0(in.dir, "processed")
+  } else {
+    out.dir <- paste0(in.dir, "processedNoFCfilter")
+  }
   dir.create(out.dir)
+
+  globalresults <- list()  ##added in V0.3
 
   for (f in runfiles) {
     results <- list()
@@ -62,11 +72,15 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE) {
     info <- cbind.data.frame(measure, info)
     row.names(info) <- NULL
 
-    chop <- cbind(Over2,Over0)
-    chop <- apply(chop, 1, sum) == 2
-
-    cleanmeas <- meas[,chop] #output
-    cleanmets <- mets[row.names(mets) %in% colnames(cleanmeas),]
+    if (filter) {
+      chop <- cbind(Over2,Over0)
+      chop <- apply(chop, 1, sum) == 2
+      cleanmeas <- meas[,chop] #output
+      cleanmets <- mets[row.names(mets) %in% colnames(cleanmeas),]
+    } else {
+      cleanmeas <- meas[,Over0] #output
+      cleanmets <- mets[row.names(mets) %in% colnames(cleanmeas),]
+    }
 
     DelF <- NULL
     for (i in c(1:(ncol(cleanmeas)))) {
@@ -94,24 +108,33 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE) {
     results[["pctFun"]] <- pctFun
     results[["info"]] <- info
 
+    globalresults[[fname]] <- pctFun
+
     if (csv) {
-    utils::write.csv(meas, file = paste(out.dir,"/",fname,"/","data.raw.csv", sep = ""), row.names = FALSE)
-    utils::write.csv(mets, file = paste(out.dir,"/",fname,"/","metrics.raw.csv", sep = ""), row.names = TRUE)
-    utils::write.csv(cleanmeas, file = paste(out.dir,"/",fname,"/","data.cleaned.csv", sep = ""), row.names = FALSE)
-    utils::write.csv(cleanmets, file = paste(out.dir,"/",fname,"/","metrics.cleaned.csv", sep = ""), row.names = TRUE)
-    utils::write.csv(DelF, file = paste(out.dir,"/",fname,"/","deltaF.csv", sep = ""), row.names = FALSE)
-    utils::write.csv(pctFun, file = paste(out.dir,"/",fname,"/","pctFun.csv", sep = ""), row.names = FALSE)
-    utils::write.csv(info, file = paste(out.dir,"/",fname,"/","info.csv", sep = ""), row.names = FALSE)
+      utils::write.csv(meas, file = paste(out.dir,"/",fname,"/","data.raw.csv", sep = ""), row.names = FALSE)
+      utils::write.csv(mets, file = paste(out.dir,"/",fname,"/","metrics.raw.csv", sep = ""), row.names = TRUE)
+      utils::write.csv(cleanmeas, file = paste(out.dir,"/",fname,"/","data.cleaned.csv", sep = ""), row.names = FALSE)
+      utils::write.csv(cleanmets, file = paste(out.dir,"/",fname,"/","metrics.cleaned.csv", sep = ""), row.names = TRUE)
+      utils::write.csv(DelF, file = paste(out.dir,"/",fname,"/","deltaF.csv", sep = ""), row.names = FALSE)
+      utils::write.csv(pctFun, file = paste(out.dir,"/",fname,"/","pctFun.csv", sep = ""), row.names = FALSE)
+      utils::write.csv(info, file = paste(out.dir,"/",fname,"/","info.csv", sep = ""), row.names = FALSE)
     }
 
     if (xlsx) {
-    xlsx::write.xlsx(meas, file = paste(out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "dataRaw", row.names = FALSE, append = FALSE)
-    xlsx::write.xlsx(mets, file = paste(out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "metricsRaw", row.names = TRUE, append = TRUE)
-    xlsx::write.xlsx(cleanmeas, file = paste( out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "dataClean", row.names = FALSE, append = TRUE)
-    xlsx::write.xlsx(cleanmets, file = paste(out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "metricsClean", row.names = TRUE, append = TRUE)
-    xlsx::write.xlsx(DelF, file = paste(out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "DeltaF", row.names = FALSE, append = TRUE)
-    xlsx::write.xlsx(pctFun, file = paste(out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "pctFun", row.names = FALSE, append = TRUE)
-    xlsx::write.xlsx(info, file = paste(out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "info", row.names = FALSE, append = TRUE)
+      xlsx::write.xlsx(meas, file = paste(out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "dataRaw", row.names = FALSE, append = FALSE)
+      xlsx::write.xlsx(mets, file = paste(out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "metricsRaw", row.names = TRUE, append = TRUE)
+      xlsx::write.xlsx(cleanmeas, file = paste( out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "dataClean", row.names = FALSE, append = TRUE)
+      xlsx::write.xlsx(cleanmets, file = paste(out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "metricsClean", row.names = TRUE, append = TRUE)
+      xlsx::write.xlsx(DelF, file = paste(out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "DeltaF", row.names = FALSE, append = TRUE)
+      xlsx::write.xlsx(pctFun, file = paste(out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "pctFun", row.names = FALSE, append = TRUE)
+      xlsx::write.xlsx(info, file = paste(out.dir,"/",fname,"/",fname,"summary.xlsx", sep = ""), sheetName = "info", row.names = FALSE, append = TRUE)
     }
+
+  }
+  xlsx::write.xlsx((globalresults[[sub("\\.csv","",runfiles[1])]]), file = paste(out.dir,"/", "PCT_FUN_Summary.xlsx", sep = ""), sheetName = sub("\\.csv","",runfiles[1]), row.names = FALSE, append = FALSE)
+
+  for (f in 2:length(runfiles)) {
+    fname <- sub("\\.csv", "", f)
+    xlsx::write.xlsx((globalresults[[f]]), file = paste(out.dir,"/", "PCT_FUN_Summary.xlsx", sep = ""), sheetName = sub("\\.csv","",runfiles[f]), row.names = FALSE, append = TRUE)
   }
 }

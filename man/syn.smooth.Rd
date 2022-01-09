@@ -4,7 +4,7 @@
 \alias{syn.smooth}
 \title{Synaptic Smoothing pipeline}
 \usage{
-syn.smooth(in.dir, csv = TRUE, xlsx = TRUE)
+syn.smooth(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE)
 }
 \arguments{
 \item{in.dir}{directory where all input .csv files are located. Omit trailing slash.
@@ -16,6 +16,10 @@ i.e. in.dir = "LViN15", or in.dir = "LViN15/results"}
 for each output matrix to output directory. NOTE: this uses the xlsx::write.xlsx function
 which takes a lot of time and memory and should not be used for very large data sets (larger than
 1000 observations)}
+
+\item{filter}{logical indicating whether data should be filtered to exclude measurements with pctFC
+less than 2. Even with this filter off the data will be filtered to remove measurements with pctDeltaF
+greater than 0 (i.e. requires positive fluorescence change)}
 }
 \description{
 A highly specialized pipeline for processing synaptic vesicle release assay results.
