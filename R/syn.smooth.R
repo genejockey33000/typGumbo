@@ -3,7 +3,13 @@
 #' A highly specialized pipeline for processing synaptic vesicle release assay results.
 #' It takes in a directory containing .csv files in a very specific TPP format (Tracy's Proprietary Processing)
 #' and returns a set of processed csvs for each assay along with an excel file containing a
-#' summary of the results and some analytics.
+#' summary of the results and some analytics. Input csv's from excel file should have 5 header metrics rows from row 1 they
+#' must be 1) F0 (average starting fluor), 2) Fstim (average stim fluor), 3) Fun (max unquenched fluro), 4) FC_Fun-F0 (fold change of
+#' unquenched max relative to baseline(F0)), and 5) deltaF (increase in fluor in stimulated vs. F0). First column (under metrics labels)
+#' must be a space (extra column) for time values. The script will remove this column and if it contains data rather than
+#' timestamps then the data will be lost. The worksheets used to generate the csv's will often have extra columns at the end of the sheet.
+#' They start at row 6 (after the header metrics) and report average and error fluor across all measurements for a given time. There can be
+#' 2-4 of these or none. It doesn't matter as any column after the last value in the row 1 metrics will be removed
 #'
 #' @param in.dir directory where all input .csv files are located. Omit trailing slash.
 #'     i.e. in.dir = "LViN15", or in.dir = "LViN15/results"
@@ -18,12 +24,15 @@
 #'
 #' @export
 syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
+  ## pull the full path names of all the .csv files in the in.dir
   csvs <- dir(in.dir, full.names = TRUE, recursive = TRUE)
   csvs <- csvs[grepl(pattern = ".csv", csvs)]
 
+  # pull filenames for run files (csv's)
   runfiles <- dir(in.dir)
   runfiles <- runfiles[grepl(pattern = ".csv", runfiles)]
 
+  # make directory for output
   if (filter) {
     out.dir <- paste0(in.dir, "processed")
   } else {
@@ -36,16 +45,18 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
   for (f in runfiles) {
     results <- list()
     fname <- sub("\\.csv", "", f)
-    dir.create(paste(out.dir, "/",fname, sep = ""))
-    full <- utils::read.csv(paste(in.dir,"/",f, sep = ""), header = FALSE)
-    full <- full[,1:(ncol(full)-4)]
+    #read and trim data from csv
+    dir.create(paste(out.dir, "/",fname, sep = "")) #create sub-directory for individual csv
+    full <- utils::read.csv(paste(in.dir,"/",f, sep = ""), header = FALSE) #read current csv
+    collim <- full[1,] > 0 #determine limit of data columns. Looks for existence of Fo calculation which should only be above data.
+    full <- full[,collim] #remove any columns with no or negative F0 measurements
 
     #define measurement matrix
-    meas <- full[c(6:nrow(full)),c(2:ncol(full))]
+    meas <- full[c(6:nrow(full)),c(2:ncol(full))] #remove metrics rows (top 5) and timestamps (first column)
     colnames(meas) <- meas[1,]
     meas <- meas[-1,]
     row.names(meas) <- c(1:nrow(meas))
-    meas <- apply(meas, 2, as.numeric)
+    meas <- apply(meas, 2, as.numeric) #convert from character to numeric
 
 
     #define metrics matrix
@@ -55,33 +66,35 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
     mets <- as.matrix(mets[-1,])
     mets <- apply(mets, 2, as.numeric)
     row.names(mets) <- colnames(meas)
-    #all(colnames(meas) == row.names(mets))
+    #all(colnames(meas) == row.names(mets))  #should return true (for testing)
 
-    Over2 <- mets[,4] > 2
-    Over3 <- mets[,4] > 3
+    ## Fold Change unquenched/Baseline (FC_Fun_F0) filters. Can be toggled using filter = TRUE/FALSE argument
+    FC_Over2 <- mets[,4] > 2
+    FC_Over3 <- mets[,4] > 3  ##currently unused
     total <- nrow(mets)
-    pct.FC_Fun_F0.greater.than.2 <- sum(Over2)/total #output
-    pct.FC_Fun_F0.greater.than.3 <- sum(Over3)/total #output
+    pct.FC_Fun_F0.greater.than.2 <- sum(FC_Over2)/total #output
+    pct.FC_Fun_F0.greater.than.3 <- sum(FC_Over3)/total #output
 
-    Over0 <- mets[,5] > 0
-    Over1 <- mets[,5] > 1
-    pct.DeltaF.greater.than.0 <- sum(Over0)/total #output
-    pct.DeltaF.greater.than.1 <- sum(Over1)/total #output
-    info <- rbind(pct.FC_Fun_F0.greater.than.2, pct.FC_Fun_F0.greater.than.3,pct.DeltaF.greater.than.0, pct.DeltaF.greater.than.1)
+    # Change in absolute fluorescence stim - Baseline (DeltaF) filters
+    # this filter is in place even if filter = FALSE is set
+    DF_Over0 <- mets[,5] > 0
+    pct.DeltaF.greater.than.0 <- sum(DF_Over0)/total #output
+    info <- rbind(pct.FC_Fun_F0.greater.than.2, pct.FC_Fun_F0.greater.than.3,pct.DeltaF.greater.than.0)
     measure <- row.names(info)
     info <- cbind.data.frame(measure, info)
     row.names(info) <- NULL
 
     if (filter) {
-      chop <- cbind(Over2,Over0)
+      chop <- cbind(FC_Over2,DF_Over0)
       chop <- apply(chop, 1, sum) == 2
       cleanmeas <- meas[,chop] #output
       cleanmets <- mets[row.names(mets) %in% colnames(cleanmeas),]
     } else {
-      cleanmeas <- meas[,Over0] #output
+      cleanmeas <- meas[,DF_Over0] #output
       cleanmets <- mets[row.names(mets) %in% colnames(cleanmeas),]
     }
 
+    # calculate measurements - average baseline (F0) for point of interest
     DelF <- NULL
     for (i in c(1:(ncol(cleanmeas)))) {
       v <- cleanmeas[,i] - cleanmets[i,1]
@@ -89,6 +102,7 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
     }
     colnames(DelF) <- colnames(cleanmeas)
 
+    # calculate percentage unquenched increase over F0
     pctFun <- NULL
     for (i in c(1:(ncol(DelF)))) {
       v <- DelF[,i]/(cleanmets[i,3]-cleanmets[i,1])
@@ -131,10 +145,11 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
     }
 
   }
-  xlsx::write.xlsx((globalresults[[sub("\\.csv","",runfiles[1])]]), file = paste(out.dir,"/", "PCT_FUN_Summary.xlsx", sep = ""), sheetName = sub("\\.csv","",runfiles[1]), row.names = FALSE, append = FALSE)
+  fname <- sub("\\.csv", "", runfiles[1])
+  xlsx::write.xlsx((globalresults[[fname]]), file = paste(out.dir,"/", "PCT_FUN_Summary.xlsx", sep = ""), sheetName = fname, row.names = FALSE, append = FALSE)
 
   for (f in 2:length(runfiles)) {
-    fname <- sub("\\.csv", "", f)
-    xlsx::write.xlsx((globalresults[[f]]), file = paste(out.dir,"/", "PCT_FUN_Summary.xlsx", sep = ""), sheetName = sub("\\.csv","",runfiles[f]), row.names = FALSE, append = TRUE)
+    fname <- sub("\\.csv", "", runfiles[f])
+    xlsx::write.xlsx((globalresults[[fname]]), file = paste(out.dir,"/", "PCT_FUN_Summary.xlsx", sep = ""), sheetName = fname, row.names = FALSE, append = TRUE)
   }
 }

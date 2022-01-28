@@ -4,10 +4,16 @@
 \alias{noNANA}
 \title{Removes rows with any NA values}
 \usage{
-noNANA(x)
+noNANA(x, margin = "rows")
 }
 \arguments{
 \item{x}{matrix with NA values}
+
+\item{margin}{indicator of what should be done when NA is encountered.
+"rows" (default) = delete entire row with NA
+"columns" = delete entire column with NA
+"cellempty" = replace NA value with empty space
+"cellzero" = replace NA value with numeric zero value}
 }
 \value{
 

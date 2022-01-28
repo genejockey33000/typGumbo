@@ -25,5 +25,11 @@ greater than 0 (i.e. requires positive fluorescence change)}
 A highly specialized pipeline for processing synaptic vesicle release assay results.
 It takes in a directory containing .csv files in a very specific TPP format (Tracy's Proprietary Processing)
 and returns a set of processed csvs for each assay along with an excel file containing a
-summary of the results and some analytics.
+summary of the results and some analytics. Input csv's from excel file should have 5 header metrics rows from row 1 they
+must be 1) F0 (average starting fluor), 2) Fstim (average stim fluor), 3) Fun (max unquenched fluro), 4) FC_Fun-F0 (fold change of
+unquenched max relative to baseline(F0)), and 5) deltaF (increase in fluor in stimulated vs. F0). First column (under metrics labels)
+must be a space (extra column) for time values. The script will remove this column and if it contains data rather than
+timestamps then the data will be lost. The worksheets used to generate the csv's will often have extra columns at the end of the sheet.
+They start at row 6 (after the header metrics) and report average and error fluor across all measurements for a given time. There can be
+2-4 of these or none. It doesn't matter as any column after the last value in the row 1 metrics will be removed
 }
