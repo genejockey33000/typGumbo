@@ -7,8 +7,6 @@
 #'
 #' @return
 #' @export
-#'
-#' @examples
 flattenCorrMatrix <- function(rcorrOUT) {
   corrmat <- rcorrOUT$r
   pmat <- rcorrOUT$P

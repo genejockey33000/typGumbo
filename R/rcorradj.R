@@ -14,8 +14,6 @@
 #'
 #' @return
 #' @export
-#'
-#' @examples
 rcorradj <- function (x, y, type = c("pearson", "spearman"), p.adj = "BH")
 {
   type <- match.arg(type)

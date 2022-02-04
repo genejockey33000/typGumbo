@@ -9,8 +9,6 @@
 #'
 #' @return
 #' @export
-#'
-#' @examples
 corrdot <- function(mat, x, y, datatype, title, method = "pearson") {
   x1 <- as.numeric(mat[,x])
   y1 <- as.numeric(mat[,y])

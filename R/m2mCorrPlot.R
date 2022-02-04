@@ -13,8 +13,6 @@
 #'
 #' @return
 #' @export
-#'
-#' @examples
 m2mCorrPlot <- function(mat1, mat2, method = "pearson"){
   if (missing(mat2)) {
     cmat.cor <- Hmisc::rcorr(mat1, type = method)
