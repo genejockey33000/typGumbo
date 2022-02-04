@@ -1,8 +1,6 @@
 #' @title Matrix Correlations, all to all (CorMat)
 #'
-#' @description NOTE: This function needs to be adjusted
-#' to be compatible with typ objects (currently is not).
-#'     Starting with two matrices with compatible row.names
+#' @description Starting with two matrices with compatible row.names
 #' (corresponding to *samples*)
 #' and different column.names (corresponding to *measurements*)
 #' i.e.
@@ -20,7 +18,7 @@
 #'
 #' @export
 #'
-CorMat <- function(x, y, method = "spearman")  {
+CorMat <- function(x, y, method = "spearman", adj.meth = "BH")  {
   if (is.null(dim(x))) {
     if (length(x) != nrow(y)) stop("Bleep, Bloop, Blorp, ERROR! The Vector x be the same length
       as each column of data in y. Recheck your input vector and your comparison matrix and
@@ -30,6 +28,7 @@ CorMat <- function(x, y, method = "spearman")  {
     yname <- character()
     rval <- numeric()
     pval <- numeric()
+    p.adj <- numeric()
       for (j in 1:ncol(y))  {
         v2 <- y[,j]
         ytemp <- colnames(y)[j]
@@ -37,8 +36,9 @@ CorMat <- function(x, y, method = "spearman")  {
         yname <- c(yname, ytemp)
         rval <- c(rval, output$r[1,2])
         pval <- c(pval, output$P[1,2])
+        p.adj <- stats::p.adjust(pval, method = adj.meth, n = ncol(y))
       }
-      Cors <- cbind.data.frame(yname, rval, pval)
+      Cors <- cbind.data.frame(yname, rval, pval, p.adj, adj.meth)
       CWC <- rbind.data.frame(CWC,Cors)
     CWC <- CWC[order(CWC$pval),]
     return(CWC)
@@ -57,6 +57,8 @@ CorMat <- function(x, y, method = "spearman")  {
       yname <- character()
       rval <- numeric()
       pval <- numeric()
+      p.adj <- numeric()
+
       xtemp <- colnames(x)[i]
       v1 <- x[,i]
 
@@ -67,10 +69,11 @@ CorMat <- function(x, y, method = "spearman")  {
         yname <- c(yname, ytemp)
         rval <- c(rval, output$r[1,2])
         pval <- c(pval, output$P[1,2])
+        p.adj <- stats::p.adjust(pval, method = adj.meth, n = ncol(x)*ncol(y))
       }
       xname <- character(ncol(y))
       xname[] <- xtemp
-      Cors <- cbind.data.frame(xname, yname, rval, pval)
+      Cors <- cbind.data.frame(xname, yname, rval, pval, p.adj, adj.meth)
       CWC <- rbind.data.frame(CWC,Cors)
       #CWC[[colnames(x)[i]]] <- Cors
     }
