@@ -42,7 +42,7 @@ CorMat <- function(x, y, method = "spearman", adj.meth = "BH")  {
       }
       Cors <- cbind.data.frame(yname, rval, pval, p.adj, adj.meth)
       CWC <- rbind.data.frame(CWC,Cors)
-    CWC <- CWC[order(CWC$pval),]
+    CWC <- CWC[order(CWC$p.adj),]
     return(CWC)
   } else {
   chop <- row.names(x) %in% row.names(y)
@@ -79,7 +79,7 @@ CorMat <- function(x, y, method = "spearman", adj.meth = "BH")  {
       CWC <- rbind.data.frame(CWC,Cors)
       #CWC[[colnames(x)[i]]] <- Cors
     }
-    CWC <- CWC[order(CWC$pval),]
+    CWC <- CWC[order(CWC$p.adj),]
     return(CWC)
   } else {print("Matrices are incompatable. I don't know what you did.")}
   }
