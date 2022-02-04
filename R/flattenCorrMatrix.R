@@ -8,7 +8,7 @@
 #' @return
 #' @export
 flattenCorrMatrix <- function(rcorrOUT) {
-  corrmat <- rcorrOUT$r
+  cormat <- rcorrOUT$r
   pmat <- rcorrOUT$P
   ut <- upper.tri(cormat)
   data.frame(
