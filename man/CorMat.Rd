@@ -4,7 +4,7 @@
 \alias{CorMat}
 \title{Matrix Correlations, all to all (CorMat)}
 \usage{
-CorMat(x, y, method = "spearman")
+CorMat(x, y, method = "spearman", adj.meth = "BH")
 }
 \arguments{
 \item{x}{matrix 1}
@@ -12,11 +12,12 @@ CorMat(x, y, method = "spearman")
 \item{y}{matrix 2}
 
 \item{method}{"pearson" (default) or "spearman" (rank order correlation)}
+
+\item{adj.meth}{Method to use for multiple comparisons correction default = "BH" for Benjamini Hochberg, other
+options are, "holm", "hochberg", "hommel", "bonferroni", "BY", "fdr", "none" uses stats::p.adjust function}
 }
 \description{
-NOTE: This function needs to be adjusted
-to be compatible with typ objects (currently is not).
-    Starting with two matrices with compatible row.names
+Starting with two matrices with compatible row.names
 (corresponding to *samples*)
 and different column.names (corresponding to *measurements*)
 i.e.
