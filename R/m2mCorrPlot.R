@@ -17,12 +17,10 @@ m2mCorrPlot <- function(mat1, mat2, method = "pearson"){
   if (missing(mat2)) {
     cmat.cor <- Hmisc::rcorr(mat1, type = method)
     cmat.cor$P[is.na(cmat.cor$P)] <- 0
-    plot <- corrplot::corrplot(cmat.cor$r, method = "circle", order = 'original', p.mat = cmat.cor$P, sig.level = 0.05, insig = 'label_sig')
   } else {
     cmat <- stickem(mat1, mat2)
     cmat.cor <- Hmisc::rcorr(cmat, type = method)
     cmat.cor$P[is.na(cmat.cor$P)] <- 0
-    plot <- corrplot::corrplot(cmat.cor$r, method = "circle", order = 'original', p.mat = cmat.cor$P, sig.level = 0.05, insig = 'label_sig')
   }
-  return(plot)
+  return(corrplot::corrplot(cmat.cor$r, method = "circle", order = 'original', p.mat = cmat.cor$P, sig.level = 0.05, insig = 'label_sig'))
 }

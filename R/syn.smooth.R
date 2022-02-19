@@ -42,14 +42,19 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
 
   globalresults <- list()  ##added in V0.3
 
+  trimMatMess <- function(x) {
+    chopRows <- !x[,2] == ""
+    chopCols <- !x[1,] == ""
+    return(x[chopRows,chopCols])
+  }  ## added 2022_02_19
+
   for (f in runfiles) {
     results <- list()
     fname <- sub("\\.csv", "", f)
     #read and trim data from csv
     dir.create(paste(out.dir, "/",fname, sep = "")) #create sub-directory for individual csv
     full <- utils::read.csv(paste(in.dir,"/",f, sep = ""), header = FALSE) #read current csv
-    collim <- full[1,] > 0 #determine limit of data columns. Looks for existence of Fo calculation which should only be above data.
-    full <- full[,collim] #remove any columns with no or negative F0 measurements
+    full <- trimMatMess(full) ## trim any columns that are not data columns and rows that are not data rows
 
     #define measurement matrix
     meas <- full[c(6:nrow(full)),c(2:ncol(full))] #remove metrics rows (top 5) and timestamps (first column)
