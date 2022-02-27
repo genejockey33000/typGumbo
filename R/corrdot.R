@@ -13,7 +13,7 @@ corrdot <- function(mat, x, y, datatype, title, method = "pearson") {
   x1 <- as.numeric(mat[,x])
   y1 <- as.numeric(mat[,y])
   xycor <- Hmisc::rcorr(x1,y1, type = method)
-  p <- plot(x1,y1, xlab = paste0(x, " ", datatype , "; P = ",signif(xycor$P[1,2], digits = 3) ), ylab = paste0(y, " ",datatype, "; r = ", signif(xycor$r[1,2], digits = 3)), main = paste0("Correlation between ",x," and ", y))
+  p <- plot(x1,y1, xlab = paste0(x, " ", datatype , "; P = ",signif(xycor$P[1,2], digits = 3) ), ylab = paste0(y, " ",datatype, "; r = ", signif(xycor$r[1,2], digits = 3)), main = title)
   return(p +
            abline(lm(y1~x1), col = "black"))
 }
