@@ -22,5 +22,5 @@ m2mCorrPlot <- function(mat1, mat2, method = "pearson"){
     cmat.cor <- Hmisc::rcorr(cmat, type = method)
     cmat.cor$P[is.na(cmat.cor$P)] <- 0
   }
-  return(corrplot::corrplot(cmat.cor$r, method = "circle", order = 'original', type = "upper",p.mat = cmat.cor$P, sig.level = 0.05, insig = 'label_sig'))
+  return(corrplot::corrplot(cmat.cor$r, method = "circle", order = 'original', type = "upper", diag = FALSE,p.mat = cmat.cor$P, sig.level = 0.05, insig = 'label_sig'))
 }
