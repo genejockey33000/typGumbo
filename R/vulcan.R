@@ -17,7 +17,7 @@
 #' @return
 #' @export
 vulcan <- function(x, bcut = .5, qcut = .05, labels = 0, repel = 1, pad = .25, labelsize = 4) {
-  d <- cleanTT(x)
+  d <- cleanTT(x, bcut = bcut, qcut = qcut)
   cols <- c("UP" = "#ffad73", "DOWN" = "#26b3ff", "NO" = "lightgrey")
   sizes <- c("UP" = 2, "DOWN" = 2, "NO" = 1)
   alphas <- c("UP" = 1, "DOWN" = 1, "NO" = 0.4)

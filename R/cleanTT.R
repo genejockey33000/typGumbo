@@ -2,10 +2,12 @@
 #' cleans up the sleuth_results() test table output
 #'
 #' @param x test table from sleuth_results() function
+#' @param bcut cutoff value for fold change. Default is .5 or 50% change
+#' @param qcut cutoff value for significance. Default is q value of .05
 #'
 #' @return
 #' @export
-cleanTT <- function(x) {
+cleanTT <- function(x, bcut = .5, qcut = .05) {
   chop <- apply(x, 1, function(x) {sum(is.na(x)) < 1})
   y <- x[chop,]
   chop <- y$ext_gene != ""
