@@ -4,12 +4,12 @@
 \alias{make.typ}
 \title{Make Standardized 'typ' object}
 \usage{
-make.typ(x, level = "gene", meta = NULL, regress = NULL)
+make.typ(x, type = "gene", meta = NULL, regress = NULL)
 }
 \arguments{
 \item{x}{sleuth object or expression matrix}
 
-\item{level}{c("gene", "trans", "prot")}
+\item{type}{c("gene", "trans", "prot", "deg", "dep")}
 
 \item{meta}{meta data information as data frame (not required if sleuth obj passed)}
 

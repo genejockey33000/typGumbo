@@ -5,10 +5,14 @@
 \title{Clean test table
 cleans up the sleuth_results() test table output}
 \usage{
-cleanTT(x)
+cleanTT(x, bcut = 0.5, qcut = 0.05)
 }
 \arguments{
 \item{x}{test table from sleuth_results() function}
+
+\item{bcut}{cutoff value for fold change. Default is .5 or 50% change}
+
+\item{qcut}{cutoff value for significance. Default is q value of .05}
 }
 \value{
 

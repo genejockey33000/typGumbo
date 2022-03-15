@@ -1,6 +1,6 @@
-#' Get Current Ensembl Gene Maps
+#' @title Get Current Ensembl Gene Maps
 #'
-#' Requires no input. Returns a list object with 2 data frames for mapping ENSGs and ENSTs to gene symbols.
+#' @description Requires no input. Returns a list object with 2 data frames for mapping ENSGs and ENSTs to gene symbols.
 #'  For use with human genomic data only.
 #'
 #'  tgn data frame has columns for
