@@ -4,13 +4,13 @@
 #'    downstream processes
 #'
 #' @param x sleuth object or expression matrix
-#' @param  level    c("gene", "trans", "prot")
+#' @param  type    c("gene", "trans", "prot", "deg", "dep")
 #' @param  meta    meta data information as data frame (not required if sleuth obj passed)
 #' @param  regress OPTIONAL column names in meta data file specifying regression
 #'
 #' @return object of class 'typ'
 #' @export
-make.typ <- function(x, level = "gene", meta = NULL, regress = NULL) {
+make.typ <- function(x, type = "gene", meta = NULL, regress = NULL) {
   output <- list()
   if (!("sleuth" %in% class(x))) {
   class(output) <- c("typ",level)
