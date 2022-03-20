@@ -22,7 +22,7 @@
 #'
 CorMat <- function(x, y, method = "spearman", adj.meth = "BH")  {
   if (is.null(dim(x))) {
-    if (length(x) != nrow(y)) stop("Bleep, Bloop, Blorp, ERROR! The Vector x be the same length
+    if (length(x) != nrow(y)) stop("The Vector x be the same length
       as each column of data in y. Recheck your input vector and your comparison matrix and
       try again.")
     cat("Comparing vector with",length(x)," samples to", ncol(y), "additional measurements")

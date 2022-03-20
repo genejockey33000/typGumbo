@@ -1,23 +1,58 @@
 #' @title Get Current Ensembl Gene Maps
 #'
-#' @description Requires no input. Returns a list object with 2 data frames for mapping ENSGs and ENSTs to gene symbols.
-#'  For use with human genomic data only.
+#' @description Returns a data frame for mapping specified genetic identifiers.
+#'  For use with human data only.
 #'
-#'  tgn data frame has columns for
-#'  transcript ID (ENST numbers) labeled "target_id"
-#'  gene ID (ENSG numbers) labeled "ens_gene"
-#'  gene symbols (human readable gene symbols) labeled "ext_gene
-#'
-#'  gn contains only ens_gene, and ext_gene columns (unique)
+#' @param type Indicate type of map desired. c("full", "t2g", "t2n", "g2n", "g2e", "n2e")
+#'   "full" = full map containing Ensemble transcript IDs (ENSTs), gene IDs (ENSGs), external gene names (symbols), and Entrez IDs (####)
+#'     full map will contain NAs where identifiers don't have mapped counterparts
+#'   "t2g" = ENST and ENSG
+#'   "t2n" = ENST and gene names (symbols)
+#'   "g2n" = ENSGs and gene names (symbols)
+#'   "g2e" = ENSGs and Entrez IDs
+#'   "n2e" = gene names (symbols) and Entrez IDs
 #'
 #' @return
+#' @importFrom biomaRt useMart
+#' @importFrom biomaRt getBM
+#' @importFrom dplyr rename
 #' @export
 #'
-getEnsGeneMaps <- function(){
+getEnsGeneMaps <- function(type = c("full","t2g","t2n","g2n","g2e","n2e")){
   mart <- biomaRt::useMart(biomart = "ENSEMBL_MART_ENSEMBL", dataset = "hsapiens_gene_ensembl", host = 'www.ensembl.org')
-  tgn <- biomaRt::getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id","external_gene_name"), mart = mart)
-  tgn <- dplyr::rename(tgn, target_id = ensembl_transcript_id, ens_gene = ensembl_gene_id, ext_gene = external_gene_name)
-  gn <- unique(tgn[,c(2,3)])
-  output <- list(tgn = tgn, gn = gn)
-  return(output)
+  if (type == "full") {
+  map <- biomaRt::getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id","external_gene_name", "entrezgene_id"), mart = mart)
+  map <- dplyr::rename(map, target_id = ensembl_transcript_id, ens_gene = ensembl_gene_id, ext_gene = external_gene_name, entrez = entrezgene_id)
+  return(map)
+  }
+  if (type == "t2g") {
+    map <- biomaRt::getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id"), mart = mart)
+    map <- dplyr::rename(map, target_id = ensembl_transcript_id, ens_gene = ensembl_gene_id)
+    map <- typGumbo::noNANA(map)
+    return(map)
+  }
+  if (type == "t2n") {
+    map <- biomaRt::getBM(attributes = c("ensembl_transcript_id", "external_gene_name"), mart = mart)
+    map <- dplyr::rename(map, target_id = ensembl_transcript_id, ext_gene = external_gene_name)
+    map <- typGumbo::noNANA(map)
+    return(map)
+  }
+  if (type == "g2n") {
+    map <- biomaRt::getBM(attributes = c("ensembl_gene_id","external_gene_name"), mart = mart)
+    map <- dplyr::rename(map, ens_gene = ensembl_gene_id, ext_gene = external_gene_name)
+    map <- typGumbo::noNANA(map)
+    return(map)
+  }
+  if (type == "g2e") {
+    map <- biomaRt::getBM(attributes = c("ensembl_gene_id","entrezgene_id"), mart = mart)
+    map <- dplyr::rename(map, ens_gene = ensembl_gene_id, entrez = entrezgene_id)
+    map <- typGumbo::noNANA(map)
+    return(map)
+  }
+  if (type == "n2e") {
+    map <- biomaRt::getBM(attributes = c("external_gene_name", "entrezgene_id"), mart = mart)
+    map <- dplyr::rename(map, ext_gene = external_gene_name, entrez = entrezgene_id)
+    map <- typGumbo::noNANA(map)
+    return(map)
+  }
 }

@@ -4,19 +4,22 @@
 \alias{getEnsGeneMaps}
 \title{Get Current Ensembl Gene Maps}
 \usage{
-getEnsGeneMaps()
+getEnsGeneMaps(type = c("full", "t2g", "t2n", "g2n", "g2e", "n2e"))
+}
+\arguments{
+\item{type}{Indicate type of map desired. c("full", "t2g", "t2n", "g2n", "g2e", "n2e")
+"full" = full map containing Ensemble transcript IDs (ENSTs), gene IDs (ENSGs), external gene names (symbols), and Entrez IDs (####)
+  full map will contain NAs where identifiers don't have mapped counterparts
+"t2g" = ENST and ENSG
+"t2n" = ENST and gene names (symbols)
+"g2n" = ENSGs and gene names (symbols)
+"g2e" = ENSGs and Entrez IDs
+"n2e" = gene names (symbols) and Entrez IDs}
 }
 \value{
 
 }
 \description{
-Requires no input. Returns a list object with 2 data frames for mapping ENSGs and ENSTs to gene symbols.
- For use with human genomic data only.
-
- tgn data frame has columns for
- transcript ID (ENST numbers) labeled "target_id"
- gene ID (ENSG numbers) labeled "ens_gene"
- gene symbols (human readable gene symbols) labeled "ext_gene
-
- gn contains only ens_gene, and ext_gene columns (unique)
+Returns a data frame for mapping specified genetic identifiers.
+ For use with human data only.
 }
