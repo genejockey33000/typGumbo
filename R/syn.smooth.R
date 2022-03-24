@@ -9,7 +9,14 @@
 #' must be a space (extra column) for time values. The script will remove this column and if it contains data rather than
 #' timestamps then the data will be lost. The worksheets used to generate the csv's will often have extra columns at the end of the sheet.
 #' They start at row 6 (after the header metrics) and report average and error fluor across all measurements for a given time. There can be
-#' 2-4 of these or none. It doesn't matter as any column after the last value in the row 1 metrics will be removed
+#' 2-4 of these or none. It doesn't matter as any column after the last value in the row 1 metrics will be removed.
+#'
+#'   If this function returns a Java out of memory heap space error then try restarting R and then run the following line
+#'   before loading typGumbo
+#'
+#'   options(java.parameters = c("-XX:+UseConcMarkSweepGC", "-Xmx8192m"))
+#'
+#'
 #'
 #' @param in.dir directory where all input .csv files are located. Omit trailing slash.
 #'     i.e. in.dir = "LViN15", or in.dir = "LViN15/results"
@@ -18,13 +25,29 @@
 #'     for each output matrix to output directory. NOTE: this uses the xlsx::write.xlsx function
 #'     which takes a lot of time and memory and should not be used for very large data sets (larger than
 #'     1000 observations)
-#' @param filter logical indicating whether data should be filtered to exclude measurements with pctFC
+#' @param filter logical. indicating whether data should be filtered to exclude measurements with pctFC
 #'     less than 2. Even with this filter off the data will be filtered to remove measurements with pctDeltaF
 #'     greater than 0 (i.e. requires positive fluorescence change)
 #'
 #' @export
 syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
   ## pull the full path names of all the .csv files in the in.dir
+  files <- dir(in.dir, full.names = TRUE)
+  excelfile <- files[grepl(pattern = ".xlsx", files)]
+  sheets <- readxl::excel_sheets(excelfile)
+
+  for ( i in sheets ) {
+    temp <- readxl::read_xlsx(path = excelfile, sheet = i, col_names = FALSE)
+    colnames(temp) <- NULL
+    trimMatMess <- function(x) {
+      chopRows <- !is.na(x[,2])
+      chopCols <- !is.na(x[1,])
+      return(x[chopRows[,1],chopCols[1,]])
+    }
+    temp <- trimMatMess(temp)
+    write.csv(temp, file = paste0(in.dir,"/",i, ".csv"), row.names = FALSE)
+  }
+
   csvs <- dir(in.dir, full.names = TRUE, recursive = TRUE)
   csvs <- csvs[grepl(pattern = ".csv", csvs)]
 
@@ -57,7 +80,7 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
     full <- trimMatMess(full) ## trim any columns that are not data columns and rows that are not data rows
 
     #define measurement matrix
-    meas <- full[c(6:nrow(full)),c(2:ncol(full))] #remove metrics rows (top 5) and timestamps (first column)
+    meas <- full[c(6:nrow(full)),c(2:ncol(full))] #remove metrics rows (top 5) and time stamps (first column)
     colnames(meas) <- meas[1,]
     meas <- meas[-1,]
     row.names(meas) <- c(1:nrow(meas))
