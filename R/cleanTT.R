@@ -1,4 +1,5 @@
 #' Clean test table
+#'
 #' cleans up the sleuth_results() test table output
 #'
 #' @param x test table from sleuth_results() function
@@ -6,6 +7,9 @@
 #' @param qcut cutoff value for significance. Default is q value of .05
 #'
 #' @return
+#' @importFrom magrittr %>%
+#' @importFrom dplyr mutate
+#' @importFrom dplyr arrange
 #' @export
 cleanTT <- function(x, bcut = .5, qcut = .05) {
   chop <- apply(x, 1, function(x) {sum(is.na(x)) < 1})

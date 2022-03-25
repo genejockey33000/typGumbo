@@ -65,6 +65,7 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
   dir.create(out.dir)
 
   globalresults <- list()  ##added in V0.3
+  Ms <- NULL
 
   trimMatMess <- function(x) {
     chopRows <- !x[,2] == ""
@@ -141,7 +142,8 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
     mean <- apply(pctFun, 1, mean)
     n <- ncol(pctFun)
     sem <- apply(pctFun, 1, function(x) stats::sd(x) / sqrt(n))
-    pctFun <- cbind(pctFun, n, mean, sem)
+    pctFun <- cbind(pctFun, mean, sem, n)
+    Ms <- c(Ms, nrow(pctFun))
 
     results[["data.raw"]] <- meas
     results[["metrics.raw"]] <- mets
@@ -181,4 +183,29 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
     fname <- sub("\\.csv", "", runfiles[f])
     xlsx::write.xlsx((globalresults[[fname]]), file = paste(out.dir,"/", "PCT_FUN_Summary.xlsx", sep = ""), sheetName = fname, row.names = FALSE, append = TRUE)
   }
+  Ms <- max(Ms) + 2
+  forPrism <- data.frame(matrix(ncol = 3, nrow = Ms))
+  excelfile2 <- paste0(out.dir, "/PCT_FUN_Summary.xlsx")
+  sheets2 <- readxl::excel_sheets(path = excelfile2)
+  for ( i in sheets2 ) {
+    temp <- readxl::read_xlsx(path = paste(out.dir,"/", "PCT_FUN_Summary.xlsx", sep = ""), sheet = i, col_names = FALSE)
+    colnames(temp) <- NULL
+    temp <- temp[,c((ncol(temp)-2):(ncol(temp)))]
+    n <- rep(i, 3)
+    temp <- rbind(n, temp)
+
+    if (i == sheets2[1]) {
+      forPrism[,c(1:3)] <- temp
+    } else {
+      forPrism <- cbind.data.frame(forPrism, temp)
+    }
+  }
+  colnames(forPrism) <- NULL
+  write.csv(forPrism, file = paste0(out.dir, "/forPrism.csv"), row.names = FALSE)
+
+  # test section  to pull the last three columns for each sheet in PCT_FUN_Summary.xlsx
+  # cbind them as sets of "mean", "sem", "n" with a header == name of the originating sheet
+  #  i.e.
+  #  10_C3_BR33BRN2_3 10_C3_BR33BRN2_3  10_C3_BR33BRN2_3  A2_BR33_CRC_1 A2_BR33_CRC_1 A2_BR33_CRC_1
+  #  mean             sem               n                 mean          sem           n
 }
