@@ -37,18 +37,17 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
   excelfile <- files[grepl(pattern = ".xlsx", files)]
   sheets <- readxl::excel_sheets(excelfile)
 
+  trimMatMess <- function(x) {
+    chopRows <- !is.na(x[,2])
+    chopCols <- !is.na(x[1,])
+    return(x[chopRows[,1],chopCols[1,]])
+  }
   for ( i in sheets ) {
     temp <- readxl::read_xlsx(path = excelfile, sheet = i, col_names = FALSE)
     colnames(temp) <- NULL
-    trimMatMess <- function(x) {
-      chopRows <- !is.na(x[,2])
-      chopCols <- !is.na(x[1,])
-      return(x[chopRows[,1],chopCols[1,]])
-    }
     temp <- trimMatMess(temp)
     write.csv(temp, file = paste0(in.dir,"/",i, ".csv"), row.names = FALSE)
   }
-
   csvs <- dir(in.dir, full.names = TRUE, recursive = TRUE)
   csvs <- csvs[grepl(pattern = ".csv", csvs)]
 
@@ -203,9 +202,17 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
   colnames(forPrism) <- NULL
   write.csv(forPrism, file = paste0(out.dir, "/forPrism.csv"), row.names = FALSE)
 
-  # test section  to pull the last three columns for each sheet in PCT_FUN_Summary.xlsx
-  # cbind them as sets of "mean", "sem", "n" with a header == name of the originating sheet
-  #  i.e.
-  #  10_C3_BR33BRN2_3 10_C3_BR33BRN2_3  10_C3_BR33BRN2_3  A2_BR33_CRC_1 A2_BR33_CRC_1 A2_BR33_CRC_1
-  #  mean             sem               n                 mean          sem           n
+  ## Convert Prism labels to single character string separated by commas
+  VecRow <- function(x) {
+    out <- NULL
+
+    for(i in 1:(length(x)-1)) {
+      out <- paste0(out, x[i], ",")
+    }
+    out <- paste0(out,x[length(x)])
+    return(out)
+  }
+
+  labelsPzm <- VecRow(sheets2)
+  write.table(labelsPzm, file = paste0(out.dir, "/lablesForPrism.csv"), quote = FALSE, sep = "", row.names = FALSE, col.names = FALSE)
 }
