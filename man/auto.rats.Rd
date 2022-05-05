@@ -21,7 +21,7 @@ For each sample, calculates ratio of normalized
    other autosomes (i.e. autosome ratio). Then compares ratios
    across all samples for each chromosome. Can detect severe
    chromosomal abnormalities (i.e. chromosomal duplication or loss).
-   Outputs dataframe of all ratios with column for each chromosome
+   Outputs data frame of all ratios with column for each chromosome
    and a pdf containing all ratio plots for chr1:chr22. Pdfs are
-   writen to a subfolder named 'plots'
+   written to a sub-folder named 'plots'
 }
