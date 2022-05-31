@@ -24,15 +24,40 @@ rCompare <- function(x, title="add title", pdfName="output.pdf") {
   mcps <- lin(mcps)
   pos <- lin(pos)
   neg <- lin(neg)
+  neg <- sort(neg, decreasing = TRUE)
   negFlp <- sort(abs(neg), decreasing = TRUE)
 
-  xxis <- max(c(length(pos), length(neg)))
+  xxis1 <- sum(length(pos), length(neg))
+  xxis2 <- max(c(length(pos), length(neg)))
+
   maxr <- max(c(pos, negFlp))
+  yxis <- maxr*1.1
 
   no.mpcs <- length(mcps)
+
   pdf(file = pdfName)
   par(mar = c(5, 5, 5, 2))
-  output <- plot(pos,
+  plot(pos,
+                  pch=".",
+                  type = "h",
+                  col = "aquamarine3",
+                  main = paste0("All Correlations \n", title),
+                  ylim = c(-yxis,yxis),
+                  ylab = "R value",
+                  xlim = c(0, xxis1),
+                  xlab = "Genes",
+                  cex.lab = 1.7,
+                  cex.main = 1.8
+  )
+  lines(pos, col = "grey50")
+  lines(c(rep(0, (length(pos))),neg), col = "grey50")
+  lines(c(rep(0,(length(pos))),neg), type = "h", col = "lightsalmon")
+  lines(pos[1:(no.mpcs)], type = "h", col = "turquoise4")
+  legend(x=(xxis1 * .6),y=maxr, fill = c("turquoise4", "aquamarine3", "lightsalmon"), legend = c( "Pos. FDR <.05", "Pos. Correlations", "Neg. Correlations"))
+  abline(h=0, col = "darkgrey")
+
+  par(mar = c(5, 5, 5, 2))
+  plot(pos,  #plot positives and set axes
                  pch=".",
                  type = "h",
                  col = "aquamarine3",
@@ -43,11 +68,10 @@ rCompare <- function(x, title="add title", pdfName="output.pdf") {
                  cex.lab = 1.7,
                  cex.main = 1.8
   )
-  lines(pos, col = "grey50")
-  lines(c(rep(0,(no.mpcs + 1)),negFlp), col = "grey50")
-  lines(c(rep(0,(no.mpcs + 1)),negFlp), type = "h", col = "lightsalmon")
-  ines(pos[1:109], type = "h", col = "turquoise4")
-  legend(x=(xxis * .6),y=maxr, fill = c("turquoise4", "aquamarine3", "lightsalmon"), legend = c( "Pos. FDR <.05", "Pos. Correlations", "Neg. Correlations"))
+  lines(pos, col = "grey50") #outline positives
+  lines(c(rep(0,(no.mpcs + 1)),negFlp), col = "grey50") #outline negs starting after end of FDR passers
+  lines(c(rep(0,(no.mpcs + 1)),negFlp), type = "h", col = "lightsalmon")  #fill in negatives
+  lines(pos[1:(no.mpcs)], type = "h", col = "turquoise4") #fill in FDR passers
+  legend(x=(xxis2 * .6),y=maxr, fill = c("turquoise4", "aquamarine3", "lightsalmon"), legend = c( "Pos. FDR <.05", "Pos. Correlations", "Neg. Correlations"))
   dev.off()
-  return(output)
 }
