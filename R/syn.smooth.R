@@ -9,12 +9,9 @@
 #' must be a space (extra column) for time values. The script will remove this column and if it contains data rather than
 #' timestamps then the data will be lost. The worksheets used to generate the csv's will often have extra columns at the end of the sheet.
 #' They start at row 6 (after the header metrics) and report average and error fluor across all measurements for a given time. There can be
-#' 2-4 of these or none. It doesn't matter as any column after the last value in the row 1 metrics will be removed.
-#'
-#'   If this function returns a Java out of memory heap space error then try restarting R and then run the following line
-#'   before loading typGumbo
-#'
-#'   options(java.parameters = c("-XX:+UseConcMarkSweepGC", "-Xmx8192m"))
+#' 2-4 of these or none. It doesn't matter as any column after the last value in the row 1 metrics will be removed. If this function
+#' returns a Java out of memory heap space error then try restarting R and then run the following line before loading typGumbo
+#' options(java.parameters = c("-XX:+UseConcMarkSweepGC", "-Xmx8192m"))
 #'
 #'
 #'
@@ -185,6 +182,11 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
     temp <- temp[,c((ncol(temp)-2):(ncol(temp)))]
     n <- rep(i, 3)
     temp <- rbind(n, temp)
+
+    #normalize rows if unequal row numbers
+    while (nrow(temp) < Ms) {
+      temp[nrow(temp) + 1,] <- NA
+    }
 
     if (i == sheets2[1]) {
       forPrism[,c(1:3)] <- temp

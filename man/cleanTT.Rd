@@ -2,20 +2,20 @@
 % Please edit documentation in R/cleanTT.R
 \name{cleanTT}
 \alias{cleanTT}
-\title{Clean test table}
+\title{Clean Test table}
 \usage{
 cleanTT(x, bcut = 0.5, qcut = 0.05)
 }
 \arguments{
-\item{x}{test table from sleuth_results() function}
+\item{x}{Test table from sleuth_results}
 
-\item{bcut}{cutoff value for fold change. Default is .5 or 50% change}
+\item{bcut}{Cutoff for fold change (z score) significance}
 
-\item{qcut}{cutoff value for significance. Default is q value of .05}
+\item{qcut}{Cutoff for qvalue (FDR) significance}
 }
 \value{
 
 }
 \description{
-cleans up the sleuth_results() test table output
+Cleans up test table output from sleuth_results.
 }

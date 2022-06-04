@@ -5,7 +5,7 @@
 \title{Gene Concept Network Plot
 Simple generator of gene concept network plots using enrichment object}
 \usage{
-gcn(x, nodes = 4, label.size = "medium", circle = FALSE, color.lines = FALSE)
+gcn(x, nodes = 5, label.size = "medium", circle = FALSE, color.lines = FALSE)
 }
 \arguments{
 \item{x}{enrichment object output from running mkEnrich}

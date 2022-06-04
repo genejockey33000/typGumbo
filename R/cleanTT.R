@@ -1,15 +1,14 @@
-#' Clean test table
+#' Clean Test table
 #'
-#' cleans up the sleuth_results() test table output
+#' Cleans up test table output from sleuth_results.
 #'
-#' @param x test table from sleuth_results() function
-#' @param bcut cutoff value for fold change. Default is .5 or 50% change
-#' @param qcut cutoff value for significance. Default is q value of .05
+#' @param x Test table from sleuth_results
+#' @param bcut Cutoff for fold change (z score) significance
+#' @param qcut Cutoff for qvalue (FDR) significance
 #'
 #' @return
 #' @importFrom magrittr %>%
 #' @importFrom dplyr mutate
-#' @importFrom dplyr arrange
 #' @export
 cleanTT <- function(x, bcut = .5, qcut = .05) {
   chop <- apply(x, 1, function(x) {sum(is.na(x)) < 1})
@@ -20,7 +19,7 @@ cleanTT <- function(x, bcut = .5, qcut = .05) {
   d$DE[d$b > bcut & d$qval < qcut] <- "UP"
   d$DE[d$b < -bcut & d$qval < qcut] <- "DOWN"
   d <- d %>%
-    mutate(rank = -log10(qval)*b) %>%
-    arrange(desc(rank))
+    dplyr::mutate(rank = -log10(qval)*b) %>%
+    dplyr::arrange(desc(rank))
   return(d)
 }

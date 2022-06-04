@@ -8,9 +8,10 @@
 #' @param color.lines Logical. Should the lines be colored by gene set? (default=FALSE)
 #'
 #' @return
+#' @importFrom enrichplot cnetplot
 #' @export
 #'
-gcn <- function(x, nodes=4, label.size="medium", circle=FALSE, color.lines=FALSE) {
+gcn <- function(x, nodes=5, label.size="medium", circle=FALSE, color.lines=TRUE) {
     s<-.8
   if (label.size == "small") {
     s<-.5
@@ -25,7 +26,7 @@ gcn <- function(x, nodes=4, label.size="medium", circle=FALSE, color.lines=FALSE
     s<-1
   }
   plot <- enrichplot::cnetplot(x, showCategory = nodes,
-                               cex_label_gene = 1,
+                               cex_label_gene = s,
                                circular=circle,
                                colorEdge=color.lines)
 

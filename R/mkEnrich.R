@@ -6,8 +6,8 @@
 #' @param x quoted path to *.csv file containing ONE column of gene names
 #'
 #' @return
+#' @importFrom clusterProfiler enrichGO
 #' @export
-#'
 mkEnrich <- function(x) {
   input <- scan(file = x, what = character(), sep = ",")
   inputGO <- clusterProfiler::enrichGO(input, OrgDb = "org.Hs.eg.db", ont="ALL", keyType = "SYMBOL")
