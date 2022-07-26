@@ -18,9 +18,12 @@
 #' @importFrom Seurat FindClusters
 #' @export
 NAMprep <- function(object) {
+  load("R/sysdata.rda")
+  scalefeats <- unique(c(object@assays$RNA@var.features, allNAM.markers))
+  scalefeats <- scalefeats[scalefeats %in% row.names(object)]
   output <- Seurat::NormalizeData(object) %>%
     Seurat::FindVariableFeatures() %>%
-    Seurat::ScaleData(features = row.names(object)) %>%
+    Seurat::ScaleData(features = scalefeats) %>%
     Seurat::RunPCA() %>%
     Seurat::RunUMAP(dims = 1:30) %>%
     Seurat::FindNeighbors(k.param = 10, dims = 1:30) %>%
