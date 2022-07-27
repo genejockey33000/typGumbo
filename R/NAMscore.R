@@ -25,16 +25,19 @@
 #' @export
 #'
 #' @examples
-NAMscore <- function(object) {
-  strPOS.iAstIn <- get0(strPOS.iAstIn, envir = asNamespace("typGumbo"))
+  strPOS.iAstIn <- c("ROR1","GNG12-AS1","RP11-274H2.2","PLOD2","ADAMTS12","SERPINE1","CAV2","COL5A1","TEAD1","CD44","HMGA2","FRMD6","UACA","MT2A","COL6A2")
   strPOS.iAst <- strPOS.iAstIn[strPOS.iAstIn %in% row.names(object@assays$RNA@scale.data)]
   strPOS.iAst.missing <- strPOS.iAstIn[!(strPOS.iAstIn %in% row.names(object@assays$RNA@scale.data))]
 
   strPOS.iMGLIn <- get0(strPOS.iMGLIn, envir = asNamespace("typGumbo"))
+  strPOS.iMGLIn <- c("PTPRC","DOCK8","SYK","APBB1IP","ALOX5AP", "ATP8B4","RUNX3","CD74","HLA-DRA")
   strPOS.iMGL <- strPOS.iMGLIn[strPOS.iMGLIn %in% row.names(object@assays$RNA@scale.data)]
   strPOS.iMGL.missing <- strPOS.iMGLIn[!(strPOS.iMGLIn %in% row.names(object@assays$RNA@scale.data))]
 
   strPOS.iNeuroIn <- get0(strPOS.iNeuroIn, envir = asNamespace("typGumbo"))
+  strPOS.iNeuroIn <- c("PBX1","RGS7","NRXN1","CNTNAP5","KCNH7","MAP2","DOCK3","CADM2","GAP43","ADGRL3","PPP2R2B","RIMS1","THSD7A",
+                       "HECW1","PTPRN2","MIR325HG", "PAK3","CSMD1","XKR4","KCNB2","STMN2","RIMS2","CACNA1B","NCAM1","NEBL","NRG3",
+                       "CNTN1","PPFIA2","FGF14","SEMA6D","RBFOX1","MAPT")
   strPOS.iNeuro <- strPOS.iNeuroIn[strPOS.iNeuroIn %in% row.names(object@assays$RNA@scale.data)]
   strPOS.iNeuro.missing <- strPOS.iNeuroIn[!(strPOS.iNeuroIn %in% row.names(object@assays$RNA@scale.data))]
 

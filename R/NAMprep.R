@@ -18,7 +18,11 @@
 #' @importFrom Seurat FindClusters
 #' @export
 NAMprep <- function(object) {
-  allNAM.markers <- get0(allNAM.markers, envir = asNamespace("typGumbo"))
+  allNAM.markers <- c("ROR1","GNG12-AS1","RP11-274H2.2","PLOD2","ADAMTS12","SERPINE1","CAV2","COL5A1","TEAD1","CD44","HMGA2","FRMD6","UACA","MT2A","COL6A2",
+                      "PTPRC","DOCK8","SYK","APBB1IP","ALOX5AP", "ATP8B4","RUNX3","CD74","HLA-DRA",
+                      "PBX1","RGS7","NRXN1","CNTNAP5","KCNH7","MAP2","DOCK3","CADM2","GAP43","ADGRL3","PPP2R2B","RIMS1","THSD7A",
+                      "HECW1","PTPRN2","MIR325HG", "PAK3","CSMD1","XKR4","KCNB2","STMN2","RIMS2","CACNA1B","NCAM1","NEBL","NRG3",
+                      "CNTN1","PPFIA2","FGF14","SEMA6D","RBFOX1","MAPT")
   scalefeats <- unique(c(object@assays$RNA@var.features, allNAM.markers))
   scalefeats <- scalefeats[scalefeats %in% row.names(object)]
   output <- Seurat::NormalizeData(object) %>%
