@@ -25,12 +25,6 @@ NAMprep <- function(object) {
                       "CNTN1","PPFIA2","FGF14","SEMA6D","RBFOX1","MAPT")
   scalefeats <- unique(c(object@assays$RNA@var.features, allNAM.markers))
   scalefeats <- scalefeats[scalefeats %in% row.names(object)]
-  output <- Seurat::NormalizeData(object) %>%
-    Seurat::FindVariableFeatures() %>%
-    Seurat::ScaleData(features = scalefeats) %>%
-    Seurat::RunPCA() %>%
-    Seurat::RunUMAP(dims = 1:30) %>%
-    Seurat::FindNeighbors(k.param = 10, dims = 1:30) %>%
-    Seurat::FindClusters()
+  output <- Seurat::ScaleData(object, features = scalefeats)
   return(output)
 }
