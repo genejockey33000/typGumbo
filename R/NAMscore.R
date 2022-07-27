@@ -30,12 +30,10 @@ NAMscore <- function(object) {
   strPOS.iAst <- strPOS.iAstIn[strPOS.iAstIn %in% row.names(object@assays$RNA@scale.data)]
   strPOS.iAst.missing <- strPOS.iAstIn[!(strPOS.iAstIn %in% row.names(object@assays$RNA@scale.data))]
 
-  strPOS.iMGLIn <- get0(strPOS.iMGLIn, envir = asNamespace("typGumbo"))
   strPOS.iMGLIn <- c("PTPRC","DOCK8","SYK","APBB1IP","ALOX5AP", "ATP8B4","RUNX3","CD74","HLA-DRA")
   strPOS.iMGL <- strPOS.iMGLIn[strPOS.iMGLIn %in% row.names(object@assays$RNA@scale.data)]
   strPOS.iMGL.missing <- strPOS.iMGLIn[!(strPOS.iMGLIn %in% row.names(object@assays$RNA@scale.data))]
 
-  strPOS.iNeuroIn <- get0(strPOS.iNeuroIn, envir = asNamespace("typGumbo"))
   strPOS.iNeuroIn <- c("PBX1","RGS7","NRXN1","CNTNAP5","KCNH7","MAP2","DOCK3","CADM2","GAP43","ADGRL3","PPP2R2B","RIMS1","THSD7A",
                        "HECW1","PTPRN2","MIR325HG", "PAK3","CSMD1","XKR4","KCNB2","STMN2","RIMS2","CACNA1B","NCAM1","NEBL","NRG3",
                        "CNTN1","PPFIA2","FGF14","SEMA6D","RBFOX1","MAPT")
@@ -43,6 +41,7 @@ NAMscore <- function(object) {
   strPOS.iNeuro.missing <- strPOS.iNeuroIn[!(strPOS.iNeuroIn %in% row.names(object@assays$RNA@scale.data))]
 
   allNAM.markers <- c(strPOS.iAstIn, strPOS.iMGLIn, strPOS.iNeuroIn)
+  allNAM.markers <- allNAM.markers[allNAM.markers %in% row.names(object)]
   sub.object <- object@assays$RNA@scale.data[allNAM.markers,]
 
   cat(length(strPOS.iAst), " out of ",length(strPOS.iAstIn), " Strong positive iAst markers detected \n")
