@@ -18,6 +18,7 @@
 #' @importFrom Seurat FindClusters
 #' @export
 NAMprep <- function(object) {
+  allNAM.markers <- get0(allNAM.markers, envir = asNamespace("typGumbo"))
   scalefeats <- unique(c(object@assays$RNA@var.features, allNAM.markers))
   scalefeats <- scalefeats[scalefeats %in% row.names(object)]
   output <- Seurat::NormalizeData(object) %>%

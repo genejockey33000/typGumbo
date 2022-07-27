@@ -26,15 +26,19 @@
 #'
 #' @examples
 NAMscore <- function(object) {
+  strPOS.iAstIn <- get0(strPOS.iAstIn, envir = asNamespace("typGumbo"))
   strPOS.iAst <- strPOS.iAstIn[strPOS.iAstIn %in% row.names(object@assays$RNA@scale.data)]
   strPOS.iAst.missing <- strPOS.iAstIn[!(strPOS.iAstIn %in% row.names(object@assays$RNA@scale.data))]
 
+  strPOS.iMGLIn <- get0(strPOS.iMGLIn, envir = asNamespace("typGumbo"))
   strPOS.iMGL <- strPOS.iMGLIn[strPOS.iMGLIn %in% row.names(object@assays$RNA@scale.data)]
   strPOS.iMGL.missing <- strPOS.iMGLIn[!(strPOS.iMGLIn %in% row.names(object@assays$RNA@scale.data))]
 
+  strPOS.iNeuroIn <- get0(strPOS.iNeuroIn, envir = asNamespace("typGumbo"))
   strPOS.iNeuro <- strPOS.iNeuroIn[strPOS.iNeuroIn %in% row.names(object@assays$RNA@scale.data)]
   strPOS.iNeuro.missing <- strPOS.iNeuroIn[!(strPOS.iNeuroIn %in% row.names(object@assays$RNA@scale.data))]
 
+  allNAM.markers <- c(strPOS.iAstIn, strPOS.iMGLIn, strPOS.iNeuroIn)
   sub.object <- object@assays$RNA@scale.data[allNAM.markers,]
 
   cat(length(strPOS.iAst), " out of ",length(strPOS.iAstIn), " Strong positive iAst markers detected \n")
