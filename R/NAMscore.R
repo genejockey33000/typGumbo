@@ -25,6 +25,7 @@
 #' @export
 #'
 #' @examples
+NAMscore <- function(object) {
   strPOS.iAstIn <- c("ROR1","GNG12-AS1","RP11-274H2.2","PLOD2","ADAMTS12","SERPINE1","CAV2","COL5A1","TEAD1","CD44","HMGA2","FRMD6","UACA","MT2A","COL6A2")
   strPOS.iAst <- strPOS.iAstIn[strPOS.iAstIn %in% row.names(object@assays$RNA@scale.data)]
   strPOS.iAst.missing <- strPOS.iAstIn[!(strPOS.iAstIn %in% row.names(object@assays$RNA@scale.data))]
