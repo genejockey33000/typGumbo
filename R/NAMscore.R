@@ -26,7 +26,6 @@
 #'
 #' @examples
 NAMscore <- function(object) {
-  load("R/sysdata.rda")
   strPOS.iAst <- strPOS.iAstIn[strPOS.iAstIn %in% row.names(object@assays$RNA@scale.data)]
   strPOS.iAst.missing <- strPOS.iAstIn[!(strPOS.iAstIn %in% row.names(object@assays$RNA@scale.data))]
 
