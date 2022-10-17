@@ -179,7 +179,9 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
   sheets2 <- readxl::excel_sheets(path = excelfile2)
   for ( i in sheets2 ) {
     temp <- readxl::read_xlsx(path = paste(out.dir,"/", "PCT_FUN_Summary.xlsx", sep = ""), sheet = i, col_names = FALSE)
+
     temp <- temp[,c((ncol(temp)-2):(ncol(temp)))]
+
     n <- rep(i, 3)
     temp <- rbind(n, temp)
 
