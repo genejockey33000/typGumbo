@@ -178,7 +178,6 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
   sheets2 <- readxl::excel_sheets(path = excelfile2)
   for ( i in sheets2 ) {
     temp <- readxl::read_xlsx(path = paste(out.dir,"/", "PCT_FUN_Summary.xlsx", sep = ""), sheet = i, col_names = FALSE)
-    colnames(temp) <- NULL
     temp <- temp[,c((ncol(temp)-2):(ncol(temp)))]
     n <- rep(i, 3)
     temp <- rbind(n, temp)
@@ -195,7 +194,7 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
     }
   }
   colnames(forPrism) <- NULL
-  write.csv(forPrism, file = paste0(out.dir, "/forPrism.csv"), row.names = FALSE)
+  write.table(forPrism, file = paste0(out.dir, "/forPrism.csv"), sep = ",",row.names = FALSE, col.names = FALSE)
 
   ## Convert Prism labels to single character string separated by commas
   VecRow <- function(x) {
