@@ -17,6 +17,7 @@
 #'
 #' @return sleuth object(s)
 #' @export
+#' @importFrom sleuth sleuth_prep
 run.sleuth <- function(in.dir = "results", meta = "meta.csv", level = c("gene")) {
   if (level != "gene" & level != "trans") stop('Please set level = "gene" or level = "trans".')
   path <- file.path(in.dir, dir(in.dir))
