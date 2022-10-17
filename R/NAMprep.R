@@ -8,7 +8,6 @@
 #'
 #' @param object Seurat object
 #'
-#' @return
 #' @importFrom Seurat NormalizeData
 #' @importFrom Seurat FindVariableFeatures
 #' @importFrom Seurat ScaleData

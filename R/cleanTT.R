@@ -6,7 +6,7 @@
 #' @param bcut Cutoff for fold change (z score) significance
 #' @param qcut Cutoff for qvalue (FDR) significance
 #'
-#' @return
+#' @return cleaned test table
 #' @importFrom magrittr %>%
 #' @importFrom dplyr mutate
 #' @export

@@ -5,7 +5,6 @@
 #'
 #' @param x Matrix to be quantile normalized
 #'
-#' @return
 #' @export
 #'
 quantNorm <- function(x) {

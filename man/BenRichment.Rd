@@ -10,9 +10,6 @@ BenRichment(x)
 \item{x}{A dataframe of gene lists in columns. Column names = name of gene list.
 Genes should be standardized gene symbols}
 }
-\value{
-
-}
 \description{
 Gene Ontology Enrichment on data frame of gene symbols
 }

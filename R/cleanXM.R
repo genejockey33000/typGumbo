@@ -12,7 +12,7 @@
 #' @param k Number of samples whose expression need to be higher than A
 #' @param A Expression (measurement) level to target
 #'
-#' @return
+#' @return cleaned expression matrix
 #' @export
 #'
 cleanXM <- function(x, k = 0, A = 0) {

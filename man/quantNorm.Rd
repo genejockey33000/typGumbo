@@ -9,9 +9,6 @@ quantNorm(x)
 \arguments{
 \item{x}{Matrix to be quantile normalized}
 }
-\value{
-
-}
 \description{
 Just a simple wrapper for preprocessCore() which fixes the problem of removed colnames and row.names
 during execution

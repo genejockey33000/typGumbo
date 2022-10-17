@@ -9,9 +9,6 @@ platelabs(plate = 96)
 \arguments{
 \item{plate}{Enter the plate type as number of wells (i.e. 6, 12, 24, 48, 96, 384)}
 }
-\value{
-
-}
 \description{
 Builds a set of labels for diffent tissue culture plate sizes (i.e. A1, A2...). Not rocket science.
 }

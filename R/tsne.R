@@ -24,7 +24,6 @@
 #' @param printwidth Numerical value: png width
 #' @param text Character vector: if we wanted to label the samples with text IDs to look for outliers
 #'
-#' @return
 #' @export
 tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
           seed = FALSE, axistextsize = 18, legendtextsize = 18, dotsize = 5,

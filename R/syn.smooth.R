@@ -26,7 +26,7 @@
 #'     less than 2. Even with this filter off the data will be filtered to remove measurements with pctDeltaF
 #'     greater than 0 (i.e. requires positive fluorescence change)
 #'
-#'@importFrom readxl excel_sheets
+#' @importFrom readxl excel_sheets
 #' @export
 syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
   ## pull the full path names of all the .csv files in the in.dir

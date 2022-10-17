@@ -16,9 +16,6 @@ rCompare(x, title = "add title", pdfName = "output.pdf")
 
 \item{pdfName}{Quoted name of the pdf file to generate as output}
 }
-\value{
-
-}
 \description{
 Overlay Waterfall plot of pos and negative correlations
 Takes output of pairwiseCorrSkew() and generates an inverted

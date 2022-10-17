@@ -19,7 +19,7 @@ gcn(x, nodes = 5, label.size = "medium", circle = FALSE, color.lines = TRUE)
 \item{color.lines}{Logical. Should the lines be colored by gene set? (default=FALSE)}
 }
 \value{
-
+GCN plot
 }
 \description{
 Gene Concept Network Plot

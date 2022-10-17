@@ -13,7 +13,7 @@ mkEnrich(x)
 \item{x}{quoted path to *.csv file containing ONE column of gene names}
 }
 \value{
-
+GO enrichment object
 }
 \description{
 Make Gene Ontology Enrichment Object

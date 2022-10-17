@@ -11,7 +11,6 @@
 #'   matrices will be culled. mat2 will be transposed if necessary.
 #' @param method Type of correlation to perform "pearson" or "spearman"
 #'
-#' @return
 #' @export
 m2mCorrPlot <- function(mat1, mat2, method = "pearson"){
   if (missing(mat2)) {

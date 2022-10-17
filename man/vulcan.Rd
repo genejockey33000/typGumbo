@@ -32,7 +32,7 @@ Default is 0 and prints no labels.}
 \item{labelsize}{Size of labels (from geom_text_repel()). Default = 4}
 }
 \value{
-
+volcano plot
 }
 \description{
 Takes the output of sleuth_results() and generates a volcano plot with relative ease

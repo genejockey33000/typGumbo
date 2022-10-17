@@ -12,7 +12,6 @@
 #' @param type specifies the type of correlations to compute. Spearman correlations are the Pearson linear correlations computed on the ranks of non-missing elements, using midranks for ties.
 #' @param p.adj Method to be used for p value adjustment "BH" default
 #'
-#' @return
 #' @export
 rcorradj <- function (x, y, type = c("pearson", "spearman"), p.adj = "BH")
 {

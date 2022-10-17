@@ -12,7 +12,6 @@
 #'  "cellempty" = replace NA value with empty space
 #'  "cellzero" = replace NA value with numeric zero value
 #'
-#' @return
 #' @export
 #'
 noNANA <- function(x, margin = "rows") {

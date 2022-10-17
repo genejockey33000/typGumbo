@@ -19,9 +19,6 @@ odds2of3(x, y, method = "pearson", iter = 100, p.cutoff = 0.05, pct = 1)
 
 \item{pct}{pct of upper variance to include in comparisons (default = 1 or include all)}
 }
-\value{
-
-}
 \description{
 Highly specialized function to compare whether a set of values in matrix y, are significantly correlated (uncorrected pVal)
 to 2 out of the 3 columns of values supplied in matrix x. Runs through each column in y and correlates with each

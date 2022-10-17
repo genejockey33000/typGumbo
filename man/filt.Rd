@@ -14,7 +14,7 @@ filt(x, k = NULL, A = NULL)
 \item{A}{Target value above which is required in k samples to be retained}
 }
 \value{
-
+K over A filtered data
 }
 \description{
 Just a wrapper for k over A filtering with k being the number of samples

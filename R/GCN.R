@@ -7,7 +7,7 @@
 #' @param circle Logical. Should the plot be constrained to a circle (default=FALSE)
 #' @param color.lines Logical. Should the lines be colored by gene set? (default=FALSE)
 #'
-#' @return
+#' @return GCN plot
 #' @importFrom enrichplot cnetplot
 #' @export
 #'

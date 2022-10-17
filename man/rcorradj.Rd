@@ -18,9 +18,6 @@ If y is omitted for rcorr, x must be a matrix.}
 
 \item{p.adj}{Method to be used for p value adjustment "BH" default}
 }
-\value{
-
-}
 \description{
 This is just Hmisc's rcorr function with two changes
 1) NA in diagonal are replaced with 0's

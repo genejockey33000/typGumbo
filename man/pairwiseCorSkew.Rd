@@ -30,9 +30,6 @@ to remove genes that with noise-level variance then this can be left at 1.}
 \item{iter}{The number of iterations (permutations of x) for NULL distribution generation. If you don't want
 a NULL distribution analysis, set to 0}
 }
-\value{
-
-}
 \description{
 Takes two measurement matrices (generally expression matrices) containing measurements from sets of
 samples to be check for congruence. For example, to compare transcriptomes from stem cell derived

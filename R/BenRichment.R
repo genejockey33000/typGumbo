@@ -5,7 +5,6 @@
 #' @param x A dataframe of gene lists in columns. Column names = name of gene list.
 #'   Genes should be standardized gene symbols
 #'
-#' @return
 #' @export
 BenRichment <- function(x) {
   hits <- list()

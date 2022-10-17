@@ -3,7 +3,6 @@
 #' Builds a set of labels for diffent tissue culture plate sizes (i.e. A1, A2...). Not rocket science.
 #'
 #' @param plate Enter the plate type as number of wells (i.e. 6, 12, 24, 48, 96, 384)
-#' @return
 #' @export
 platelabs <- function(plate = 96) {
   if (!(plate %in% c(6,12,24,48,96,384))) {stop("plate type should be either 6, 12, 24, 48, 96, or 384")}

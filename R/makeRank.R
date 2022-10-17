@@ -12,7 +12,7 @@
 #' @param sig name of column containing significance, not quoted
 #' @param direc name of column containing directionality. b value for DEG or r value for correlation
 #'
-#' @return
+#' @return rank file
 #' @export
 #'
 makeRank <- function(x, fileName, sig, direc) {

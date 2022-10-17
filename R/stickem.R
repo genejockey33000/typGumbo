@@ -10,7 +10,7 @@
 #'   Orientation of mat1 will be the orientation of the output matrix.
 #' @param mat2 matrix 2 containing samples names as either row.names or colnames
 #'
-#' @return
+#' @return combined matrix
 #' @export
 stickem <- function (mat1, mat2) {
   pare.order.rows <- function(x,y) {

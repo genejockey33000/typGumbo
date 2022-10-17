@@ -63,9 +63,6 @@ tsne(
 
 \item{text}{Character vector: if we wanted to label the samples with text IDs to look for outliers}
 }
-\value{
-
-}
 \description{
 This is just a copy of the very nice tsne wrapper from the M3C package which uses the Rtsne
 This is a flexible t-SNE function that can be run on a standard data frame.

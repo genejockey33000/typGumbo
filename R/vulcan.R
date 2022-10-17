@@ -14,7 +14,7 @@
 #' @param pad Padding around label boxes (from geom_text_repel()). Default = 0.25
 #' @param labelsize Size of labels (from geom_text_repel()). Default = 4
 #'
-#' @return
+#' @return volcano plot
 #' @export
 vulcan <- function(x, bcut = .5, qcut = .05, labels = 0, repel = 1, pad = .25, labelsize = 4) {
   d <- cleanTT(x, bcut = bcut, qcut = qcut)

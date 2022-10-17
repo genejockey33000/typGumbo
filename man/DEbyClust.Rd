@@ -16,9 +16,6 @@ any parameter specified in meta.data column that segregated cells into labeled g
 Use quoted column header of comparison, i.e. comp = "treatment" where "treatment" is a
 column header for cells that were "stim." or "vehicle".}
 }
-\value{
-
-}
 \description{
 For analysis within each cluster (or other set of cell group defined in meta.data)
 for DEGs (markers) that are significant between specified comparison.

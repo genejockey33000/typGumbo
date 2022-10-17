@@ -7,7 +7,6 @@
 #' @param title Title of plot (describe the comparison). I.e. "iAstro to Brain"
 #' @param pdfName Quoted name of the pdf file to generate as output
 #'
-#' @return
 #' @export
 #'
 rCompare <- function(x, title="add title", pdfName="output.pdf") {

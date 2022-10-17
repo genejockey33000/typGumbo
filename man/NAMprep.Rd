@@ -15,9 +15,6 @@ NAMprep(object)
 \arguments{
 \item{object}{Seurat object}
 }
-\value{
-
-}
 \description{
 NAM prep
 Running the NAMscore function on a Seurat object uses the scale.data slot

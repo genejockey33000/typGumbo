@@ -9,9 +9,6 @@ noNANAtt(x)
 \arguments{
 \item{x}{sleuth test table from wald test}
 }
-\value{
-
-}
 \description{
 Sleuth Test table filter, removes NA rows and unmapped genes
 }

@@ -13,7 +13,6 @@
 #' @param p.cutoff p value cutoff for determining significance
 #' @param pct pct of upper variance to include in comparisons (default = 1 or include all)
 #'
-#' @return
 #' @export
 odds2of3 <- function(x,y, method = "pearson", iter = 100, p.cutoff = 0.05, pct = 1.0) {
   t1 <- Sys.time()

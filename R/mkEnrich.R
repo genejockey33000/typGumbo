@@ -5,7 +5,7 @@
 #'
 #' @param x quoted path to *.csv file containing ONE column of gene names
 #'
-#' @return
+#' @return GO enrichment object
 #' @importFrom clusterProfiler enrichGO
 #' @export
 mkEnrich <- function(x) {

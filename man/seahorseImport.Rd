@@ -9,9 +9,6 @@ seahorseImport(file = NULL)
 \arguments{
 \item{file}{quoted name of .csv file to import from above process}
 }
-\value{
-
-}
 \description{
 From mito stress test report (.xlsm) which is generated from the Wave software,
  copy and transpose average assay parameters calculations from the "Measures sheet"

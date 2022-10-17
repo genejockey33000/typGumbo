@@ -8,7 +8,7 @@
 #' @param k number of samples that need to be higher than A to pass filter
 #' @param A minimum value to pass filter
 #'
-#' @return
+#' @return filtered matrix
 #' @export
 #'
 chop <- function(x, k = NULL, A = NULL) {

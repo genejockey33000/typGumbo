@@ -12,7 +12,7 @@
 #'   "g2e" = ENSGs and Entrez IDs
 #'   "n2e" = gene names (symbols) and Entrez IDs
 #'
-#' @return
+#' @return specified gene map
 #' @importFrom biomaRt useMart
 #' @importFrom biomaRt getBM
 #' @importFrom dplyr rename

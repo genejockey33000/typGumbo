@@ -19,7 +19,7 @@ Designed to directly convert limma topTable.}
 \item{direc}{name of column containing directionality. b value for DEG or r value for correlation}
 }
 \value{
-
+rank file
 }
 \description{
 Takes comparison table with ENSG IDs as row.names and columns for

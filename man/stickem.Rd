@@ -13,7 +13,7 @@ Orientation of mat1 will be the orientation of the output matrix.}
 \item{mat2}{matrix 2 containing samples names as either row.names or colnames}
 }
 \value{
-
+combined matrix
 }
 \description{
 Two matrices with overlapping samples and different measurements are combined. Matrix supplied as mat1

@@ -13,7 +13,7 @@ flattenCorrMatrix(rcorrOUT)
 \item{rcorrOUT}{Correlation matrix output from rcorr or rcorr adjust}
 }
 \value{
-
+flat matrix
 }
 \description{
 Flat matrix from Hmisc::rcorr list output

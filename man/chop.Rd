@@ -14,7 +14,7 @@ chop(x, k = NULL, A = NULL)
 \item{A}{minimum value to pass filter}
 }
 \value{
-
+filtered matrix
 }
 \description{
 This is a slightly easier and shorter function to run the k over A algorithm.

@@ -7,7 +7,7 @@
 #' @param k Number of samples required to have values over that specified in A
 #' @param A Target value above which is required in k samples to be retained
 #'
-#' @return
+#' @return K over A filtered data
 #' @export
 #'
 filt <- function(x, k = NULL, A = NULL) {

@@ -15,9 +15,6 @@ noNANA(x, margin = "rows")
 "cellempty" = replace NA value with empty space
 "cellzero" = replace NA value with numeric zero value}
 }
-\value{
-
-}
 \description{
 This is just a quicker function to remove any row containing any
 NA value. Note this may be overkill in many cases. I use it for

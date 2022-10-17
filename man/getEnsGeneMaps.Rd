@@ -17,7 +17,7 @@ getEnsGeneMaps(type = c("full", "t2g", "t2n", "g2n", "g2e", "n2e"))
 "n2e" = gene names (symbols) and Entrez IDs}
 }
 \value{
-
+specified gene map
 }
 \description{
 Returns a data frame for mapping specified genetic identifiers.

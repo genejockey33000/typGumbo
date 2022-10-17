@@ -20,7 +20,7 @@ corrdot(mat, x, y, datatype, title, method = "pearson")
 \item{method}{Statistical method for correlation reporting ("pearson" or "spearman")}
 }
 \value{
-
+regression plot with regression line
 }
 \description{
 Make a linear regression dot plot of two vectors in a matrix

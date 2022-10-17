@@ -9,9 +9,6 @@ NAMscore(object)
 \arguments{
 \item{object}{A seurat object}
 }
-\value{
-
-}
 \description{
 Used for assigning cells to original culture when they've been mixed
 (i.e. in triple cultures or in combined monocultures). REQUIRES that

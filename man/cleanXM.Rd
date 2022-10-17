@@ -14,7 +14,7 @@ cleanXM(x, k = 0, A = 0)
 \item{A}{Expression (measurement) level to target}
 }
 \value{
-
+cleaned expression matrix
 }
 \description{
 This is a short pipeline that filters expression matrices based on k over A

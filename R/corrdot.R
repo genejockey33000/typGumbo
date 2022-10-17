@@ -7,7 +7,7 @@
 #' @param title quoted. Title of plot to generate
 #' @param method Statistical method for correlation reporting ("pearson" or "spearman")
 #'
-#' @return
+#' @return regression plot with regression line
 #' @export
 corrdot <- function(mat, x, y, datatype, title, method = "pearson") {
   x1 <- as.numeric(mat[,x])

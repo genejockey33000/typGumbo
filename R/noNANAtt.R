@@ -2,7 +2,6 @@
 #'
 #' @param x sleuth test table from wald test
 #'
-#' @return
 #' @export
 #'
 noNANAtt <- function(x) {

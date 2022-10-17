@@ -8,7 +8,6 @@
 #'
 #' @param file quoted name of .csv file to import from above process
 #'
-#' @return
 #' @export
 seahorseImport <- function(file = NULL) {
   input <- read.csv(file = file)

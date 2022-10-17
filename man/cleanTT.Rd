@@ -14,7 +14,7 @@ cleanTT(x, bcut = 0.5, qcut = 0.05)
 \item{qcut}{Cutoff for qvalue (FDR) significance}
 }
 \value{
-
+cleaned test table
 }
 \description{
 Cleans up test table output from sleuth_results.

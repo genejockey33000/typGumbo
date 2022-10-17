@@ -14,9 +14,6 @@ matrices will be culled. mat2 will be transposed if necessary.}
 
 \item{method}{Type of correlation to perform "pearson" or "spearman"}
 }
-\value{
-
-}
 \description{
 Generates a matrix plot of graphical representations of correlations using either 1 or 2 matrices.
 This is a wrapper for the corrplot function (from the CorrPlot package) that adds the step of combining

@@ -31,7 +31,6 @@
 #' @param iter The number of iterations (permutations of x) for NULL distribution generation. If you don't want
 #'   a NULL distribution analysis, set to 0
 #'
-#' @return
 #' @importFrom dplyr %>%
 #' @importFrom Hmisc rcorr
 #' @export

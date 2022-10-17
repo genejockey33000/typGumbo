@@ -4,7 +4,6 @@
 #'
 #' @param vec Input vector that might have duplicate values
 #'
-#' @return
 #' @export
 allDuplicated <- function(vec){
   front <- duplicated(vec)

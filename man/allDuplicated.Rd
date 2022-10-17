@@ -11,9 +11,6 @@ allDuplicated(vec)
 \arguments{
 \item{vec}{Input vector that might have duplicate values}
 }
-\value{
-
-}
 \description{
 All Duplicated
 Return logical vector marking any value that has a duplication of another value.

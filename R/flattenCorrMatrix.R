@@ -5,7 +5,7 @@
 #'
 #' @param rcorrOUT Correlation matrix output from rcorr or rcorr adjust
 #'
-#' @return
+#' @return flat matrix
 #' @export
 flattenCorrMatrix <- function(rcorrOUT) {
   cormat <- rcorrOUT$r
