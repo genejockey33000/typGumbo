@@ -22,11 +22,11 @@ noNANA <- function(x, margin = "rows") {
   chop <- apply(x, 1, function(x) {sum(is.na(x)) < 1})
   return(x[chop,])
   } else if (margin == "cellempty") {
-    y[is.na(x)] <- ""
-    return(y)
+    x[is.na(x)] <- ""
+    return(x)
   } else if (margin == "cellzero") {
-    y[is.na(x)] <- 0
-    return(y)
+    x[is.na(x)] <- 0
+    return(x)
   } else stop('margin needs to be set to either "rows" (default), "columns", "cellempty", or "cellzero".\n I\'m not a miracle worker')
 
 
