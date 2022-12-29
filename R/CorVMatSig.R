@@ -1,7 +1,8 @@
 #' Correlate vector to matrix and test significance
 #'
-#' Correlate Vector to rows in a  matrix and determine significance against a NULL distribution. Input vector (x)
-#'  is a named vector that corresponds to row.names in matrix (y). Correlations between
+#' Correlate Named Vector to similarly named columns in a  matrix and determine probability of seeing
+#' that number of significant correlations relative to a NULL distribution. Input vector (x)
+#'  is a named vector that corresponds to colnames in matrix (y). Correlations between
 #'
 #' @param x Named Vector to be correlated with matrix y
 #' @param y Matrix with compatible names as vector x
