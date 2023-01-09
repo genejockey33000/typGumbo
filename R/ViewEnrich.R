@@ -7,6 +7,6 @@
 #' @export
 #'
 ViewEnrich <- function(x) {
-  out <- as.data.frame(x@result)
-  View(out[,c(1,3,4,8,9)])
+  quickView <- as.data.frame(x@result[,c(1,3,4,8,9)])
+  View(quickView)
 }
