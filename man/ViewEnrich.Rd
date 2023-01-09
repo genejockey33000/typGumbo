@@ -5,10 +5,15 @@
 \title{View GO Enrichment Results
   simple viewer of significantly enriched pathways that are output from mkEnrich()}
 \usage{
-ViewEnrich(x)
+ViewEnrich(x, view = "best.qvals")
 }
 \arguments{
 \item{x}{Output object from mkEnrich()}
+
+\item{view}{What to focus on for this view. One of "best.qvals" (default),
+"best.CCs" (most sig. in Cellular category)
+"best.BPs" (most sig. in Biological Process category)
+"best.MFs" (most sig. in Molecular Function category)}
 }
 \value{
 Streamlined version of results from mkEnrich object
