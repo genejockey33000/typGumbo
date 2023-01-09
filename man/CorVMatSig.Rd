@@ -20,6 +20,7 @@ CorVMatSig(x, y, method = "pearson", iter = 100, p.cutoff = 0.05, pct = 1)
 \item{pct}{percentage upper variance to use}
 }
 \description{
-Correlate Vector to rows in a  matrix and determine significance against a NULL distribution. Input vector (x)
- is a named vector that corresponds to row.names in matrix (y). Correlations between
+Correlate Named Vector to similarly named columns in a  matrix and determine probability of seeing
+that number of significant correlations relative to a NULL distribution. Input vector (x)
+ is a named vector that corresponds to colnames in matrix (y). Correlations between
 }

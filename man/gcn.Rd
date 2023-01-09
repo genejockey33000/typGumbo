@@ -5,7 +5,14 @@
 \title{Gene Concept Network Plot
 Simple generator of gene concept network plots using enrichment object}
 \usage{
-gcn(x, nodes = 5, label.size = "medium", circle = FALSE, color.lines = TRUE)
+gcn(
+  x,
+  nodes = 5,
+  label.size = "medium",
+  category.labels = TRUE,
+  circle = FALSE,
+  color.lines = TRUE
+)
 }
 \arguments{
 \item{x}{enrichment object output from running mkEnrich}
@@ -13,6 +20,8 @@ gcn(x, nodes = 5, label.size = "medium", circle = FALSE, color.lines = TRUE)
 \item{nodes}{number of nodes (enriched pathways) to plot. default is 4}
 
 \item{label.size}{How large to make the gene labels (none, teeny, small, medium, large)}
+
+\item{category.labels}{LOGICAL. Should category (i.e. node or module labels) be printed (default=TRUE)}
 
 \item{circle}{Logical. Should the plot be constrained to a circle (default=FALSE)}
 
