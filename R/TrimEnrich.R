@@ -8,6 +8,7 @@
 #' @param x Output object from mkEnrich() function
 #' @param modules Row numbers (indices) of pathways to keep
 #'
+#' @return Modified enrichResult only including indicated modules
 #' @export
 #'
 TrimEnrich <- function(x, modules=NULL) {

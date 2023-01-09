@@ -10,6 +10,9 @@ ViewEnrich(x)
 \arguments{
 \item{x}{Output object from mkEnrich()}
 }
+\value{
+Streamlined version of results from mkEnrich object
+}
 \description{
 View GO Enrichment Results
   simple viewer of significantly enriched pathways that are output from mkEnrich()

@@ -11,6 +11,9 @@ TrimEnrich(x, modules = NULL)
 
 \item{modules}{Row numbers (indices) of pathways to keep}
 }
+\value{
+Modified enrichResult only including indicated modules
+}
 \description{
 Many of the enriched pathways from GO enrichment are highly overlapping.
 i.e. BC: Ribosome and BP Ribosome Function, etc.

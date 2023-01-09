@@ -3,6 +3,7 @@
 #'
 #' @param x Output object from mkEnrich()
 #'
+#' @return Streamlined version of results from mkEnrich object
 #' @export
 #'
 ViewEnrich <- function(x) {
