@@ -2,7 +2,8 @@
 #'   simple viewer of significantly enriched pathways that are output from mkEnrich()
 #'
 #' @param x Output object from mkEnrich()
-#' @param view What to focus on for this view. One of "best.qvals" (default),
+#' @param view What to focus on for this view. One of "native" (default),
+#'   "best.qvals" (most sig. qvalues)
 #'   "best.CCs" (most sig. in Cellular category)
 #'   "best.BPs" (most sig. in Biological Process category)
 #'   "best.MFs" (most sig. in Molecular Function category)
@@ -10,8 +11,12 @@
 #' @return Streamlined version of results from mkEnrich object
 #' @export
 #'
-ViewEnrich <- function(x, view = "best.qvals") {
+ViewEnrich <- function(x, view = "native") {
+  if (!(view %in% c("native","best.qvals","best.CCs","best.BPs","best.MFs"))) {stop(
+    "view should be one of ('best.qvals','best.CCs','best.BPs','best.MFs')"
+  )}
   quickView <- as.data.frame(x@result[,c(1,3,4,8,9)])
+
   quickView <- quickView[order(quickView$qvalue),]
   if (view == "best.CCs") {
     quickView <- quickView[grepl(pattern = "CC", quickView$ONTOLOGY),]

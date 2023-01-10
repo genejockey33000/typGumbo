@@ -13,7 +13,8 @@
 #'
 TrimEnrich <- function(x, modules=NULL) {
   if (is.null(modules)){stop("Please specify the indices (row numbers) of the modules you want to trim to m'kay?")}
-  result <- x@result[modules,]
+  keepers <- paste0("GO:",  modules)
+  result <- x@result[row.names(x@result) %in% keepers,]
   x@result <- result
   return(x)
 }
