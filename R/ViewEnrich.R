@@ -17,8 +17,11 @@ ViewEnrich <- function(x, view = "native") {
   )}
   quickView <- as.data.frame(x@result[,c(1,3,4,8,9)])
 
+  if (view == "native") {
+    quickView <- quickView
+  } else if (view == "best.qvals"){
   quickView <- quickView[order(quickView$qvalue),]
-  if (view == "best.CCs") {
+  } else if (view == "best.CCs") {
     quickView <- quickView[grepl(pattern = "CC", quickView$ONTOLOGY),]
   } else if (view == "best.BPs") {
     quickView <- quickView[grepl(pattern = "BP", quickView$ONTOLOGY),]
