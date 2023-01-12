@@ -4,15 +4,17 @@
 \alias{TrimEnrich}
 \title{Trim mkEnrich() results}
 \usage{
-TrimEnrich(x, modules = NULL)
+TrimEnrich(x, terms = NULL)
 }
 \arguments{
 \item{x}{Output object from mkEnrich() function}
 
-\item{modules}{Row numbers (indices) of pathways to keep}
+\item{terms}{Terms in pathways to keep. Can use multiple terms separated by pipes.
+i.e. "synapse|amyloid|insulin" will subset to include only terms with one of those
+names in the description. Not sensitive to case.}
 }
 \value{
-Modified enrichResult only including indicated modules
+Modified enrichResult only including indicated terms
 }
 \description{
 Many of the enriched pathways from GO enrichment are highly overlapping.

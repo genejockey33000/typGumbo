@@ -6,15 +6,15 @@
 #' redundant enriched pathways.
 #'
 #' @param x Output object from mkEnrich() function
-#' @param modules Row numbers (indices) of pathways to keep
-#'
-#' @return Modified enrichResult only including indicated modules
+#' @param terms Terms in pathways to keep. Can use multiple terms separated by pipes.
+#'    i.e. "synapse|amyloid|insulin" will subset to include only terms with one of those
+#'    names in the description. Not sensitive to case.
+#' @return Modified enrichResult only including indicated terms
 #' @export
 #'
-TrimEnrich <- function(x, modules=NULL) {
-  if (is.null(modules)){stop("Please specify the indices (row numbers) of the modules you want to trim to m'kay?")}
-  keepers <- paste0("GO:",  modules)
-  result <- x@result[row.names(x@result) %in% keepers,]
+TrimEnrich <- function(x, terms=NULL) {
+  if (is.null(terms)){stop("Please specify the terms you want to trim to m'kay?")}
+  result <- x@result[x@result$Description[grepl(terms, x@result$Description, ignore.case = TRUE)],]
   x@result <- result
   return(x)
 }
