@@ -7,12 +7,14 @@ Simple script that uses clusterProfiler to generate GO enrichment object
 Outputted object can be fed into downstream functions like gene concept network plots
 Can take a bit of time to run}
 \usage{
-mkEnrich(x, ont = "ALL", qvalueCutoff = 0.01)
+mkEnrich(x, db = "GO", GOont = "ALL", qvalueCutoff = 0.01)
 }
 \arguments{
 \item{x}{quoted path to *.csv file containing ONE column of gene names}
 
-\item{ont}{Enter one of "ALL" (default), "BP", "MF", "CC"}
+\item{db}{One of "GO" (default), or "Reactome". May add more later.}
+
+\item{GOont}{Enter one of "ALL" (default), "BP", "MF", "CC"}
 
 \item{qvalueCutoff}{Highest qvalue returned (default = .01)}
 }
