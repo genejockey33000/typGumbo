@@ -15,7 +15,7 @@ ViewEnrich <- function(x, view = "native") {
   if (!(view %in% c("native","best.qvals","best.CCs","best.BPs","best.MFs"))) {stop(
     "view should be one of ('best.qvals','best.CCs','best.BPs','best.MFs')"
   )}
-  quickView <- as.data.frame(x@result[,(colnames(x@result) %in% c("ID", "Description", "GeneRatio", "qvalue", "geneID"))])
+  quickView <- as.data.frame(x@result[,(colnames(x@result) %in% c("ONTOLOGY","ID", "Description", "GeneRatio", "qvalue", "geneID"))])
 
   if (view == "native") {
     quickView <- quickView
