@@ -17,9 +17,6 @@ mkEnrich <- function(x, db = "GO",GOont = "ALL", qvalueCutoff = 0.01) {
   if (db == "Reactome") {
     input <- clusterProfiler::bitr(input, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = "org.Hs.eg.db")
     output <- ReactomePA::enrichPathway(input$ENTREZID, qvalueCutoff = qvalueCutoff, readable = TRUE)
-    temp <- as.data.frame(output@result)
-    temp <- temp[temp$qvalue < qvalueCutoff,]
-    output$result <- temp
   } else {
   output <- clusterProfiler::enrichGO(input, OrgDb = "org.Hs.eg.db", ont=GOont, keyType = "SYMBOL", qvalueCutoff = qvalueCutoff)
   }
