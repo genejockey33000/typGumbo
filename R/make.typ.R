@@ -10,7 +10,7 @@
 #'
 #' @return object of class 'typ'
 #' @export
-#' @import sleuth
+#' @importFrom sleuth sleuth_to_matrix
 make.typ <- function(x, type = "gene", meta = NULL, regress = NULL) {
   output <- list()
   if (!("sleuth" %in% class(x))) {
