@@ -4,6 +4,7 @@
 #'
 #' @param x A dataframe of gene lists in columns. Column names = name of gene list.
 #'   Genes should be standardized gene symbols
+#'   @importFrom mygene queryMany
 #'
 #' @export
 BenRichment <- function(x) {
@@ -13,7 +14,7 @@ BenRichment <- function(x) {
     geneset.name <- colnames(x)[i]
     geneset <- unique(x[,i])
     geneset <- geneset[geneset != ""]
-    cat("Mapping",nrow(input)," genes to entrez gene IDs\n")
+    cat("Mapping",nrow(geneset)," genes to entrez gene IDs\n")
     entrez <- data.frame(queryMany(geneset, scopes = 'symbol', fields = c('entrezgene'), species = 'human'), size = 1)
     hits[[geneset.name]] <- unique(entrez$entrezgene)[!(is.na(entrez$entrezgene))]
   }

@@ -11,10 +11,12 @@
 #'   matrices will be culled. mat2 will be transposed if necessary.
 #' @param method Type of correlation to perform "pearson" or "spearman"
 #'
+#' @importFrom Hmisc rcorr
+#'
 #' @export
 m2mCorrPlot <- function(mat1, mat2, method = "pearson"){
   if (missing(mat2)) {
-    cmat.cor <- Hmisc::rcorr(mat1, type = method)
+    cmat.cor <- rcorr(mat1, type = method)
     cmat.cor$P[is.na(cmat.cor$P)] <- 0
   } else {
     cmat <- stickem(mat1, mat2)

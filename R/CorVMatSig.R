@@ -11,6 +11,8 @@
 #' @param p.cutoff p value cutoff for determining significance
 #' @param pct percentage upper variance to use
 #'
+#' @importFrom Hmisc rcorr
+#'
 #' @export
 #'
 CorVMatSig <- function(x,y, method = "pearson", iter = 100, p.cutoff = 0.05, pct = 1.0) {
@@ -28,7 +30,7 @@ CorVMatSig <- function(x,y, method = "pearson", iter = 100, p.cutoff = 0.05, pct
     rval <- NULL
     pval <- NULL
     for (j in 1:ncol(y))  {
-      output <- Hmisc::rcorr(x, y[,j], type = method)
+      output <- rcorr(x, y[,j], type = method)
       pval <- c(pval, output$P[1,2])
       rval <- c(rval, output$r[1,2])
     }

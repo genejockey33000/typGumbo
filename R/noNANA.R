@@ -28,6 +28,4 @@ noNANA <- function(x, margin = "rows") {
     x[is.na(x)] <- 0
     return(x)
   } else stop('margin needs to be set to either "rows" (default), "columns", "cellempty", or "cellzero".\n I\'m not a miracle worker')
-
-
 }

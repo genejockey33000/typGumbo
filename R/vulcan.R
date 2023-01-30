@@ -15,6 +15,8 @@
 #' @param labelsize Size of labels (from geom_text_repel()). Default = 4
 #'
 #' @return volcano plot
+#' @import ggplot2
+#' @import ggrepel
 #' @export
 vulcan <- function(x, bcut = .5, qcut = .05, labels = 0, repel = 1, pad = .25, labelsize = 4) {
   d <- cleanTT(x, bcut = bcut, qcut = qcut)
