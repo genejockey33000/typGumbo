@@ -1,13 +1,13 @@
-#' NAM (iN, iAst, iMGL) Score Generator
+#' NAM (iN, Ast, iMGL) Score Generator
 #'
 #' Used for assigning cells to original culture when they've been mixed
 #' (i.e. in triple cultures or in combined monocultures). REQUIRES that
 #' ScaleData() has been applied to ALL features (not just most variable).
 #' NAMprep() function can be used for that purpose if necessary.
-#' NAMscore assigns an iN, iAst, and a iMGL score value for each cell.
+#' NAMscore assigns an iN, Ast, and a iMGL score value for each cell.
 #' Input is a Seurat object and output is a Seurat object with altered metadata
-#' that includes 4 new columns. The 3 scores (iN.score, iAst.score, and iMGL.score)
-#' and a "NAM.bin" column that assigns each cell to predicted culture (iN, iAst, or iMGL)
+#' that includes 4 new columns. The 3 scores (iN.score, Ast.score, and iMGL.score)
+#' and a "NAM.bin" column that assigns each cell to predicted culture (iN, Ast, or iMGL)
 #' or as "unk". Returned Seurat object has "NAM.bin" set as active.ident
 #' So running DimPlot(object) will display active reduction (probably UMAP)
 #' colored by NAM.bin
@@ -15,8 +15,11 @@
 #' i.e.
 #' object <- SetIdent(object, value = "seurat_clusters")
 #'
-#' Note that the markers for iNs, iAst, and iMGLs have been hard coded and are derived from
-#' scRNAseq of independent iAst, iNs, and iMGL cultures where identities were overtly known.
+#' Note that the markers used for Neurons, Astrocytes, and Microglia are derived from
+#' snRNAseq of independent DSEB-Astros, Ngn2 induced iNs, and Blurton-Jones protocol iMGL
+#' all were monocultures run on separate 10x wells thus the identities were clearly known.
+#' Genetic background for all three cultures was BR24 (XX, LPNCI, APOE(E3/E3), 90yo)
+#' For code generating the positive markers look in "22_0628_ipsc_runs_Dropbox/SC.SN.compare.R"
 #' Strong Positives were defined be being >= 90% of cell type of interest and <= 10% of other cells.
 #'
 #' @param object A seurat object
@@ -24,9 +27,9 @@
 #' @export
 #'
 NAMscore <- function(object) {
-  strPOS.iAstIn <- c("ROR1","GNG12-AS1","RP11-274H2.2","PLOD2","ADAMTS12","SERPINE1","CAV2","COL5A1","TEAD1","CD44","HMGA2","FRMD6","UACA","MT2A","COL6A2")
-  strPOS.iAst <- strPOS.iAstIn[strPOS.iAstIn %in% row.names(object@assays$RNA@scale.data)]
-  strPOS.iAst.missing <- strPOS.iAstIn[!(strPOS.iAstIn %in% row.names(object@assays$RNA@scale.data))]
+  strPOS.AstIn <- c("ROR1","GNG12-AS1","RP11-274H2.2","PLOD2","ADAMTS12","SERPINE1","CAV2","COL5A1","TEAD1","CD44","HMGA2","FRMD6","UACA","MT2A","COL6A2")
+  strPOS.Ast <- strPOS.AstIn[strPOS.AstIn %in% row.names(object@assays$RNA@scale.data)]
+  strPOS.Ast.missing <- strPOS.AstIn[!(strPOS.AstIn %in% row.names(object@assays$RNA@scale.data))]
 
   strPOS.iMGLIn <- c("PTPRC","DOCK8","SYK","APBB1IP","ALOX5AP", "ATP8B4","RUNX3","CD74","HLA-DRA")
   strPOS.iMGL <- strPOS.iMGLIn[strPOS.iMGLIn %in% row.names(object@assays$RNA@scale.data)]
@@ -38,12 +41,12 @@ NAMscore <- function(object) {
   strPOS.iNeuro <- strPOS.iNeuroIn[strPOS.iNeuroIn %in% row.names(object@assays$RNA@scale.data)]
   strPOS.iNeuro.missing <- strPOS.iNeuroIn[!(strPOS.iNeuroIn %in% row.names(object@assays$RNA@scale.data))]
 
-  allNAM.markers <- c(strPOS.iAstIn, strPOS.iMGLIn, strPOS.iNeuroIn)
+  allNAM.markers <- c(strPOS.AstIn, strPOS.iMGLIn, strPOS.iNeuroIn)
   allNAM.markers <- allNAM.markers[allNAM.markers %in% row.names(object)]
   sub.object <- object@assays$RNA@scale.data[allNAM.markers,]
 
-  cat(length(strPOS.iAst), " out of ",length(strPOS.iAstIn), " Strong positive iAst markers detected \n")
-  if (length(strPOS.iAst) != length(strPOS.iAstIn)) {cat(strPOS.iAst.missing, "--not detected \n")}
+  cat(length(strPOS.Ast), " out of ",length(strPOS.AstIn), " Strong positive Ast markers detected \n")
+  if (length(strPOS.Ast) != length(strPOS.AstIn)) {cat(strPOS.Ast.missing, "--not detected \n")}
   cat("\n",length(strPOS.iMGL), " out of ",length(strPOS.iMGLIn), " Strong positive iMGL markers detected \n")
   if (length(strPOS.iMGL) != length(strPOS.iMGLIn)) {cat(strPOS.iMGL.missing, "--not detected \n")}
   cat("\n",length(strPOS.iNeuro), " out of ",length(strPOS.iNeuroIn), " Strong positive iN markers detected \n")
@@ -55,27 +58,27 @@ NAMscore <- function(object) {
     return(featureset.score)
   }
   output <- object
-  iAst.strength <- FeatureSetScore(sub.object = sub.object, features = strPOS.iAst)
+  Ast.strength <- FeatureSetScore(sub.object = sub.object, features = strPOS.Ast)
   iMGL.strength <- FeatureSetScore(sub.object = sub.object, features = strPOS.iMGL)
   iN.strength <- FeatureSetScore(sub.object = sub.object, features = strPOS.iNeuro)
 
-  iAst.score <- iAst.strength / (iMGL.strength + iN.strength)
-  iMGL.score <- iMGL.strength / (iAst.strength + iN.strength)
-  iN.score <- iN.strength / (iAst.strength + iMGL.strength)
+  Ast.score <- Ast.strength / (iMGL.strength + iN.strength)
+  iMGL.score <- iMGL.strength / (Ast.strength + iN.strength)
+  iN.score <- iN.strength / (Ast.strength + iMGL.strength)
 
-  iAst.tru <- iAst.score > 2
+  Ast.tru <- Ast.score > 2
   iMGL.tru <- iMGL.score > 2
   iN.tru <- iN.score > 2
-  combo <- cbind(iAst.tru, iMGL.tru, iN.tru)
+  combo <- cbind(Ast.tru, iMGL.tru, iN.tru)
 
-  guess <- rep("unk", length(iAst.score))
-  guess[iAst.score > 2 & iN.score < 1 & iMGL.score < 1] <- "iAst"
-  guess[iMGL.score > 2 & iN.score < 1 & iAst.score < 1] <- "iMGL"
-  guess[iN.score > 2 & iAst.score < 1 & iMGL.score < 1] <- "iN"
-  guess <- factor(guess, levels = c("iN", "iAst", "iMGL", "unk"))
+  guess <- rep("unk", length(Ast.score))
+  guess[Ast.score > 2 & iN.score < 1 & iMGL.score < 1] <- "Ast"
+  guess[iMGL.score > 2 & iN.score < 1 & Ast.score < 1] <- "iMGL"
+  guess[iN.score > 2 & Ast.score < 1 & iMGL.score < 1] <- "iN"
+  guess <- factor(guess, levels = c("iN", "Ast", "iMGL", "unk"))
 
 
-  output[["iAst.score"]] <- iAst.score
+  output[["Ast.score"]] <- Ast.score
   output[["iMGL.score"]] <- iMGL.score
   output[["iN.score"]] <- iN.score
   output[["NAM.bin"]] <- guess
