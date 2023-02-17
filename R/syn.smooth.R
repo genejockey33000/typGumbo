@@ -210,5 +210,5 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
   }
 
   labelsPzm <- VecRow(sheets2)
-  write.table(labelsPzm, file = paste0(out.dir, "/lablesForPrism.csv"), quote = FALSE, sep = "", row.names = FALSE, col.names = FALSE)
+  write.table(labelsPzm, file = paste0(out.dir, "/labelsForPrism.csv"), quote = FALSE, sep = "", row.names = FALSE, col.names = FALSE)
 }
