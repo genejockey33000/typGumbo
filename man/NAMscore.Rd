@@ -2,7 +2,7 @@
 % Please edit documentation in R/NAMscore.R
 \name{NAMscore}
 \alias{NAMscore}
-\title{NAM (iN, iAst, iMGL) Score Generator}
+\title{NAM (iN, Ast, iMGL) Score Generator}
 \usage{
 NAMscore(object)
 }
@@ -14,10 +14,10 @@ Used for assigning cells to original culture when they've been mixed
 (i.e. in triple cultures or in combined monocultures). REQUIRES that
 ScaleData() has been applied to ALL features (not just most variable).
 NAMprep() function can be used for that purpose if necessary.
-NAMscore assigns an iN, iAst, and a iMGL score value for each cell.
+NAMscore assigns an iN, Ast, and a iMGL score value for each cell.
 Input is a Seurat object and output is a Seurat object with altered metadata
-that includes 4 new columns. The 3 scores (iN.score, iAst.score, and iMGL.score)
-and a "NAM.bin" column that assigns each cell to predicted culture (iN, iAst, or iMGL)
+that includes 4 new columns. The 3 scores (iN.score, Ast.score, and iMGL.score)
+and a "NAM.bin" column that assigns each cell to predicted culture (iN, Ast, or iMGL)
 or as "unk". Returned Seurat object has "NAM.bin" set as active.ident
 So running DimPlot(object) will display active reduction (probably UMAP)
 colored by NAM.bin
@@ -26,7 +26,10 @@ i.e.
 object <- SetIdent(object, value = "seurat_clusters")
 }
 \details{
-Note that the markers for iNs, iAst, and iMGLs have been hard coded and are derived from
-scRNAseq of independent iAst, iNs, and iMGL cultures where identities were overtly known.
+Note that the markers used for Neurons, Astrocytes, and Microglia are derived from
+snRNAseq of independent DSEB-Astros, Ngn2 induced iNs, and Blurton-Jones protocol iMGL
+all were monocultures run on separate 10x wells thus the identities were clearly known.
+Genetic background for all three cultures was BR24 (XX, LPNCI, APOE(E3/E3), 90yo)
+For code generating the positive markers look in "22_0628_ipsc_runs_Dropbox/SC.SN.compare.R"
 Strong Positives were defined be being >= 90% of cell type of interest and <= 10% of other cells.
 }

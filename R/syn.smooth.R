@@ -1,9 +1,9 @@
 #' Synaptic Smoothing pipeline
 #'
 #' A highly specialized pipeline for processing synaptic vesicle release assay results.
-#' It takes in a directory containing .csv files in a very specific TPP format (Tracy's Proprietary Processing)
+#' It takes in a directory containing an excel file (.xlsx) in a very specific TPP format (Tracy's Proprietary Processing)
 #' and returns a set of processed csvs for each assay along with an excel file containing a
-#' summary of the results and some analytics. Input csv's from excel file should have 5 header metrics rows from row 1 they
+#' summary of the results and some analytics. Each sheet from the input excel file should have 5 header rows from row 1 they
 #' must be 1) F0 (average starting fluorescence), 2) Fstim (average stim fluorescence), 3) Fun (max unquenched fluro), 4) FC_Fun-F0 (fold change of
 #' unquenched max relative to baseline(F0)), and 5) deltaF (increase in fluor in stimulated vs. F0). First column (under metrics labels)
 #' must be a space (extra column) for time values. The script will remove this column and if it contains data rather than
@@ -15,8 +15,9 @@
 #'
 #'
 #'
-#' @param in.dir directory where all input .csv files are located. Omit trailing slash.
-#'     i.e. in.dir = "LViN15", or in.dir = "LViN15/results"
+#' @param in.dir directory where all input .csv files are located.
+#'     i.e. in.dir = "LViN15", or in.dir = "LViN15/results". Can also enter path directly
+#'     to excel file i.e. in.dir = "LViN15/LViN15.xlsx"
 #' @param csv Logical. Indicate whether you want to write .csv files to output directory
 #' @param xlsx Logical. Indicate whether you want to write .xlsx file with separate sheets
 #'     for each output matrix to output directory. NOTE: this uses the xlsx::write.xlsx function
@@ -30,8 +31,17 @@
 #' @export
 syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
   ## pull the full path names of all the .csv files in the in.dir
-  files <- dir(in.dir, full.names = TRUE)
-  excelfile <- files[grepl(pattern = ".xlsx", files)]
+  if (grepl(".xlsx", in.dir) | grepl(".xls", in.dir)) {
+    #if (grepl("^/", in.dir)) stop("\nYou entered an absolute path to your excel file but I'm afraid I need a relative path with no leading slash. \nE.g. 'input/RVPiN/RVPiN01/RVPiN01.xlsx' rather than '/Users/username/Documents/analysis...' ")
+    excelfile <- in.dir
+    in.dir <- dirname(in.dir)
+  } else {
+    #if (grepl("^/", in.dir)) stop("\nYou entered an absolute path to your input directory but I'm afraid I need a relative path (relative to working directory), with no leading slash. \nE.g. 'input/RVPiN/RVPiN01' rather than '/Users/username/Documents/analysis/syn.rel/input/RVPiN/RVPiN01' ")
+    if (grepl("/$", in.dir)) {
+      in.dir <- gsub("/$", "", in.dir)}
+    files <- dir(in.dir, full.names = TRUE)
+    excelfile <- files[grepl(pattern = ".xlsx", files)]
+  }
   sheets <- readxl::excel_sheets(excelfile)
 
   trimMatMess <- function(x) {

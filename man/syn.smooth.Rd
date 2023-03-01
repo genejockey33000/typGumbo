@@ -7,8 +7,9 @@
 syn.smooth(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE)
 }
 \arguments{
-\item{in.dir}{directory where all input .csv files are located. Omit trailing slash.
-i.e. in.dir = "LViN15", or in.dir = "LViN15/results"}
+\item{in.dir}{directory where all input .csv files are located.
+i.e. in.dir = "LViN15", or in.dir = "LViN15/results". Can also enter path directly
+to excel file i.e. in.dir = "LViN15/LViN15.xlsx"}
 
 \item{csv}{Logical. Indicate whether you want to write .csv files to output directory}
 
@@ -23,9 +24,9 @@ greater than 0 (i.e. requires positive fluorescence change)}
 }
 \description{
 A highly specialized pipeline for processing synaptic vesicle release assay results.
-It takes in a directory containing .csv files in a very specific TPP format (Tracy's Proprietary Processing)
+It takes in a directory containing an excel file (.xlsx) in a very specific TPP format (Tracy's Proprietary Processing)
 and returns a set of processed csvs for each assay along with an excel file containing a
-summary of the results and some analytics. Input csv's from excel file should have 5 header metrics rows from row 1 they
+summary of the results and some analytics. Each sheet from the input excel file should have 5 header rows from row 1 they
 must be 1) F0 (average starting fluorescence), 2) Fstim (average stim fluorescence), 3) Fun (max unquenched fluro), 4) FC_Fun-F0 (fold change of
 unquenched max relative to baseline(F0)), and 5) deltaF (increase in fluor in stimulated vs. F0). First column (under metrics labels)
 must be a space (extra column) for time values. The script will remove this column and if it contains data rather than
