@@ -32,16 +32,19 @@
 syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
   ## pull the full path names of all the .csv files in the in.dir
   if (grepl(".xlsx", in.dir) | grepl(".xls", in.dir)) {
-    #if (grepl("^/", in.dir)) stop("\nYou entered an absolute path to your excel file but I'm afraid I need a relative path with no leading slash. \nE.g. 'input/RVPiN/RVPiN01/RVPiN01.xlsx' rather than '/Users/username/Documents/analysis...' ")
     excelfile <- in.dir
     in.dir <- dirname(in.dir)
   } else {
-    #if (grepl("^/", in.dir)) stop("\nYou entered an absolute path to your input directory but I'm afraid I need a relative path (relative to working directory), with no leading slash. \nE.g. 'input/RVPiN/RVPiN01' rather than '/Users/username/Documents/analysis/syn.rel/input/RVPiN/RVPiN01' ")
     if (grepl("/$", in.dir)) {
       in.dir <- gsub("/$", "", in.dir)}
     files <- dir(in.dir, full.names = TRUE)
     excelfile <- files[grepl(pattern = ".xlsx", files)]
   }
+  if (!(dir.exists(in.dir))) stop("
+  \nso ummm.  here's the thing... \nthat directory doesn't actually exist on your machine. \nmaybe you put a leading slash in front of a relative path?\n
+I mean I don't know what you did but I don't think that directory is there. \n
+Try again?\n
+With an actual existing path?")
   sheets <- readxl::excel_sheets(excelfile)
 
   trimMatMess <- function(x) {
