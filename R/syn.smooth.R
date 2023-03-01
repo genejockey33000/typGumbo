@@ -41,10 +41,12 @@ syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
     excelfile <- files[grepl(pattern = ".xlsx", files)]
   }
   if (!(dir.exists(in.dir))) stop("
-  \nso ummm.  here's the thing... \nthat directory doesn't actually exist on your machine. \nmaybe you put a leading slash in front of a relative path?\n
-I mean I don't know what you did but I don't think that directory is there. \n
+  \nso ummm.  here's the thing... \nthat directory that you specified in in.dir doesn't actually exist on your machine.
+I know, right?   I'm as shocked as you are right now.
+maybe you put a leading slash in front of a relative path?\n
+honestly I don't know what you did but I don't think that directory is there. \n
 Try again?\n
-With an actual existing path?")
+With an actual existing directory path?")
   sheets <- readxl::excel_sheets(excelfile)
 
   trimMatMess <- function(x) {
