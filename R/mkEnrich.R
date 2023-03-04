@@ -13,7 +13,7 @@
 #' @importFrom clusterProfiler bitr
 #' @importFrom clusterProfiler enrichGO
 #' @importFrom ReactomePA enrichPathway
-#' @importFrom Matrix index
+#' @importClassesFrom Matrix index
 #' @export
 mkEnrich <- function(csv, db = "GO", GOont = "ALL", qvalueCutoff = 0.01) {
 
