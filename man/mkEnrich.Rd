@@ -2,7 +2,11 @@
 % Please edit documentation in R/mkEnrich.R
 \name{mkEnrich}
 \alias{mkEnrich}
-\title{Make Gene Ontology Enrichment Object}
+\title{Make Gene Ontology Enrichment Object
+Simple script that uses clusterProfiler to generate GO enrichment object.
+Takes single column .csv file of gene symbols (i.e. "MAPT", "NEUROG2") as input (no column header).
+Outputted object can be fed into downstream functions like gene concept network plots
+Can take a bit of time to run.}
 \usage{
 mkEnrich(csv, db = "GO", GOont = "ALL", qvalueCutoff = 0.01)
 }
@@ -19,6 +23,7 @@ mkEnrich(csv, db = "GO", GOont = "ALL", qvalueCutoff = 0.01)
 GO enrichment object
 }
 \description{
+Make Gene Ontology Enrichment Object
 Simple script that uses clusterProfiler to generate GO enrichment object.
 Takes single column .csv file of gene symbols (i.e. "MAPT", "NEUROG2") as input (no column header).
 Outputted object can be fed into downstream functions like gene concept network plots
