@@ -14,6 +14,7 @@
 #' @importFrom clusterProfiler bitr
 #' @importFrom clusterProfiler enrichGO
 #' @importFrom ReactomePA enrichPathway
+#' @importFrom Matrix index
 #' @export
 mkEnrich <- function(csv, db = "GO", GOont = "ALL", qvalueCutoff = 0.01) {
   if (db %in% c("Reactome", "GO")) {

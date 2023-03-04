@@ -29,6 +29,7 @@ Imports:
     clusterProfiler,
     enrichplot,
     ReactomePA,
+    Matrix,
     readxl,
     Seurat
 RoxygenNote: 7.2.3
