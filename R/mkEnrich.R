@@ -1,5 +1,6 @@
-#' Make Gene Ontology Enrichment Object
-#' Simple script that uses clusterProfiler to generate GO enrichment object.
+#' @title Make Gene Ontology Enrichment Object
+#'
+#' @description Simple script that uses clusterProfiler to generate GO enrichment object.
 #' Takes single column .csv file of gene symbols (i.e. "MAPT", "NEUROG2") as input (no column header).
 #' Outputted object can be fed into downstream functions like gene concept network plots
 #' Can take a bit of time to run
@@ -24,11 +25,11 @@ mkEnrich <- function(x, db = "GO",GOont = "ALL", qvalueCutoff = 0.01) {
   } else if (db == "KEGG") {
     input <- clusterProfiler::bitr(input, fromType = "SYMBOL", toType = c("ENTREZID"), OrgDb = "org.Hs.eg.db")
     input <- clusterProfiler::bitr_kegg(input$ENTREZID, fromType = "ncbi-geneid", toType = "kegg", organism = "hsa")
-    output <- clusterProfiler::enrichKEGG(input$kegg, OrgDb = "org.Hs.eg.db", ont=GOont, keyType = "kegg", qvalueCutoff = qvalueCutoff)
+    output <- clusterProfiler::enrichKEGG(input$kegg, organism = "hsa", keyType = "kegg", pAdjustMethod = "BH", qvalueCutoff = qvalueCutoff)
   } else if (db == "MKEGG") {
     input <- clusterProfiler::bitr(input, fromType = "SYMBOL", toType = c("ENTREZID"), OrgDb = "org.Hs.eg.db")
     input <- clusterProfiler::bitr_kegg(input$ENTREZID, fromType = "ncbi-geneid", toType = "kegg", organism = "hsa")
-    output <- clusterProfiler::enrichMKEGG(input$kegg, OrgDb = "org.Hs.eg.db", ont=GOont, keyType = "kegg", qvalueCutoff = qvalueCutoff)
+    output <- clusterProfiler::enrichMKEGG(input$kegg, organism = "hsa", keyType = "kegg", pAdjustMethod = "BH", qvalueCutoff = qvalueCutoff)
   } else if (db == "GO") {
   output <- clusterProfiler::enrichGO(input, OrgDb = "org.Hs.eg.db", ont=GOont, keyType = "SYMBOL", qvalueCutoff = qvalueCutoff)
   }
