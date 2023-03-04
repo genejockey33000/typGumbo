@@ -3,7 +3,8 @@
 \name{mkEnrich}
 \alias{mkEnrich}
 \title{Make Gene Ontology Enrichment Object
-Simple script that uses clusterProfiler to generate GO enrichment object
+Simple script that uses clusterProfiler to generate GO enrichment object.
+Takes single column .csv file of gene symbols (i.e. "MAPT", "NEUROG2") as input (no column header).
 Outputted object can be fed into downstream functions like gene concept network plots
 Can take a bit of time to run}
 \usage{
@@ -12,7 +13,7 @@ mkEnrich(x, db = "GO", GOont = "ALL", qvalueCutoff = 0.01)
 \arguments{
 \item{x}{quoted path to *.csv file containing ONE column of gene names}
 
-\item{db}{One of "GO" (default), or "Reactome". May add more later.}
+\item{db}{One of "GO" (default), "Reactome", "KEGG", or "MKEGG". May add more later.}
 
 \item{GOont}{Enter one of "ALL" (default), "BP", "MF", "CC"}
 
@@ -23,7 +24,8 @@ GO enrichment object
 }
 \description{
 Make Gene Ontology Enrichment Object
-Simple script that uses clusterProfiler to generate GO enrichment object
+Simple script that uses clusterProfiler to generate GO enrichment object.
+Takes single column .csv file of gene symbols (i.e. "MAPT", "NEUROG2") as input (no column header).
 Outputted object can be fed into downstream functions like gene concept network plots
 Can take a bit of time to run
 }
