@@ -6,19 +6,17 @@
 #' Can take a bit of time to run.
 #'
 #' @param csv quoted path to *.csv file containing ONE column of gene names
-#' @param db One of "GO" (default), "Reactome", or "MKEGG". May add more later.
+#' @param db One of "GO" (default), or "Reactome". May add more later.
 #' @param GOont Enter one of "ALL" (default), "BP", "MF", "CC"
 #' @param qvalueCutoff Highest qvalue returned (default = .01)
 #'
 #' @return GO enrichment object
 #' @importFrom clusterProfiler bitr
-#' @importFrom clusterProfiler bitr_kegg
 #' @importFrom clusterProfiler enrichGO
-#' @importFrom clusterProfiler enrichMKEGG
 #' @importFrom ReactomePA enrichPathway
 #' @export
 mkEnrich <- function(csv, db = "GO", GOont = "ALL", qvalueCutoff = 0.01) {
-  if (db %in% c("Reactome", "MKEGG", "GO")) {
+  if (db %in% c("Reactome", "GO")) {
     cat("Preparing ", db, " analysis!\n")
   } else {stop("Srrrry! db argument must be either 'GO' (default), 'Reactome', 'KEGG', or 'MKEGG' (Module KEGG).")}
 
@@ -29,11 +27,12 @@ mkEnrich <- function(csv, db = "GO", GOont = "ALL", qvalueCutoff = 0.01) {
     input <- clusterProfiler::bitr(input, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = "org.Hs.eg.db")
     output <- ReactomePA::enrichPathway(input$ENTREZID, qvalueCutoff = qvalueCutoff, readable = TRUE)
   }
-  if (db == "MKEGG") {
-    input <- clusterProfiler::bitr(input, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = "org.Hs.eg.db")
-    input <- clusterProfiler::bitr_kegg(input$ENTREZID, fromType = "ncbi-geneid", toType = "kegg", organism = "hsa")
-    output <- clusterProfiler::enrichMKEGG(input$kegg, organism = "hsa", keyType = "kegg", pAdjustMethod = "BH", qvalueCutoff = qvalueCutoff)
-  }
+  # if (db == "MKEGG") {
+  #   input <- clusterProfiler::bitr(input, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = "org.Hs.eg.db")
+  #   input <- clusterProfiler::bitr_kegg(input$ENTREZID, fromType = "ncbi-geneid", toType = "kegg", organism = "hsa")
+  #   output <- clusterProfiler::enrichMKEGG(input$kegg, organism = "hsa", keyType = "kegg", pAdjustMethod = "BH", qvalueCutoff = qvalueCutoff)
+  # }
+
   if (db == "GO") {
     output <- clusterProfiler::enrichGO(input, OrgDb = "org.Hs.eg.db", ont=GOont, keyType = "SYMBOL", qvalueCutoff = qvalueCutoff)
   }
