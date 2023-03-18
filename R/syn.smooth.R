@@ -28,6 +28,8 @@
 #'     greater than 0 (i.e. requires positive fluorescence change)
 #'
 #' @importFrom readxl excel_sheets
+#' @importFrom readxl read_xlsx
+#' @importFrom xlsx write.xlsx
 #' @export
 syn.smooth <- function(in.dir, csv = TRUE, xlsx = TRUE, filter = TRUE) {
   ## pull the full path names of all the .csv files in the in.dir

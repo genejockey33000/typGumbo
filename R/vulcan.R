@@ -29,7 +29,7 @@ vulcan <- function(x, bcut = .5, qcut = .05, labels = 0, repel = 1, pad = .25, l
     d$DElabel[1:labels] <- d$ext_gene[1:labels]
     d$DElabel[(nrow(d)-(labels-1)):nrow(d)] <- d$ext_gene[(nrow(d)-(labels-1)):nrow(d)]
 
-    p <- ggplot(data=d, aes(x=b, y=-log10(qval),
+    p <- ggplot2::ggplot(data=d, aes(x=b, y=-log10(qval),
                             fill = DE,
                             size = DE,
                             alpha = DE,
@@ -42,7 +42,7 @@ vulcan <- function(x, bcut = .5, qcut = .05, labels = 0, repel = 1, pad = .25, l
       scale_alpha_manual(values = alphas) +
       geom_text_repel(size = labelsize, force = repel, nudge_y = 5, box.padding = pad)
   } else {
-    p <- ggplot(data=d, aes(x=b, y=-log10(qval),
+    p <- ggplot2::ggplot(data=d, aes(x=b, y=-log10(qval),
                             fill = DE,
                             size = DE,
                             alpha = DE)) +

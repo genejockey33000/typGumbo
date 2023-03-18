@@ -2,10 +2,9 @@
 #'
 #'
 #'
-#' @param x A dataframe of gene lists in columns. Column names = name of gene list.
-#'   Genes should be standardized gene symbols
-#'   @importFrom mygene queryMany
-#'
+#' @param x A dataframe of gene lists in columns. Column names = name of gene list. Genes should be standardized gene symbols
+#' @importFrom mygene queryMany
+#' @importFrom clusterProfiler compareCluster
 #' @export
 BenRichment <- function(x) {
   hits <- list()

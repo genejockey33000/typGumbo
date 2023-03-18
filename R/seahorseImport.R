@@ -11,7 +11,7 @@
 #' @export
 seahorseImport <- function(file = NULL) {
   input <- read.csv(file = file)
-  rows <- typGumbo:::odd(1:(nrow(input)))
+  rows <- odd(1:(nrow(input)))
   input2 <- input[rows,]
   row.names(input2) <- input2[,1]
   return(input2[,c(3,5,6,8)])

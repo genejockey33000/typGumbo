@@ -24,6 +24,7 @@
 #'
 #' @param object A seurat object
 #'
+#' @importClassesFrom Matrix index
 #' @export
 #'
 NAMscore <- function(object) {
