@@ -31,8 +31,9 @@
 #' @param iter The number of iterations (permutations of x) for NULL distribution generation. If you don't want
 #'   a NULL distribution analysis, set to 0
 #'
-#' @importFrom dplyr %>%
 #' @importFrom Hmisc rcorr
+#' @importFrom dplyr mutate
+#' @importFrom dplyr arrange
 #' @export
 #'
 pairwiseCorSkew <- function(x, y, method = "pearson", pct = "1.0", iter = 1000)  {
@@ -75,10 +76,10 @@ pairwiseCorSkew <- function(x, y, method = "pearson", pct = "1.0", iter = 1000) 
     }
     CWC <- cbind.data.frame(colnames(x), CWC)
     colnames(CWC) <- c("measurement","rval", "pval")
-    CWC <- CWC %>%
-      dplyr::mutate(FDR.BH = stats::p.adjust(pval, method = "BH", n = nrow(CWC))) %>%
-      dplyr::mutate(FWER.H = stats::p.adjust(pval, method = "hochberg", n = nrow(CWC))) %>%
-      dplyr::arrange(pval)
+
+    CWC <- dplyr::mutate(CWC, FDR.BH = stats::p.adjust(pval, method = "BH", n = nrow(CWC)))
+    CWC <- dplyr::mutate(CWC, FWER.H = stats::p.adjust(pval, method = "hochberg", n = nrow(CWC)))
+    CWC <- dplyr::arrange(CWC, pval)
 
     allrhos <- CWC[,2]
     allrhos <- sort(allrhos, decreasing = TRUE)

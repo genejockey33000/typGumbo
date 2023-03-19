@@ -13,8 +13,7 @@ CorMat(x, y, method = "spearman", adj.meth = "BH")
 
 \item{method}{"pearson" (default) or "spearman" (rank order correlation)}
 
-\item{adj.meth}{Method to use for multiple comparisons correction default = "BH" for Benjamini Hochberg, other
-options are, "holm", "hochberg", "hommel", "bonferroni", "BY", "fdr", "none" uses stats::p.adjust function}
+\item{adj.meth}{Method to use for multiple comparisons correction default = "BH" for Benjamini Hochberg, other options are, "holm", "hochberg", "hommel", "bonferroni", "BY", "fdr", "none" uses stats::p.adjust function}
 }
 \description{
 Starting with two matrices with compatible row.names

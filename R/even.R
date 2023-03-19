@@ -1,6 +1,6 @@
-#' Subset vector to only EVEN members
+#' Subset vector to only EVEN indexes
 #'
-#' For a vector x, even(x) returns the even members
+#' For a vector x, even(x) returns the even members. Why do you want this? There are times. Trust me.
 #'
 #' @param x any vector
 #' @noRd

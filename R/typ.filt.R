@@ -1,8 +1,6 @@
 #' @title Filter typ Object Expression Data
 #'
-#' @description Custom filtering of typ objects using either
-#' k over a, minimum average expression, or highest x measurements
-#' (based on average expression)
+#' @description Custom filtering of typ objects using either k over a, minimum average expression, or highest x measurements (based on average expression)
 #'
 #' @param typ.obj expression object created with 'make.typ()' function
 #' @param type c("k.over.a","min.mean", ""top.x") can apply multiple

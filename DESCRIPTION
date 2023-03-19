@@ -11,7 +11,7 @@ Description: Takes either sleuth objects or matrices with metadata
     analytical processes.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+LazyData: TRUE
 Imports:
     stringr,
     xlsx,

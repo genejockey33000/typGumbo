@@ -1,4 +1,4 @@
-#' Subset vector to only ODD members
+#' Subset vector to only ODD indexes
 #'
 #' For a vector x, odd(x) returns the odd members
 #'

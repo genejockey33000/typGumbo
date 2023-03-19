@@ -8,6 +8,10 @@
 #' @param A Target value above which is required in k samples to be retained
 #'
 #' @return K over A filtered data
+#'
+#' @importFrom genefilter kOverA
+#' @importFrom genefilter filterfun
+#' @importFrom genefilter genefilter
 #' @export
 #'
 filt <- function(x, k = NULL, A = NULL) {
