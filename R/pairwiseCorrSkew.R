@@ -78,7 +78,7 @@ pairwiseCorSkew <- function(x, y, method = "pearson", pct = "1.0", iter = 1000) 
 
     CWC <- dplyr::mutate(CWC, FDR.BH = stats::p.adjust(CWC[,"pval"], method = "BH", n = nrow(CWC)))
     CWC <- dplyr::mutate(CWC, FWER.H = stats::p.adjust(CWC[,"pval"], method = "hochberg", n = nrow(CWC)))
-    CWC <- dplyr::arrange(CWC, pval)
+    CWC <- dplyr::arrange(CWC, CWC$pval)  ## changed to avoid 'no visible binding...' note
 
     allrhos <- CWC[,2]
     allrhos <- sort(allrhos, decreasing = TRUE)

@@ -6,7 +6,7 @@
 #' colors and font sizes and more.
 #'
 #' @param mydata Data frame or matrix: if dataframe/matrix should have samples as columns and rows as features
-#' @param labels Character vector: if we want to just label with gender for example
+#' @param labels Character vector: if we want to just label by sex for example
 #' @param perplex Numerical value: perplexity value that Rtsne uses internally
 #' @param printres Logical flag: whether to print the t-SNE into current directory
 #' @param seed Numerical value: optionally set the seed
@@ -74,7 +74,7 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
     tsne <- Rtsne::Rtsne(t(as.matrix(mydata)), dims = 2,
                          perplexity = perplex, verbose = FALSE, max_iter = 500)
     scores <- data.frame(tsne$Y)
-    p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2)) +
+    p <- ggplot2::ggplot(data = scores, aes(x = scores$X1, y = scores$X2)) +
       ggplot2::geom_point(colour = "skyblue", size = dotsize) +
       ggplot2::theme_bw() +
       ggplot2::theme(legend.position = "none",
@@ -98,7 +98,7 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
     scores <- data.frame(tsne$Y)
     if (controlscale == TRUE) {
       if (scale == 1) {
-        p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2)) +
+        p <- ggplot2::ggplot(data = scores, aes(x = scores$X1, y = scores$X2)) +
           ggplot2::geom_point(aes(colour = labels), size = dotsize) +
           ggplot2::theme_bw() +
           ggplot2::theme(panel.grid.major = element_blank(),
@@ -112,8 +112,8 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
           ggplot2::labs(colour = legendtitle) + scale_colour_distiller(palette = "Spectral")
       }
       else if (scale == 2) {
-        p <- ggplot2::ggplot(data = scores, ggplot2::aes(x = X1, y = X2)) +
-          ggplot2::geom_point(aes(colour = labels), size = dotsize) +
+        p <- ggplot2::ggplot(data = scores, ggplot2::aes(x = scores$X1, y = scores$X2)) +
+          ggplot2::geom_point(aes(colour =labels), size = dotsize) +
           ggplot2::theme_bw() +
           ggplot2::theme(panel.grid.major = element_blank(),
                 panel.grid.minor = element_blank(), axis.text.y = element_text(size = axistextsize,
@@ -126,7 +126,7 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
                high = high)
       }
       else if (scale == 3) {
-        p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2)) +
+        p <- ggplot2::ggplot(data = scores, aes(x = scores$X1, y = scores$X2)) +
           ggplot2::geom_point(aes(colour = labels), size = dotsize) +
           ggplot2::theme_bw() +
           ggplot2::theme(panel.grid.major = element_blank(),
@@ -140,7 +140,7 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
       }
     }
     else {
-      p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2)) +
+      p <- ggplot2::ggplot(data = scores, aes(x = scores$X1, y = scores$X2)) +
         ggplot2::geom_point(aes(colour = labels), size = dotsize) +
         ggplot2::theme_bw() +
         ggplot2::theme(panel.grid.major = element_blank(),
@@ -168,7 +168,7 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
     scores$label <- text
     if (controlscale == TRUE) {
       if (scale == 1) {
-        p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
+        p <- ggplot2::ggplot(data = scores, aes(x = scores$X1, y = scores$X2, label = scores$label)) +
           ggplot2::geom_point(aes(colour = labels),
                     size = dotsize) + theme_bw() + theme(panel.grid.major = element_blank(),
                     panel.grid.minor = element_blank(), axis.text.y = element_text(size = axistextsize,
@@ -182,7 +182,7 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
                     size = textlabelsize)
       }
       else if (scale == 2) {
-        p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
+        p <- ggplot2::ggplot(data = scores, aes(x = scores$X1, y = scores$X2, label = scores$label)) +
           ggplot2::geom_point(aes(colour = labels), size = dotsize) +
           ggplot2::theme_bw() +
           ggplot2::theme(panel.grid.major = element_blank(),
@@ -198,7 +198,7 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
           ggplot2::geom_text(vjust = "inward", hjust = "inward", size = textlabelsize)
       }
       else if (scale == 3) {
-        p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
+        p <- ggplot2::ggplot(data = scores, aes(x = scores$X1, y = scores$X2, label = scores$label)) +
           ggplot2::geom_point(aes(colour = labels), size = dotsize) +
           ggplot2::theme_bw() +
           ggplot2::theme(panel.grid.major = element_blank(),
@@ -215,7 +215,7 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
       }
     }
     else {
-      p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
+      p <- ggplot2::ggplot(data = scores, aes(x = scores$X1, y = scores$X2, label = scores$label)) +
         ggplot2::geom_point(aes(colour = labels), size = dotsize) +
         ggplot2::theme_bw() +
         ggplot2::theme(panel.grid.major = element_blank(),
@@ -242,7 +242,7 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
                          perplexity = perplex, verbose = FALSE, max_iter = 500)
     scores <- data.frame(tsne$Y)
     scores$label <- text
-    p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
+    p <- ggplot2::ggplot(data = scores, aes(x = scores$X1, y = scores$X2, label = scores$label)) +
       ggplot2::geom_point(aes(colour = factor(rep(1, ncol(mydata)))), size = dotsize) +
       ggplot2::theme_bw() +
       ggplot2::theme(legend.position = "none",

@@ -16,7 +16,7 @@ cleanTT <- function(x, bcut = .5, qcut = .05) {
   d$DE <- "NO"
   d$DE[d$b > bcut & d$qval < qcut] <- "UP"
   d$DE[d$b < -bcut & d$qval < qcut] <- "DOWN"
-  d <- dplyr::mutate(d, rank = -log10(qval)*b)
+  d <- dplyr::mutate(d, rank = -log10(x$qval)*x$b)
   d <- dplyr::arrange(d, dplyr::desc(rank))
   return(d)
 }

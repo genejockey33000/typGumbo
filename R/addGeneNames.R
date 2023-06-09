@@ -6,6 +6,8 @@
 #' @param t2g Transcript to Genename table for mapping (if available). If none is supplied then will generate one from BioMart (takes longer).
 #'
 #' @return Data table with columns for gene names and ENSG IDs.
+#' @importFrom biomaRt useMart
+#' @importFrom biomaRt getBM
 #' @export
 addGeneNames <- function(x, t2g = NULL) {
   if (is.null(t2g)) {

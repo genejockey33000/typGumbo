@@ -29,7 +29,7 @@ tsne(
 \arguments{
 \item{mydata}{Data frame or matrix: if dataframe/matrix should have samples as columns and rows as features}
 
-\item{labels}{Character vector: if we want to just label with gender for example}
+\item{labels}{Character vector: if we want to just label by sex for example}
 
 \item{perplex}{Numerical value: perplexity value that Rtsne uses internally}
 

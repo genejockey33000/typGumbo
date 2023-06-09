@@ -25,7 +25,6 @@ Imports:
     methods,
     mygene,
     preprocessCore,
-    ReactomePA,
     readxl,
     Rtsne,
     Seurat,

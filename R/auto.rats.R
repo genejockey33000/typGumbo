@@ -14,6 +14,8 @@
 #'                 to color bar plots (i.e. "sex" or "karyotype")
 #'
 #' @return matrix of ratios, pdf containing plots
+#' @importFrom biomaRt useMart
+#' @importFrom biomaRt getBM
 #' @export
 auto.rats <- function(typ.obj, color.by = NULL) {
   if (!("typ" %in% class(typ.obj))) stop("This function expects an object of class'typ'")
