@@ -1,39 +1,37 @@
-Package: typGumbo
 Type: Package
+Package: typGumbo
 Title: Scripts and Pipelines for RNAseq Analysis
 Version: 0.1.0
 Author: Richard V. Pearse II PhD
 Maintainer: <richard.pearse@gmail.com>
-Description: Takes either sleuth objects or matrices with metadata
-    files as input to create objects of class "typ". Those objects 
-    are used as input to a variety of processes routinely used in 
-    the Young-Pearse research lab. Includes QC processes as well as
-    analytical processes.
+Description: Takes either sleuth objects or matrices with metadata files
+    as input to create objects of class "typ". Those objects are used as
+    input to a variety of processes routinely used in the Young-Pearse
+    research lab. Includes QC processes as well as analytical processes.
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: TRUE
-Imports:
-    stringr,
-    xlsx,
-    sva,
-    stats,
+Depends: 
+    R (>= 2.10)
+Imports: 
+    biomaRt,
+    clusterProfiler,
+    corrplot,
+    dplyr,
+    enrichplot,
+    factoextra,
     genefilter,
     ggplot2,
     ggrepel,
-    RColorBrewer,
-    methods,
-    biomaRt,
-    dplyr,
-    magrittr,
     Hmisc,
-    clusterProfiler,
-    enrichplot,
+    methods,
+    mygene,
+    preprocessCore,
     ReactomePA,
     readxl,
+    Rtsne,
     Seurat,
-    factoextra,
-    mygene,
-    Matrix
+    stats,
+    utils,
+    xlsx
+Encoding: UTF-8
+LazyData: TRUE
 RoxygenNote: 7.2.3
-Depends: 
-    R (>= 2.10)

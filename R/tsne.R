@@ -23,7 +23,18 @@
 #' @param printheight Numerical value: png height
 #' @param printwidth Numerical value: png width
 #' @param text Character vector: if we wanted to label the samples with text IDs to look for outliers
-#'
+#' @importFrom graphics abline
+#' @importFrom graphics legend
+#' @importFrom graphics lines
+#' @importFrom graphics par
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 theme_bw
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 scale_colour_manual
+#' @importFrom ggplot2 scale_colour_gradient
+#' @importFrom ggplot2 scale_colour_distiller
+#' @importFrom ggplot2  element_blank
+#' @importFrom ggplot2  element_text
 #' @export
 tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
           seed = FALSE, axistextsize = 18, legendtextsize = 18, dotsize = 5,
@@ -63,16 +74,16 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
     tsne <- Rtsne::Rtsne(t(as.matrix(mydata)), dims = 2,
                          perplexity = perplex, verbose = FALSE, max_iter = 500)
     scores <- data.frame(tsne$Y)
-    p <- ggplot(data = scores, aes(x = X1, y = X2)) +
-      geom_point(colour = "skyblue", size = dotsize) +
-      theme_bw() +
-      theme(legend.position = "none",
+    p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2)) +
+      ggplot2::geom_point(colour = "skyblue", size = dotsize) +
+      ggplot2::theme_bw() +
+      ggplot2::theme(legend.position = "none",
             panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             axis.text.y = element_text(size = axistextsize, colour = "black"),
             axis.text.x = element_text(size = axistextsize, colour = "black"),
             axis.title.x = element_text(size = axistextsize),
             axis.title.y = element_text(size = axistextsize)) +
-      scale_colour_manual(values = colvec)
+      ggplot2::scale_colour_manual(values = colvec)
     if (printres == TRUE) {
       message("printing t-SNE to current directory...")
       png("TSNE.png", height = printheight, width = printwidth,
@@ -87,10 +98,10 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
     scores <- data.frame(tsne$Y)
     if (controlscale == TRUE) {
       if (scale == 1) {
-        p <- ggplot(data = scores, aes(x = X1, y = X2)) +
-          geom_point(aes(colour = labels), size = dotsize) +
-          theme_bw() +
-          theme(panel.grid.major = element_blank(),
+        p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2)) +
+          ggplot2::geom_point(aes(colour = labels), size = dotsize) +
+          ggplot2::theme_bw() +
+          ggplot2::theme(panel.grid.major = element_blank(),
                 panel.grid.minor = element_blank(),
                 axis.text.y = element_text(size = axistextsize,
                 colour = "black"), axis.text.x = element_text(size = axistextsize,
@@ -98,41 +109,41 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
                 axis.title.y = element_text(size = axistextsize),
                 legend.title = element_text(size = legendtextsize),
                 legend.text = element_text(size = legendtextsize)) +
-          labs(colour = legendtitle) + scale_colour_distiller(palette = "Spectral")
+          ggplot2::labs(colour = legendtitle) + scale_colour_distiller(palette = "Spectral")
       }
       else if (scale == 2) {
-        p <- ggplot(data = scores, aes(x = X1, y = X2)) +
-          geom_point(aes(colour = labels), size = dotsize) +
-          theme_bw() +
-          theme(panel.grid.major = element_blank(),
+        p <- ggplot2::ggplot(data = scores, ggplot2::aes(x = X1, y = X2)) +
+          ggplot2::geom_point(aes(colour = labels), size = dotsize) +
+          ggplot2::theme_bw() +
+          ggplot2::theme(panel.grid.major = element_blank(),
                 panel.grid.minor = element_blank(), axis.text.y = element_text(size = axistextsize,
                 colour = "black"), axis.text.x = element_text(size = axistextsize,
                 colour = "black"), axis.title.x = element_text(size = axistextsize),
                 axis.title.y = element_text(size = axistextsize),
                 legend.title = element_text(size = legendtextsize),
                 legend.text = element_text(size = legendtextsize)) +
-          labs(colour = legendtitle) + scale_colour_gradient(low = low,
+          ggplot2::labs(colour = legendtitle) + scale_colour_gradient(low = low,
                high = high)
       }
       else if (scale == 3) {
-        p <- ggplot(data = scores, aes(x = X1, y = X2)) +
-          geom_point(aes(colour = labels), size = dotsize) +
-          theme_bw() +
-          theme(panel.grid.major = element_blank(),
+        p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2)) +
+          ggplot2::geom_point(aes(colour = labels), size = dotsize) +
+          ggplot2::theme_bw() +
+          ggplot2::theme(panel.grid.major = element_blank(),
                 panel.grid.minor = element_blank(), axis.text.y = element_text(size = axistextsize,
                 colour = "black"), axis.text.x = element_text(size = axistextsize,
                 colour = "black"), axis.title.x = element_text(size = axistextsize),
                 axis.title.y = element_text(size = axistextsize),
                 legend.title = element_text(size = legendtextsize),
                 legend.text = element_text(size = legendtextsize)) +
-          labs(colour = legendtitle) + scale_colour_manual(values = colvec)
+          ggplot2::labs(colour = legendtitle) + scale_colour_manual(values = colvec)
       }
     }
     else {
-      p <- ggplot(data = scores, aes(x = X1, y = X2)) +
-        geom_point(aes(colour = labels), size = dotsize) +
-        theme_bw() +
-        theme(panel.grid.major = element_blank(),
+      p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2)) +
+        ggplot2::geom_point(aes(colour = labels), size = dotsize) +
+        ggplot2::theme_bw() +
+        ggplot2::theme(panel.grid.major = element_blank(),
               panel.grid.minor = element_blank(),
               axis.text.y = element_text(size = axistextsize,
               colour = "black"), axis.text.x = element_text(size = axistextsize,
@@ -140,7 +151,7 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
               axis.title.y = element_text(size = axistextsize),
               legend.title = element_text(size = legendtextsize),
               legend.text = element_text(size = legendtextsize)) +
-        labs(colour = legendtitle)
+        ggplot2::labs(colour = legendtitle)
     }
     if (printres == TRUE) {
       message("printing tSNE to current directory...")
@@ -157,8 +168,8 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
     scores$label <- text
     if (controlscale == TRUE) {
       if (scale == 1) {
-        p <- ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
-                    geom_point(aes(colour = labels),
+        p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
+          ggplot2::geom_point(aes(colour = labels),
                     size = dotsize) + theme_bw() + theme(panel.grid.major = element_blank(),
                     panel.grid.minor = element_blank(), axis.text.y = element_text(size = axistextsize,
                     colour = "black"), axis.text.x = element_text(size = axistextsize,
@@ -166,15 +177,15 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
                     axis.title.y = element_text(size = axistextsize),
                     legend.title = element_text(size = legendtextsize),
                     legend.text = element_text(size = legendtextsize)) +
-          labs(colour = legendtitle) + scale_colour_distiller(palette = "Spectral") +
-          geom_text(vjust = "inward", hjust = "inward",
+          ggplot2::labs(colour = legendtitle) + scale_colour_distiller(palette = "Spectral") +
+          ggplot2::geom_text(vjust = "inward", hjust = "inward",
                     size = textlabelsize)
       }
       else if (scale == 2) {
-        p <- ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
-          geom_point(aes(colour = labels), size = dotsize) +
-          theme_bw() +
-          theme(panel.grid.major = element_blank(),
+        p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
+          ggplot2::geom_point(aes(colour = labels), size = dotsize) +
+          ggplot2::theme_bw() +
+          ggplot2::theme(panel.grid.major = element_blank(),
                 panel.grid.minor = element_blank(),
                 axis.text.y = element_text(size = axistextsize,
                 colour = "black"), axis.text.x = element_text(size = axistextsize,
@@ -182,15 +193,15 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
                 axis.title.y = element_text(size = axistextsize),
                 legend.title = element_text(size = legendtextsize),
                 legend.text = element_text(size = legendtextsize)) +
-          labs(colour = legendtitle) +
-          scale_colour_gradient(low = low, high = high) +
-          geom_text(vjust = "inward", hjust = "inward", size = textlabelsize)
+          ggplot2::labs(colour = legendtitle) +
+          ggplot2::scale_colour_gradient(low = low, high = high) +
+          ggplot2::geom_text(vjust = "inward", hjust = "inward", size = textlabelsize)
       }
       else if (scale == 3) {
-        p <- ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
-          geom_point(aes(colour = labels), size = dotsize) +
-          theme_bw() +
-          theme(panel.grid.major = element_blank(),
+        p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
+          ggplot2::geom_point(aes(colour = labels), size = dotsize) +
+          ggplot2::theme_bw() +
+          ggplot2::theme(panel.grid.major = element_blank(),
                 panel.grid.minor = element_blank(),
                 axis.text.y = element_text(size = axistextsize,
                 colour = "black"), axis.text.x = element_text(size = axistextsize,
@@ -198,16 +209,16 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
                 axis.title.y = element_text(size = axistextsize),
                 legend.title = element_text(size = legendtextsize),
                 legend.text = element_text(size = legendtextsize)) +
-          labs(colour = legendtitle) +
-          scale_colour_manual(values = colvec) +
-          geom_text(vjust = "inward", hjust = "inward", size = textlabelsize)
+          ggplot2::labs(colour = legendtitle) +
+          ggplot2::scale_colour_manual(values = colvec) +
+          ggplot2::geom_text(vjust = "inward", hjust = "inward", size = textlabelsize)
       }
     }
     else {
-      p <- ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
-        geom_point(aes(colour = labels), size = dotsize) +
-        theme_bw() +
-        theme(panel.grid.major = element_blank(),
+      p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
+        ggplot2::geom_point(aes(colour = labels), size = dotsize) +
+        ggplot2::theme_bw() +
+        ggplot2::theme(panel.grid.major = element_blank(),
               panel.grid.minor = element_blank(),
               axis.text.y = element_text(size = axistextsize,
               colour = "black"), axis.text.x = element_text(size = axistextsize,
@@ -215,8 +226,8 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
               axis.title.y = element_text(size = axistextsize),
               legend.title = element_text(size = legendtextsize),
               legend.text = element_text(size = legendtextsize)) +
-        labs(colour = legendtitle) +
-        geom_text(vjust = "inward", hjust = "inward", size = textlabelsize)
+        ggplot2::labs(colour = legendtitle) +
+        ggplot2::geom_text(vjust = "inward", hjust = "inward", size = textlabelsize)
     }
     if (printres == TRUE) {
       message("printing t-SNE to current directory...")
@@ -231,18 +242,18 @@ tsne <- function (mydata, labels = FALSE, perplex = 15, printres = FALSE,
                          perplexity = perplex, verbose = FALSE, max_iter = 500)
     scores <- data.frame(tsne$Y)
     scores$label <- text
-    p <- ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
-      geom_point(aes(colour = factor(rep(1, ncol(mydata)))), size = dotsize) +
-      theme_bw() +
-      theme(legend.position = "none",
+    p <- ggplot2::ggplot(data = scores, aes(x = X1, y = X2, label = label)) +
+      ggplot2::geom_point(aes(colour = factor(rep(1, ncol(mydata)))), size = dotsize) +
+      ggplot2::theme_bw() +
+      ggplot2::theme(legend.position = "none",
             panel.grid.major = element_blank(),
             panel.grid.minor = element_blank(),
             axis.text.y = element_text(size = axistextsize, colour = "black"),
             axis.text.x = element_text(size = axistextsize, colour = "black"),
             axis.title.x = element_text(size = axistextsize),
             axis.title.y = element_text(size = axistextsize)) +
-      scale_colour_manual(values = colvec) +
-      geom_text(vjust = "inward", hjust = "inward", size = textlabelsize)
+      ggplot2::scale_colour_manual(values = colvec) +
+      ggplot2::geom_text(vjust = "inward", hjust = "inward", size = textlabelsize)
     if (printres == TRUE) {
       message("printing t-SNE to current directory...")
       png("TSNE.png", height = printheight, width = printwidth,

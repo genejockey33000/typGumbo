@@ -7,8 +7,6 @@
 #' @param qcut Cutoff for qvalue (FDR) significance
 #'
 #' @return cleaned test table
-#' @importFrom dplyr mutate
-#' @importFrom dplyr arrange
 #' @export
 cleanTT <- function(x, bcut = .5, qcut = .05) {
   chop <- apply(x, 1, function(x) {sum(is.na(x)) < 1})
@@ -19,6 +17,6 @@ cleanTT <- function(x, bcut = .5, qcut = .05) {
   d$DE[d$b > bcut & d$qval < qcut] <- "UP"
   d$DE[d$b < -bcut & d$qval < qcut] <- "DOWN"
   d <- dplyr::mutate(d, rank = -log10(qval)*b)
-  d <- dplyr::arrange(d, desc(rank))
+  d <- dplyr::arrange(d, dplyr::desc(rank))
   return(d)
 }

@@ -13,17 +13,14 @@
 #'   "n2e" = gene names (symbols) and Entrez IDs
 #'
 #' @return specified gene map
-#' @importFrom biomaRt useMart
-#' @importFrom biomaRt getBM
-#' @importFrom dplyr rename
 #' @export
 #'
 getEnsGeneMaps <- function(type = c("full","t2g","t2n","g2n","g2e","n2e")){
   mart <- biomaRt::useMart(biomart = "ENSEMBL_MART_ENSEMBL", dataset = "hsapiens_gene_ensembl", host = 'https://www.ensembl.org')
   if (type == "full") {
-  map <- biomaRt::getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id","external_gene_name", "entrezgene_id"), mart = mart)
-  map <- dplyr::rename(map, target_id = ensembl_transcript_id, ens_gene = ensembl_gene_id, ext_gene = external_gene_name, entrez = entrezgene_id)
-  return(map)
+    map <- biomaRt::getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id","external_gene_name", "chromosome_name"), mart = mart)
+    map <- dplyr::rename(map, target_id = ensembl_transcript_id, ens_gene = ensembl_gene_id, ext_gene = external_gene_name, chr = chromosome_name)
+    return(map)
   }
   if (type == "t2g") {
     map <- biomaRt::getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id"), mart = mart)

@@ -5,26 +5,23 @@
 #' Outputted object can be fed into downstream functions like gene concept network plots
 #' Can take a bit of time to run.
 #'
-#' @param csv quoted path to *.csv file containing ONE column of gene names
+#' @param x quoted path to *.csv file containing ONE column of gene names
 #' @param db One of "GO" (default), or "Reactome". May add more later.
 #' @param GOont Enter one of "ALL" (default), "BP", "MF", "CC"
 #' @param qvalueCutoff Highest qvalue returned (default = .01)
 #'
 #' @return GO enrichment object
-#' @importFrom clusterProfiler bitr
-#' @importFrom clusterProfiler enrichGO
-#' @importFrom ReactomePA enrichPathway
 #' @export
 mkEnrich <- function(x, db = "GO",GOont = "ALL", qvalueCutoff = 0.01) {
-  if (db %in% c("Reactome", "MKEGG", "GO")) {
-    cat("Preparing ", db, " analysis!\n")
-  } else {stop("Srrrry! db argument must be either 'GO' (default), 'Reactome', or 'MKEGG' (Module KEGG).")}
-  input <- scan(file = x, what = character(), sep = ",")
-  input <- unique(input)
-  if (db == "Reactome") {
-    input <- clusterProfiler::bitr(input, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = "org.Hs.eg.db")
-    output <- ReactomePA::enrichPathway(input$ENTREZID, qvalueCutoff = qvalueCutoff, readable = TRUE)
-  }
+  if (db %in% c("MKEGG", "GO")) {
+    base::cat("Preparing ", db, " analysis!\n")
+  } else {stop("Srrrry! db argument must be either 'GO' (default), or 'MKEGG' (Module KEGG). Can't support Reactome at the moment.")}
+  input <- base::scan(file = x, what = character(), sep = ",")
+  input <- base::unique(input)
+  # if (db == "Reactome") {
+  #   input <- clusterProfiler::bitr(input, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = "org.Hs.eg.db")
+  #   output <- ReactomePA::enrichPathway(input$ENTREZID, qvalueCutoff = qvalueCutoff, readable = TRUE)
+  # }
   if (db == "MKEGG") {
     input <- clusterProfiler::bitr(input, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = "org.Hs.eg.db")
     input <- clusterProfiler::bitr_kegg(input$ENTREZID, fromType = "ncbi-geneid", toType = "kegg", organism = "hsa")

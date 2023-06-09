@@ -38,7 +38,7 @@ stickem <- function (mat1, mat2) {
   }
 
   if (b>a & b>c & b>d) {
-    mat2 <- t(mat2)
+    mat2 <- base::t(mat2)
     return(pare.order.rows(mat1, mat2))
   }
 
@@ -47,7 +47,7 @@ stickem <- function (mat1, mat2) {
   }
 
   if (d>a & d>b & d>c) {
-    mat2 <- t(mat2)
+    mat2 <- base::t(mat2)
     return(pare.order.cols(mat1,mat2))
   }
 }

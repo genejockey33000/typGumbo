@@ -3,8 +3,7 @@
 #'
 #'
 #' @param x A dataframe of gene lists in columns. Column names = name of gene list. Genes should be standardized gene symbols
-#' @importFrom mygene queryMany
-#' @importFrom clusterProfiler compareCluster
+#' @importFrom utils write.csv
 #' @export
 BenRichment <- function(x) {
   hits <- list()
@@ -14,7 +13,7 @@ BenRichment <- function(x) {
     geneset <- unique(x[,i])
     geneset <- geneset[geneset != ""]
     cat("Mapping",nrow(geneset)," genes to entrez gene IDs\n")
-    entrez <- data.frame(queryMany(geneset, scopes = 'symbol', fields = c('entrezgene'), species = 'human'), size = 1)
+    entrez <- data.frame(mygene::queryMany(geneset, scopes = 'symbol', fields = c('entrezgene'), species = 'human'), size = 1)
     hits[[geneset.name]] <- unique(entrez$entrezgene)[!(is.na(entrez$entrezgene))]
   }
   cat("\n\nRunning GO enrichment analysis for ALL ontologies... \nThis can take 1 to 2mins per geneset...\n")
@@ -23,7 +22,7 @@ BenRichment <- function(x) {
     output[[i]] <- CP@compareClusterResult[CP@compareClusterResult$Cluster == i, ]
   }
   for (i in colnames(x)) {
-    write.csv(output[[i]],file = paste0(i,".csv"), row.names = FALSE)
+    utils::write.csv(output[[i]],file = paste0(i,".csv"), row.names = FALSE)
   }
   return(output)
 }

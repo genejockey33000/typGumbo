@@ -97,7 +97,7 @@ With an actual existing directory path?")
 
     #define metrics matrix
     mets <- full[c(1:5),]
-    mets <- t(mets)
+    mets <- base::t(mets)
     colnames(mets) <- mets[1,]
     mets <- as.matrix(mets[-1,])
     mets <- apply(mets, 2, as.numeric)
@@ -213,7 +213,7 @@ With an actual existing directory path?")
       forPrism <- cbind.data.frame(forPrism, temp)
     }
   }
-  write.table(forPrism, file = paste0(out.dir, "/forPrism.csv"), sep = ",",row.names = FALSE, col.names = FALSE)
+  utils::write.table(forPrism, file = paste0(out.dir, "/forPrism.csv"), sep = ",",row.names = FALSE, col.names = FALSE)
 
   ## Convert Prism labels to single character string separated by commas
   VecRow <- function(x) {
@@ -227,5 +227,5 @@ With an actual existing directory path?")
   }
 
   labelsPzm <- VecRow(sheets2)
-  write.table(labelsPzm, file = paste0(out.dir, "/labelsForPrism.csv"), quote = FALSE, sep = "", row.names = FALSE, col.names = FALSE)
+  utils::write.table(labelsPzm, file = paste0(out.dir, "/labelsForPrism.csv"), quote = FALSE, sep = "", row.names = FALSE, col.names = FALSE)
 }

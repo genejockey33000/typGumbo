@@ -24,7 +24,6 @@
 #'
 #' @param object A seurat object
 #'
-#' @importClassesFrom Matrix index
 #' @export
 #'
 NAMscore <- function(object) {
@@ -83,6 +82,6 @@ NAMscore <- function(object) {
   output[["iMGL.score"]] <- iMGL.score
   output[["iN.score"]] <- iN.score
   output[["NAM.bin"]] <- guess
-  output <- SetIdent(output, value = "NAM.bin")
+  output <- Seurat::SetIdent(output, value = "NAM.bin")
   return(output)
 }

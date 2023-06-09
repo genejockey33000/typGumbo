@@ -17,7 +17,6 @@
 #' @param method "pearson" (default) or "spearman" (rank order correlation)
 #' @param adj.meth Method to use for multiple comparisons correction default = "BH" for Benjamini Hochberg, other options are, "holm", "hochberg", "hommel", "bonferroni", "BY", "fdr", "none" uses stats::p.adjust function
 #'
-#' @importFrom Hmisc rcorr
 #' @export
 CorMat <- function(x, y, method = "spearman", adj.meth = "BH")  {
   if (is.null(dim(x))) {

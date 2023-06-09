@@ -12,8 +12,6 @@
 #'   Use quoted column header of comparison, i.e. comp = "treatment" where "treatment" is a
 #'   column header for cells that were "stim." or "vehicle".
 #'
-#'
-#' @importFrom Seurat FindMarkers
 #' @export
 #'
 DEbyClust <- function(x, group = "seurat_clusters", comp = NULL) {

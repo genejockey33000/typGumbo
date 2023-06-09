@@ -9,7 +9,6 @@
 #' @param color.lines Logical. Should the lines be colored by gene set? (default=FALSE)
 #'
 #' @return GCN plot
-#' @importFrom enrichplot cnetplot
 #' @export
 #'
 gcn <- function(x, nodes=5, label.size="medium", category.labels = TRUE, circle=FALSE, color.lines=TRUE) {

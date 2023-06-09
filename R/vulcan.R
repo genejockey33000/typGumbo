@@ -15,8 +15,6 @@
 #' @param labelsize Size of labels (from geom_text_repel()). Default = 4
 #'
 #' @return volcano plot
-#' @import ggplot2
-#' @import ggrepel
 #' @export
 vulcan <- function(x, bcut = .5, qcut = .05, labels = 0, repel = 1, pad = .25, labelsize = 4) {
   d <- cleanTT(x, bcut = bcut, qcut = qcut)
@@ -34,23 +32,23 @@ vulcan <- function(x, bcut = .5, qcut = .05, labels = 0, repel = 1, pad = .25, l
                             size = DE,
                             alpha = DE,
                             label = DElabel)) +
-      geom_point(shape = 21) +
-      theme_minimal() +
-      theme(legend.position = "none") +
-      scale_fill_manual(values = cols) +
-      scale_size_manual(values = sizes) +
-      scale_alpha_manual(values = alphas) +
-      geom_text_repel(size = labelsize, force = repel, nudge_y = 5, box.padding = pad)
+      ggplot2::geom_point(shape = 21) +
+      ggplot2::theme_minimal() +
+      ggplot2::theme(legend.position = "none") +
+      ggplot2::scale_fill_manual(values = cols) +
+      ggplot2::scale_size_manual(values = sizes) +
+      ggplot2::scale_alpha_manual(values = alphas) +
+      ggrepel::geom_text_repel(size = labelsize, force = repel, nudge_y = 5, box.padding = pad)
   } else {
     p <- ggplot2::ggplot(data=d, aes(x=b, y=-log10(qval),
                             fill = DE,
                             size = DE,
                             alpha = DE)) +
-      geom_point(shape = 21) +
-      theme_minimal() +
-      scale_fill_manual(values = cols) +
-      scale_size_manual(values = sizes) +
-      scale_alpha_manual(values = alphas)
+      ggplot2::geom_point(shape = 21) +
+      ggplot2::theme_minimal() +
+      ggplot2::scale_fill_manual(values = cols) +
+      ggplot2::scale_size_manual(values = sizes) +
+      ggplot2::scale_alpha_manual(values = alphas)
   }
   return(p)
 }

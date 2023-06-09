@@ -11,9 +11,8 @@
 #' @param plot.title (Optional) Title for your PCA plot.
 #'
 #' @return PCA plot
-#' @importFrom stats prcomp
-#' @importFrom factoextra fviz_pca_ind
-#'
+#' @importFrom stats var
+#' @importFrom stats pt
 #' @export
 quickPCA <- function(x, meta = NULL, sample = "sample", scale = FALSE, colorBy = NULL, samp.labels = FALSE, plot.title = NULL) {
   if(all(colnames(x) == meta[,sample])) {
@@ -44,6 +43,6 @@ quickPCA <- function(x, meta = NULL, sample = "sample", scale = FALSE, colorBy =
                      repel = TRUE
         )
       }
-    return()
+    return(plot)
   } else{stop("The samples (column names) in the matrix don't match the samples in the metadata")}
 }

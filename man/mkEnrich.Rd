@@ -7,13 +7,13 @@
 mkEnrich(x, db = "GO", GOont = "ALL", qvalueCutoff = 0.01)
 }
 \arguments{
+\item{x}{quoted path to *.csv file containing ONE column of gene names}
+
 \item{db}{One of "GO" (default), or "Reactome". May add more later.}
 
 \item{GOont}{Enter one of "ALL" (default), "BP", "MF", "CC"}
 
 \item{qvalueCutoff}{Highest qvalue returned (default = .01)}
-
-\item{csv}{quoted path to *.csv file containing ONE column of gene names}
 }
 \value{
 GO enrichment object

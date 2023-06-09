@@ -31,9 +31,9 @@
 #' @param iter The number of iterations (permutations of x) for NULL distribution generation. If you don't want
 #'   a NULL distribution analysis, set to 0
 #'
-#' @importFrom Hmisc rcorr
 #' @importFrom dplyr mutate
 #' @importFrom dplyr arrange
+#' @importFrom stats p.adjust
 #' @export
 #'
 pairwiseCorSkew <- function(x, y, method = "pearson", pct = "1.0", iter = 1000)  {
@@ -59,11 +59,10 @@ pairwiseCorSkew <- function(x, y, method = "pearson", pct = "1.0", iter = 1000) 
       combo <- cbind(x,y,upv)
       comboSort <- combo[order(-upv),]
       comboUQ <- comboSort[c(1:(nrow(comboSort)*pct)),1:(ncol(comboSort)-1)]
-      x <- t(comboUQ[,c(1:(ncol(comboUQ)/2))])
-      y <- t(comboUQ[,c(((ncol(comboUQ)/2)+1):ncol(comboUQ))])
+      x <- base::t(comboUQ[,c(1:(ncol(comboUQ)/2))])
     } else {
-      x<- t(x)
-      y <- t(y)
+      x<- base::t(x)
+      y <- base::t(y)
     }
     cat("Calculating correlations for", ncol(x), "measurements across", nrow(x), "samples\n\n")
     CWC <- NULL
@@ -77,8 +76,8 @@ pairwiseCorSkew <- function(x, y, method = "pearson", pct = "1.0", iter = 1000) 
     CWC <- cbind.data.frame(colnames(x), CWC)
     colnames(CWC) <- c("measurement","rval", "pval")
 
-    CWC <- dplyr::mutate(CWC, FDR.BH = stats::p.adjust(pval, method = "BH", n = nrow(CWC)))
-    CWC <- dplyr::mutate(CWC, FWER.H = stats::p.adjust(pval, method = "hochberg", n = nrow(CWC)))
+    CWC <- dplyr::mutate(CWC, FDR.BH = stats::p.adjust(CWC[,"pval"], method = "BH", n = nrow(CWC)))
+    CWC <- dplyr::mutate(CWC, FWER.H = stats::p.adjust(CWC[,"pval"], method = "hochberg", n = nrow(CWC)))
     CWC <- dplyr::arrange(CWC, pval)
 
     allrhos <- CWC[,2]
@@ -125,8 +124,8 @@ pairwiseCorSkew <- function(x, y, method = "pearson", pct = "1.0", iter = 1000) 
     graphics::abline(v = (avg + 3*stdev), col = "lightgrey")
     grDevices::dev.off()
 
-    CWC <- list("CWC" = CWC, "skew" = skew, RANDskews = RANDrhoSkews, AvgNULL = avg, sdNULL = stdev, zScore = zee,
-                pval = p, numberSamples = nrow(x), numberMeasurements = ncol(x))
+    CWC <- list("CWC" = CWC, "skew" = skew, "RANDskews" = RANDrhoSkews, "AvgNULL" = avg, "sdNULL" = stdev, "zScore" = zee,
+                "pval" = p, "numberSamples" = nrow(x), "numberMeasurements" = ncol(x))
 
     runtime <- Sys.time() - t1
     cat("It took", runtime, attr(runtime, "units"), "to run", iter, "iterations of", ncol(x), "comparisons")

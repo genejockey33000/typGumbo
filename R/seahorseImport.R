@@ -10,7 +10,7 @@
 #'
 #' @export
 seahorseImport <- function(file = NULL) {
-  input <- read.csv(file = file)
+  input <- utils::read.csv(file = file)
   rows <- odd(1:(nrow(input)))
   input2 <- input[rows,]
   row.names(input2) <- input2[,1]

@@ -16,7 +16,7 @@
 #' @export
 #'
 cleanXM <- function(x, k = 0, A = 0) {
-  x <- x[(apply(x,1,var) > 0),] #eliminates measurements with all zeros
+  x <- x[(apply(x,1,stats::sd) > 0),] #eliminates measurements with all zeros
   if (min(x) < 0 & max(x) / (abs(min(x))) > 100) {
     #for matrices with unintended negative values after regression.
     #Lifts all values by abs() of lowest (negative) value

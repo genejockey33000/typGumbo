@@ -10,7 +10,7 @@
 quantNorm <- function(x) {
   rns <- row.names(x)
   samps <- colnames(x)
-  outq <- preprocessCore::normalize.quantiles(as.matrix(x))
+  outq <- preprocessCore::normalize.quantiles(base::as.matrix(x))
   row.names(outq) <- rns
   colnames(outq) <- samps
   return(outq)
