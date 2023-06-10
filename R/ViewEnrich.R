@@ -9,7 +9,6 @@
 #'   "best.MFs" (most sig. in Molecular Function category)
 #'
 #' @return Streamlined version of results from mkEnrich object
-#' @importFrom utils View
 #' @export
 #'
 ViewEnrich <- function(x, view = "native") {
@@ -29,5 +28,5 @@ ViewEnrich <- function(x, view = "native") {
   } else if (view == "best.MFs") {
     quickView <- quickView[grepl(pattern = "MF", quickView$ONTOLOGY),]
   }
-  View(quickView)
+  utils::View(quickView)
 }

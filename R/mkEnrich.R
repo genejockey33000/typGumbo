@@ -6,7 +6,7 @@
 #' Can take a bit of time to run.
 #'
 #' @param x quoted path to *.csv file containing ONE column of gene names
-#' @param db One of "GO" (default), or "Reactome". May add more later.
+#' @param db One of "GO" (default), or "MKEGG". May add more later.
 #' @param GOont Enter one of "ALL" (default), "BP", "MF", "CC"
 #' @param qvalueCutoff Highest qvalue returned (default = .01)
 #'
