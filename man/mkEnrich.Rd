@@ -9,7 +9,7 @@ mkEnrich(x, db = "GO", GOont = "ALL", qvalueCutoff = 0.01)
 \arguments{
 \item{x}{quoted path to *.csv file containing ONE column of gene names}
 
-\item{db}{One of "GO" (default), or "Reactome". May add more later.}
+\item{db}{One of "GO" (default), or "MKEGG". May add more later but Reactome is being problematic.}
 
 \item{GOont}{Enter one of "ALL" (default), "BP", "MF", "CC"}
 

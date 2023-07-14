@@ -6,7 +6,7 @@
 #' Can take a bit of time to run.
 #'
 #' @param x quoted path to *.csv file containing ONE column of gene names
-#' @param db One of "GO" (default), or "MKEGG". May add more later.
+#' @param db One of "GO" (default), or "MKEGG". May add more later but Reactome is being problematic.
 #' @param GOont Enter one of "ALL" (default), "BP", "MF", "CC"
 #' @param qvalueCutoff Highest qvalue returned (default = .01)
 #'
@@ -15,7 +15,7 @@
 mkEnrich <- function(x, db = "GO",GOont = "ALL", qvalueCutoff = 0.01) {
   if (db %in% c("MKEGG", "GO")) {
     base::cat("Preparing ", db, " analysis!\n")
-  } else {stop("Srrrry! db argument must be either 'GO' (default), or 'MKEGG' (Module KEGG). Can't support Reactome at the moment.")}
+  } else {stop("Sorry. The db argument must be either 'GO' (default), or 'MKEGG' (Module KEGG). Can't support Reactome at the moment (but it works to run that manually).")}
   input <- base::scan(file = x, what = character(), sep = ",")
   input <- base::unique(input)
   # if (db == "Reactome") {
