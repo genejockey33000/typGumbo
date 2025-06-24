@@ -2,17 +2,16 @@
 #'
 #' Takes a test table outputted from limma topTable function and generates table that
 #' can be easily used for ggplot functions. Can be directly input to the Vulcan function
-#' for plotting volcano plots.
+#' for plotting volcano plots. Assumes that row.names of x are ENSG IDs. Those ENSG IDs are
+#' mapped using the "map" file with column names "ensembl_gene_id" and "gene" for ENSG ID and
+#' gene name respectively.
 #'
 #' @param x test table output from limma topTable function
 #' @param lfc.cut minimum  absolute log fold change for significant hit call. Default = 0.5
 #' @param adj.p.cut adjusted P value cutoff for significant hit call. Default = .05
 #' @param map map that connects ENSG values (or other row.names) to common gene names
 #'
-#' @returns
 #' @export
-#'
-#' @examples
 cleanTable <- function (x, lfc.cut = 0.5, adj.p.cut = 0.05, map = map) {
   #remove any rows with NA values
   chop <- apply(x, 1, function(x) {
@@ -21,7 +20,7 @@ cleanTable <- function (x, lfc.cut = 0.5, adj.p.cut = 0.05, map = map) {
   y <- x[chop, ]
   #add columns for ENSGIDs and gene names
   ensg <- row.names(y)
-  ext_gene <- m.map$gene[match(ensg, m.map$ensembl_gene_id)]
+  ext_gene <- map$gene[match(ensg, map$ensembl_gene_id)]
   y <- cbind.data.frame(ensg, ext_gene, y)
   rownames(y) <- NULL
 

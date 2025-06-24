@@ -2,40 +2,28 @@
 % Please edit documentation in R/vulcan.R
 \name{vulcan}
 \alias{vulcan}
-\title{Vulcan: Generate easy volcano plots from sleuth results test tables}
+\title{Vulcan: Generate easy volcano plots from a "clean" test table}
 \usage{
-vulcan(
-  x,
-  bcut = 0.5,
-  qcut = 0.05,
-  labels = 0,
-  repel = 1,
-  pad = 0.25,
-  labelsize = 4
-)
+vulcan(x, labels = TRUE, repel = 1, pad = 0.25, labelsize = 4, title)
 }
 \arguments{
-\item{x}{Output from sleuth_results() or any test tables with values for b and for qval}
+\item{x}{Output from CleanTable (from limma) or equivalent}
 
-\item{bcut}{Cutoff value for b (log fold change) for significance}
-
-\item{qcut}{Cutoff value for qval (adjusted pval) for significance}
-
-\item{labels}{How many of the top DEG data points to label. Top DEGs are identified
-buy calculating the rank = -lot10(qval) * bval. Vulcan will plots the top and bottom scores.
-Default is 0 and prints no labels.}
+\item{labels}{LOGICAL. Should significant genes be labeled.}
 
 \item{repel}{Force of point label repulsion (from geom_text_repel()). Default = 1}
 
 \item{pad}{Padding around label boxes (from geom_text_repel()). Default = 0.25}
 
 \item{labelsize}{Size of labels (from geom_text_repel()). Default = 4}
+
+\item{title}{Title for volcano plot. Default is no title.}
 }
 \value{
 volcano plot
 }
 \description{
-Takes the output of sleuth_results() and generates a volcano plot with relative ease
+Takes a clean test table and generates a volcano plot with relative ease
 and includes a few key adjustable parameters. Test table is trimmed of all rows with
 NAs (retained in sleuth_results()). ENSGs without mapped ext_gene names are also trimmed.
 }

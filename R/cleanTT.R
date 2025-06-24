@@ -8,7 +8,7 @@
 #'
 #' @return cleaned test table
 #' @export
-cleanTT <- function(x, bcut = .5, qcut = .05, TT.type = "limma") {
+cleanTT <- function(x, bcut = .5, qcut = .05) {
   colnames(x)[grepl("ext_gene")] <- "gene"
   colnames(x)[grepl("^qval$")] <- "adj.P.Val"
   colnames(x)[grepl("^b$")] <- "logFC"

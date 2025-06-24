@@ -2,7 +2,7 @@
 % Please edit documentation in R/cleanTT.R
 \name{cleanTT}
 \alias{cleanTT}
-\title{Clean Test table}
+\title{Clean Sleuth Test Table}
 \usage{
 cleanTT(x, bcut = 0.5, qcut = 0.05)
 }

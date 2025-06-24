@@ -3,11 +3,8 @@
 #'
 #' @param prot.map A simple mapping table derived from the proteomics processing that contains a uniprot ID labeled 'prot'
 #' and a gene name labeled 'gene'.
-#'
-#' @return
 #' @export
 #'
-#' @examples
 typ.prot.map <- function(prot.map) {
   mart <- biomaRt::useMart(
     biomart = "ENSEMBL_MART_ENSEMBL",
