@@ -1,4 +1,4 @@
-#' Clean Test table
+#' Clean Sleuth Test Table
 #'
 #' Cleans up test table output from sleuth_results.
 #'
@@ -8,7 +8,10 @@
 #'
 #' @return cleaned test table
 #' @export
-cleanTT <- function(x, bcut = .5, qcut = .05) {
+cleanTT <- function(x, bcut = .5, qcut = .05, TT.type = "limma") {
+  colnames(x)[grepl("ext_gene")] <- "gene"
+  colnames(x)[grepl("^qval$")] <- "adj.P.Val"
+  colnames(x)[grepl("^b$")] <- "logFC"
   chop <- apply(x, 1, function(x) {sum(is.na(x)) < 1})
   y <- x[chop,]
   chop <- y$ext_gene != ""
