@@ -25,12 +25,11 @@ Imports:
     methods,
     mygene,
     preprocessCore,
-    readxl,
     Rtsne,
     Seurat,
     stats,
     utils,
-    xlsx
+    openxlsx2
 Encoding: UTF-8
 LazyData: TRUE
 RoxygenNote: 7.3.2

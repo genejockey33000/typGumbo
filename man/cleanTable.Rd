@@ -18,5 +18,7 @@ cleanTable(x, lfc.cut = 0.5, adj.p.cut = 0.05, map = map)
 \description{
 Takes a test table outputted from limma topTable function and generates table that
 can be easily used for ggplot functions. Can be directly input to the Vulcan function
-for plotting volcano plots.
+for plotting volcano plots. Assumes that row.names of x are ENSG IDs. Those ENSG IDs are
+mapped using the "map" file with column names "ensembl_gene_id" and "gene" for ENSG ID and
+gene name respectively.
 }
